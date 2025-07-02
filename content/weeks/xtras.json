@@ -1,0 +1,41 @@
+{
+	"songs": [
+		[
+			"Break In",
+			"tango",
+			[
+				67,
+				163,
+				245
+			]
+		],
+		[
+			"Epic",
+			"people",
+			[
+				255,
+				255,
+				120
+			]
+		]
+	],
+	"hiddenUntilUnlocked": false,
+	"hideFreeplay": false,
+	"weekBackground": "",
+	"difficulties": "Normal",
+	"weekCharacters": [
+		"",
+		"",
+		""
+	],
+	"storyName": "hi",
+	"weekName": "extras",
+	"freeplayColor": [
+		146,
+		113,
+		253
+	],
+	"hideStoryMode": true,
+	"weekBefore": "tutorial",
+	"startUnlocked": true
+}

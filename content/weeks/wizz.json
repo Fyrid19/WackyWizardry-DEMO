@@ -1,0 +1,41 @@
+{
+	"songs": [
+		[
+			"Alakazam",
+			"wizzlow",
+			[
+				134,
+				146,
+				251
+			]
+		],
+		[
+			"Summoning",
+			"conson",
+			[
+				20,
+				20,
+				20
+			]
+		]
+	],
+	"hiddenUntilUnlocked": false,
+	"hideFreeplay": false,
+	"weekBackground": "wizzlow-temp",
+	"difficulties": "Normal",
+	"weekCharacters": [
+		"",
+		"",
+		""
+	],
+	"storyName": "super duper aweomse wizard guy",
+	"weekName": "wizzlow",
+	"freeplayColor": [
+		146,
+		113,
+		253
+	],
+	"hideStoryMode": false,
+	"weekBefore": "tutorial",
+	"startUnlocked": true
+}
