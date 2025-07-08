@@ -1,5 +1,8 @@
 package funkin.objects;
 
+import funkin.game.shaders.RGBPalette;
+import funkin.game.shaders.RGBPalette.RGBShaderReference;
+
 import flixel.FlxSprite;
 
 import funkin.game.shaders.*;
@@ -11,12 +14,29 @@ class NoteSplash extends FlxSprite
 	public static var handler:NoteSkinHelper;
 	public static var keys:Int = 4;
 	
-	public var colorSwap:HSLColorSwap = null;
+	public var rgbShader:RGBShaderReference;
+	public static var globalRgbShaders:Array<RGBPalette> = [];
 	
 	private var idleAnim:String;
 	private var textureLoaded:String = null;
 	
 	public var data:Int = 0;
+
+	public function setShaderColors(?note:Note)
+	{
+		if (note != null)
+		{
+			rgbShader.r = note.rgbShader.r;
+			rgbShader.g = note.rgbShader.g;
+			rgbShader.b = note.rgbShader.b;
+		}
+		else
+		{
+			rgbShader.r = 0xFFFF0000;
+			rgbShader.g = 0xFFFFFFFF;
+			rgbShader.b = 0xFF960101;
+		}
+	}
 	
 	public function new(x:Float = 0, y:Float = 0, ?note:Int = 0)
 	{
@@ -26,14 +46,17 @@ class NoteSplash extends FlxSprite
 		
 		loadAnims(skin);
 		
-		colorSwap = new HSLColorSwap();
-		shader = colorSwap.shader;
+		rgbShader = new RGBShaderReference(this, Note.initializeGlobalRGBShader(note));
+		rgbShader.enabled = false;
+		
+		// to prevent it from having some weird color
+		setShaderColors(null);
 		
 		setupNoteSplash(x, y, note);
 		antialiasing = ClientPrefs.globalAntialiasing;
 	}
 	
-	public function setupNoteSplash(x:Float, y:Float, note:Int = 0, texture:String = null, hueColor:Float = 0, satColor:Float = 0, brtColor:Float = 0, ?field:PlayField)
+	public function setupNoteSplash(x:Float, y:Float, note:Int = 0, texture:String = null, ?field:PlayField, ?fieldNote:Note = null)
 	{
 		// scale.set(1, 1);
 		if (field != null) setPosition(x - field.members[note].swagWidth * 0.95, y - field.members[note].swagWidth * 0.95);
@@ -60,9 +83,7 @@ class NoteSplash extends FlxSprite
 				// alpha = 0.6;
 				alpha = 1;
 				antialiasing = true;
-				colorSwap.hue = hueColor;
-				colorSwap.saturation = satColor;
-				colorSwap.lightness = brtColor;
+				setShaderColors(fieldNote);
 				animation.play('note' + note, true);
 				offset.set(-20, -20);
 				// animation.curAnim.frameRate = 24 + FlxG.random.int(-2, 2);

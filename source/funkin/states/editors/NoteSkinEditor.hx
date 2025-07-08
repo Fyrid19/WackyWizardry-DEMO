@@ -703,7 +703,7 @@ class NoteSkinEditor extends MusicBeatState
 		var brt:Float = ClientPrefs.arrowHSV[data % 4][2] / 100;
 		
 		var splash:NoteSplash = noteSplashes.recycle(NoteSplash);
-		splash.setupNoteSplash(strum.x + script_SPLASHOffsets[data].x, strum.y + script_SPLASHOffsets[data].y, data, handler.data.noteSplashSkin, hue, sat, brt);
+		splash.setupNoteSplash(strum.x + script_SPLASHOffsets[data].x, strum.y + script_SPLASHOffsets[data].y, data, handler.data.noteSplashSkin);
 		noteSplashes.add(splash);
 	}
 

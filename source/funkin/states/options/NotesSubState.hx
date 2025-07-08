@@ -1,12 +1,11 @@
 package funkin.states.options;
 
-
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.util.FlxColor;
-import funkin.backend.MusicBeatSubstate;
 
+import funkin.backend.MusicBeatSubstate;
 import funkin.game.shaders.*;
 import funkin.objects.*;
 

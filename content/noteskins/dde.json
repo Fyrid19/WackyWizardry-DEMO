@@ -7,7 +7,7 @@
 		"singRIGHT"
 	],
 	"splashesEnabled": true,
-	"playerSkin": "DDE_NOTE_assets",
+	"playerSkin": "note/NOTE_assets",
 	"receptorAnimations": [
 		[
 			{
@@ -124,188 +124,48 @@
 				"looping": false,
 				"anim": "confirm"
 			}
-		],
-		[
-			{
-				"offsets": [
-					0,
-					0
-				],
-				"xmlName": "placeholder",
-				"looping": false,
-				"anim": "static"
-			},
-			{
-				"offsets": [
-					0,
-					0
-				],
-				"xmlName": "placeholder",
-				"looping": false,
-				"anim": "pressed"
-			},
-			{
-				"offsets": [
-					0,
-					0
-				],
-				"xmlName": "placeholder",
-				"looping": false,
-				"anim": "confirm"
-			}
-		],
-		[
-			{
-				"offsets": [
-					0,
-					0
-				],
-				"xmlName": "placeholder",
-				"looping": false,
-				"anim": "static"
-			},
-			{
-				"offsets": [
-					0,
-					0
-				],
-				"xmlName": "placeholder",
-				"looping": false,
-				"anim": "pressed"
-			},
-			{
-				"offsets": [
-					0,
-					0
-				],
-				"xmlName": "placeholder",
-				"looping": false,
-				"anim": "confirm"
-			}
-		],
-		[
-			{
-				"offsets": [
-					0,
-					0
-				],
-				"xmlName": "placeholder",
-				"looping": false,
-				"anim": "static"
-			},
-			{
-				"offsets": [
-					0,
-					0
-				],
-				"xmlName": "placeholder",
-				"looping": false,
-				"anim": "pressed"
-			},
-			{
-				"offsets": [
-					0,
-					0
-				],
-				"xmlName": "placeholder",
-				"looping": false,
-				"anim": "confirm"
-			}
-		],
-		[
-			{
-				"offsets": [
-					0,
-					0
-				],
-				"xmlName": "placeholder",
-				"looping": false,
-				"anim": "static"
-			},
-			{
-				"offsets": [
-					0,
-					0
-				],
-				"xmlName": "placeholder",
-				"looping": false,
-				"anim": "pressed"
-			},
-			{
-				"offsets": [
-					0,
-					0
-				],
-				"xmlName": "placeholder",
-				"looping": false,
-				"anim": "confirm"
-			}
 		]
 	],
 	"noteSplashAnimations": [
 		{
-			"xmlName": "note splash purple",
 			"offsets": [
 				0,
 				0
 			],
+			"xmlName": "note splash purple",
 			"anim": "note0"
 		},
 		{
-			"xmlName": "note splash blue",
 			"offsets": [
 				0,
 				0
 			],
+			"xmlName": "note splash blue",
 			"anim": "note1"
 		},
 		{
-			"xmlName": "note splash green",
 			"offsets": [
 				0,
 				0
 			],
+			"xmlName": "note splash green",
 			"anim": "note2"
 		},
 		{
-			"xmlName": "note splash red",
 			"offsets": [
 				0,
 				0
 			],
+			"xmlName": "note splash red",
 			"anim": "note3"
 		},
 		{
+			"offsets": [
+				0,
+				0
+			],
 			"xmlName": "note splash red",
-			"offsets": [
-				0,
-				0
-			],
 			"anim": "note4"
-		},
-		{
-			"offsets": [
-				0,
-				0
-			],
-			"xmlName": "note splash purple",
-			"anim": "note5"
-		},
-		{
-			"offsets": [
-				0,
-				0
-			],
-			"xmlName": "note splash purple",
-			"anim": "note6"
-		},
-		{
-			"offsets": [
-				0,
-				0
-			],
-			"xmlName": "note splash purple",
-			"anim": "note7"
 		}
 	],
 	"noteAnimations": [
@@ -424,122 +284,6 @@
 				"looping": false,
 				"anim": "holdend3"
 			}
-		],
-		[
-			{
-				"offsets": [
-					0,
-					0
-				],
-				"xmlName": "purple",
-				"looping": false,
-				"anim": "scroll4"
-			},
-			{
-				"offsets": [
-					0,
-					0
-				],
-				"xmlName": "purple hold piece",
-				"looping": false,
-				"anim": "hold4"
-			},
-			{
-				"offsets": [
-					0,
-					0
-				],
-				"xmlName": "pruple end hold",
-				"looping": false,
-				"anim": "holdend4"
-			}
-		],
-		[
-			{
-				"offsets": [
-					0,
-					0
-				],
-				"xmlName": "purple",
-				"looping": false,
-				"anim": "scroll5"
-			},
-			{
-				"offsets": [
-					0,
-					0
-				],
-				"xmlName": "purple hold piece",
-				"looping": false,
-				"anim": "hold5"
-			},
-			{
-				"offsets": [
-					0,
-					0
-				],
-				"xmlName": "pruple end hold",
-				"looping": false,
-				"anim": "holdend5"
-			}
-		],
-		[
-			{
-				"offsets": [
-					0,
-					0
-				],
-				"xmlName": "purple",
-				"looping": false,
-				"anim": "scroll6"
-			},
-			{
-				"offsets": [
-					0,
-					0
-				],
-				"xmlName": "purple hold piece",
-				"looping": false,
-				"anim": "hold6"
-			},
-			{
-				"offsets": [
-					0,
-					0
-				],
-				"xmlName": "pruple end hold",
-				"looping": false,
-				"anim": "holdend6"
-			}
-		],
-		[
-			{
-				"offsets": [
-					0,
-					0
-				],
-				"xmlName": "purple",
-				"looping": false,
-				"anim": "scroll7"
-			},
-			{
-				"offsets": [
-					0,
-					0
-				],
-				"xmlName": "purple hold piece",
-				"looping": false,
-				"anim": "hold7"
-			},
-			{
-				"offsets": [
-					0,
-					0
-				],
-				"xmlName": "pruple end hold",
-				"looping": false,
-				"anim": "holdend7"
-			}
 		]
 	],
 	"pixelSize": [
@@ -547,12 +291,12 @@
 		5
 	],
 	"hasQuants": false,
-	"noteSplashSkin": "noteSplashes",
+	"noteSplashSkin": "note/noteSplashes",
 	"isQuants": true,
-	"globalSkin": "DDE_NOTE_assets",
+	"globalSkin": "note/NOTE_assets",
 	"antialiasing": true,
 	"isPixel": false,
-	"opponentSkin": "DDE_NOTE_assets",
+	"opponentSkin": "note/NOTE_assets",
 	"scale": 0.7,
 	"sustainSuffix": "ENDS"
 }

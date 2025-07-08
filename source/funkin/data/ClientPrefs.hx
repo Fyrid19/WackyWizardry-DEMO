@@ -109,18 +109,47 @@ class ClientPrefs
 	];
 	
 	// note colours ------------------------------------------------------------------------//
-	@saveVar public var arrowRGB:Array<Array<FlxColor>> = [
+	@saveVar public static var arrowRGB:Array<Array<FlxColor>> = [
 		[0xFFC24B99, 0xFFFFFFFF, 0xFF3C1F56],
 		[0xFF00FFFF, 0xFFFFFFFF, 0xFF1542B7],
 		[0xFF12FA05, 0xFFFFFFFF, 0xFF0A4447],
 		[0xFFF9393F, 0xFFFFFFFF, 0xFF651038]
 	];
 	
-	@saveVar public var arrowRGBPixel:Array<Array<FlxColor>> = [
+	@saveVar public static var arrowRGBPixel:Array<Array<FlxColor>> = [
 		[0xFFE276FF, 0xFFFFF9FF, 0xFF60008D],
 		[0xFF3DCAFF, 0xFFF4FFFF, 0xFF003060],
 		[0xFF71E300, 0xFFF6FFE6, 0xFF003100],
 		[0xFFFF884E, 0xFFFFFAF5, 0xFF6C0000]
+	];
+	
+	// todo: remove these and change the note color menu
+	@saveVar public static var arrowHSV:Array<Array<Int>> = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]];
+	@saveVar public static var quantHSV:Array<Array<Int>> = [
+		[0, -20, 0], // 4th
+		[-130, -20, 0], // 8th
+		[-80, -20, 0], // 12th
+		[128, -30, 0], // 16th
+		[-120, -70, -35], // 20th
+		[-80, -20, 0], // 24th
+		[50, -20, 0], // 32nd
+		[-80, -20, 0], // 48th
+		[160, -15, 0], // 64th
+		[-120, -70, -35], // 96th
+		[-120, -70, -35] // 192nd
+	];
+	@saveVar public static var quantStepmania:Array<Array<Int>> = [
+		[10, -20, 0], // 4th
+		[-110, -40, 0], // 8th
+		[140, -20, 0], // 12th
+		[50, 25, 0], // 16th
+		[0, -100, -50], // 20th
+		[-80, -40, 0], // 24th
+		[-180, 10, -10], // 32nd
+		[-35, 50, 30], // 48th
+		[160, -15, 0], // 64th
+		[-120, -70, -35], // 96th
+		[-120, -70, -35] // 192nd
 	];
 	
 	// keybinds ------------------------------------------------------------------------//

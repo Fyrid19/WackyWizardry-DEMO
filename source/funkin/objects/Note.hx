@@ -1,7 +1,7 @@
 package funkin.objects;
 
-import shaders.RGBPalette;
-import shaders.RGBPalette.RGBShaderReference;
+import funkin.game.shaders.RGBPalette;
+import funkin.game.shaders.RGBPalette.RGBShaderReference;
 
 import flixel.FlxSprite;
 import flixel.math.FlxPoint;
@@ -104,18 +104,18 @@ class Note extends FlxSprite
 	
 	public static var globalRgbShaders:Array<RGBPalette> = [];
 	
-	public var quantColors:Array<Array<FlxColor>> = [
-		[0xFFDF0000, 0xFFFFFFFF, 0xFF470000],
-		[0xFF4040CF, 0xFFFFFFFF, 0xFF0C0C5F],
-		[0xFFAF00AF, 0xFFFFFFFF, 0xFF440044],
-		[0xFFFFAF00, 0xFFFFFFFF, 0xFF724E00],
+	public static var quantColors:Array<Array<FlxColor>> = [
+		[0xFFFF4040, 0xFFFFFFFF, 0xFF5A0000],
+		[0xFF3974F5, 0xFFFFFFFF, 0xFF1F4AA7],
+		[0xFFFFEE00, 0xFFFFFFFF, 0xFF8D7800],
+		[0xFFFF9900, 0xFFFFFFFF, 0xFF724400],
 		[0xFFD83EFF, 0xFFFFFFFF, 0xFF531663],
 		[0xFFFFA0FF, 0xFFFFFFFF, 0xFF5F2E5F],
 		[0xFFFF6030, 0xFFFFFFFF, 0xFF6E240E],
 		[0xFF00CFCF, 0xFFFFFFFF, 0xFF005555],
 		[0xFF00CF00, 0xFFFFFFFF, 0xFF004B00],
-		[0xFF9F9F9F, 0xFFFFFFFF, 0xFF494949],
-		[0xFF3F3F3F, 0xFFFFFFFF, 0xFF161616],
+		[0xFF4C6285, 0xFFFFFFFF, 0xFF212F47],
+		[0xFF4C6285, 0xFFFFFFFF, 0xFF212F47],
 	];
 	
 	public var eventName:String = '';
@@ -123,7 +123,6 @@ class Note extends FlxSprite
 	public var eventVal1:String = '';
 	public var eventVal2:String = '';
 	
-	public var colorSwap:ColorSwap;
 	public var inEditor:Bool = false;
 	public var skipScale:Bool = false;
 	public var gfNote:Bool = false;
@@ -223,12 +222,16 @@ class Note extends FlxSprite
 		return (texture = value);
 	}
 	
-	public function defaultRGB()
+	public function defaultRGB(?quant:Int)
 	{
-		var arr:Array<FlxColor> = ClientPrefs.data.arrowRGB[noteData];
-		if (PlayState.isPixelStage) arr = ClientPrefs.data.arrowRGBPixel[noteData];
+		var idx = quants.indexOf(quant);
+		var data = isQuant ? idx : noteData;
 		
-		if (noteData > -1 && noteData <= arr.length)
+		var arr:Array<FlxColor>;
+		if (!isQuant) arr = (!PlayState.isPixelStage) ? ClientPrefs.arrowRGB[noteData] : ClientPrefs.arrowRGBPixel[noteData];
+		else arr = quantColors[idx];
+		
+		if (data > -1 && data <= arr.length)
 		{
 			rgbShader.r = arr[0];
 			rgbShader.g = arr[1];
@@ -238,8 +241,24 @@ class Note extends FlxSprite
 	
 	private function set_noteType(value:String):String
 	{
-		noteSplashTexture = 'note/noteSplashes';
-		defaultRGB();
+		noteSplashTexture = 'noteSplashes';
+		
+		var arr:Array<FlxColor>;
+		
+		if (isQuant)
+		{
+			var idx = quants.indexOf(quant);
+			arr = quantColors[idx];
+			// trace('Quant: $quant, ID: $idx');
+		}
+		else
+		{
+			arr = (!PlayState.isPixelStage) ? ClientPrefs.arrowRGB[noteData] : ClientPrefs.arrowRGBPixel[noteData];
+		}
+		
+		rgbShader.r = arr[0];
+		rgbShader.g = arr[1];
+		rgbShader.b = arr[2];
 		
 		noteScript = null;
 		
@@ -253,9 +272,6 @@ class Note extends FlxSprite
 					ignoreNote = mustPress;
 					reloadNote('HURT');
 					noteSplashTexture = 'HURTnoteSplashes';
-					colorSwap.hue = 0;
-					colorSwap.saturation = 0;
-					colorSwap.brightness = 0;
 					if (isSustainNote)
 					{
 						missHealth = 0.1;
@@ -285,9 +301,6 @@ class Note extends FlxSprite
 			}
 			noteType = value;
 		}
-		noteSplashHue = colorSwap.hue;
-		noteSplashSat = colorSwap.saturation;
-		noteSplashBrt = colorSwap.brightness;
 		if (hitCausesMiss) canMiss = true;
 		
 		return value;
@@ -325,8 +338,7 @@ class Note extends FlxSprite
 		if (noteData > -1)
 		{
 			texture = '';
-			rgbShader = new RGBShaderReference(this, initializeGlobalRGBShader(noteData));
-			if (PlayState.SONG != null && PlayState.SONG.disableNoteRGB) rgbShader.enabled = false;
+			rgbShader = new RGBShaderReference(this, initializeGlobalRGBShader(noteData, isQuant, quant));
 			
 			x += swagWidth * (noteData % keys);
 			if (!isSustainNote) animation.play('scroll$noteData');
@@ -385,22 +397,27 @@ class Note extends FlxSprite
 		baseScaleY = scale.y;
 	}
 	
-	public static function initializeGlobalRGBShader(noteData:Int)
+	public static function initializeGlobalRGBShader(noteData:Int, ?isQuant:Bool = false, ?quant:Int)
 	{
-		if (globalRgbShaders[noteData] == null)
+		var idx = quants.indexOf(quant);
+		var data = isQuant ? idx : noteData;
+		
+		if (globalRgbShaders[data] == null)
 		{
 			var newRGB:RGBPalette = new RGBPalette();
-			globalRgbShaders[noteData] = newRGB;
+			globalRgbShaders[data] = newRGB;
 			
-			var arr:Array<FlxColor> = (!PlayState.isPixelStage) ? ClientPrefs.arrowRGB[noteData] : ClientPrefs.arrowRGBPixel[noteData];
-			if (noteData > -1 && noteData <= arr.length)
+			var arr:Array<FlxColor>;
+			if (!isQuant) arr = (!PlayState.isPixelStage) ? ClientPrefs.arrowRGB[noteData] : ClientPrefs.arrowRGBPixel[noteData];
+			else arr = quantColors[idx];
+			if (data > -1 && data <= arr.length)
 			{
 				newRGB.r = arr[0];
 				newRGB.g = arr[1];
 				newRGB.b = arr[2];
 			}
 		}
-		return globalRgbShaders[noteData];
+		return globalRgbShaders[data];
 	}
 	
 	var lastNoteOffsetXForPixelAutoAdjusting:Float = 0;
@@ -443,7 +460,7 @@ class Note extends FlxSprite
 		
 		var lastScaleY:Float = scale.y;
 		var blahblah:String = arraySkin.join('/');
-		isQuant = (ClientPrefs.noteSkin == 'Quants' || ClientPrefs.noteSkin == "QuantStep") && handler.data.isQuants;
+		isQuant = handler.data.isQuants;
 		if (handler.data.isPixel)
 		{
 			if (isSustainNote)
@@ -576,7 +593,7 @@ class Note extends FlxSprite
 			}
 		}
 		
-		colorSwap.daAlpha = (alphaMod * alphaMod2) * (playField?.baseAlpha ?? 1.0);
+		alpha = (alphaMod * alphaMod2) * (playField?.baseAlpha ?? 1.0);
 		
 		var actualHitbox:Float = hitbox * earlyHitMult;
 		

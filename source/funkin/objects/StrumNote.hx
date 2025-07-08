@@ -1,5 +1,8 @@
 package funkin.objects;
 
+import funkin.game.shaders.RGBPalette;
+import funkin.game.shaders.RGBPalette.RGBShaderReference;
+
 import math.Vector3;
 
 import flixel.FlxSprite;
@@ -12,6 +15,8 @@ import funkin.data.*;
 
 class StrumNote extends FlxSprite
 {
+	public var rgbShader:RGBShaderReference;
+	
 	public static var handler:NoteSkinHelper;
 	public static var keys:Int = 4;
 	
@@ -20,7 +25,6 @@ class StrumNote extends FlxSprite
 	public var vec3Cache:Vector3 = new Vector3(); // for vector3 operations in modchart code
 	public var defScale:FlxPoint = FlxPoint.get(); // for modcharts to keep the scaling
 	
-	public var colorSwap:ColorSwap;
 	public var resetAnim:Float = 0;
 	public var noteData:Int = 0;
 	public var direction:Float = 90;
@@ -62,12 +66,32 @@ class StrumNote extends FlxSprite
 		return value;
 	}
 	
+	public function setShaderColors(?note:Note)
+	{
+		if (note != null)
+		{
+			rgbShader.r = note.rgbShader.r;
+			rgbShader.g = note.rgbShader.g;
+			rgbShader.b = note.rgbShader.b;
+		}
+		else
+		{
+			rgbShader.r = 0xFF7E7E7E;
+			rgbShader.g = 0xFF7E7E7E;
+			rgbShader.b = 0xFF7E7E7E;
+		}
+	}
+	
 	public function new(player:Int, x:Float, y:Float, leData:Int, ?parent:PlayField)
 	{
-		// handler = PlayState.noteSkin;
+		handler = PlayState.noteSkin;
 		
-		colorSwap = new ColorSwap();
-		shader = colorSwap.shader;
+		rgbShader = new RGBShaderReference(this, Note.initializeGlobalRGBShader(leData));
+		rgbShader.enabled = false;
+		
+		// to prevent it from having some weird color
+		setShaderColors(null);
+		
 		noteData = leData;
 		this.noteData = leData;
 		this.parent = parent;
@@ -89,7 +113,7 @@ class StrumNote extends FlxSprite
 		var br:String = texture;
 		if (handler.data.isPixel)
 		{
-			if ((ClientPrefs.noteSkin == 'Quants' || ClientPrefs.noteSkin == "QuantStep")) isQuant = handler.data.isQuants;
+			isQuant = handler.data.isQuants;
 			loadGraphic(Paths.image(br));
 			width = width / handler.data.pixelSize[0];
 			height = height / handler.data.pixelSize[1];
@@ -101,7 +125,7 @@ class StrumNote extends FlxSprite
 		}
 		else
 		{
-			if ((ClientPrefs.noteSkin == 'Quants' || ClientPrefs.noteSkin == "QuantStep")) isQuant = handler.data.isQuants;
+			isQuant = handler.data.isQuants;
 			frames = Paths.getSparrowAtlas(br);
 			
 			antialiasing = ClientPrefs.globalAntialiasing;
@@ -182,40 +206,18 @@ class StrumNote extends FlxSprite
 	public function playAnim(anim:String, ?force:Bool = false, ?note:Note)
 	{
 		animation.play(anim, force);
-		centerOffsets();
-		centerOrigin();
+		if (animation.curAnim != null)
+		{
+			centerOffsets();
+			centerOrigin();
+		}
 		
 		if (animOffsets.exists(anim))
 		{
 			offset.set(offset.x + animOffsets.get(anim)[0], offset.y + animOffsets.get(anim)[1]);
 		}
-		
-		if (animation.curAnim == null || animation.curAnim.name == 'static')
-		{
-			colorSwap.hue = 0;
-			colorSwap.saturation = 0;
-			colorSwap.brightness = 0;
-		}
-		else
-		{
-			if (note == null)
-			{
-				colorSwap.hue = ClientPrefs.arrowHSV[noteData % 4][0] / 360;
-				colorSwap.saturation = ClientPrefs.arrowHSV[noteData % 4][1] / 100;
-				colorSwap.brightness = ClientPrefs.arrowHSV[noteData % 4][2] / 100;
-			}
-			else
-			{
-				colorSwap.hue = note.colorSwap.hue;
-				colorSwap.saturation = note.colorSwap.saturation;
-				colorSwap.brightness = note.colorSwap.brightness;
-			}
-			
-			if (animation.curAnim.name == 'confirm' && !handler.data.isPixel)
-			{
-				centerOrigin();
-			}
-		}
+		setShaderColors(note);
+		rgbShader.enabled = (animation.curAnim != null && animation.curAnim.name != 'static');
 	}
 	
 	public function addOffset(name:String, x:Float = 0, y:Float = 0)
