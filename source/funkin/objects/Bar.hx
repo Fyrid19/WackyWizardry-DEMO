@@ -28,14 +28,15 @@ class Bar extends FlxSpriteGroup
 		return value;
 	}
 	
-	public function new(x:Float, y:Float, image:String = 'healthBar', valueFunction:Void->Float = null, boundX:Float = 0, boundY:Float = 1)
+	public function new(x:Float, y:Float, image:String = 'healthBar', valueFunction:Void->Float = null, boundX:Float = 0, boundY:Float = 1, ?width:Int, ?height:Int)
 	{
 		super(x, y);
 		
 		this.valueFunction = valueFunction;
 		setBounds(boundX, boundY);
 		
-		bg = new FlxSprite().loadGraphic(Paths.image(image));
+		if (image != null) bg = new FlxSprite().loadGraphic(Paths.image(image));
+		else bg = new FlxSprite().makeGraphic(width, height, FlxColor.BLACK);
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		bg.setPosition(bg.x + bgOffset.x, bg.y + bgOffset.y);
 		
@@ -82,10 +83,11 @@ class Bar extends FlxSpriteGroup
 		bounds.max = max;
 	}
 	
-	public function setColors(left:FlxColor = null, right:FlxColor = null)
+	public function setColors(left:FlxColor = null, right:FlxColor = null, ?back:FlxColor = null)
 	{
 		if (left != null) leftBar.color = left;
 		if (right != null) rightBar.color = right;
+		if (back != null) bg.color = back;
 	}
 	
 	public function updateBar()

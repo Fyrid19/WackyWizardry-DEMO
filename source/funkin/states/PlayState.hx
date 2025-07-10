@@ -759,7 +759,7 @@ class PlayState extends MusicBeatState
 		add(playFields);
 		add(grpNoteSplashes);
 		
-		playHUD = new funkin.game.huds.PsychHUD(this);
+		playHUD = new funkin.game.huds.DimensionalHUD(this);
 		insert(members.indexOf(playFields), playHUD); // Data told me to do this
 		playHUD.cameras = [camHUD];
 		
@@ -988,7 +988,6 @@ class PlayState extends MusicBeatState
 			script_SUSTAINENDOffsets[i].x = noteSkin.data.noteAnimations[i][2].offsets[0];
 			script_SUSTAINENDOffsets[i].y = noteSkin.data.noteAnimations[i][2].offsets[1];
 			script_SUSTAINENDOffsets[i].y *= (ClientPrefs.downScroll ? -1 : 1);
-			if (ClientPrefs.downScroll) script_SUSTAINENDOffsets[i].y += 60;
 			
 			// trace('Sus: ${script_SUSTAINOffsets[i].y} | End: ${script_SUSTAINENDOffsets[i].y}');
 			
@@ -1349,28 +1348,32 @@ class PlayState extends MusicBeatState
 					switch (swagCounter)
 					{
 						case 0:
+							FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom + 0.05}, (Conductor.crotchet / 1000), {ease: FlxEase.quadOut});
 							if (countdownSounds) FlxG.sound.play(Paths.sound('intro3' + introSoundsSuffix), 0.6);
 						case 1:
+							FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom + 0.1}, (Conductor.crotchet / 1000), {ease: FlxEase.quadOut});
 							countdownReady = makeCountdownSprite(introAlts[0]);
 							insert(members.indexOf(notes), countdownReady);
 							
 							if (countdownSounds) FlxG.sound.play(Paths.sound('intro2' + introSoundsSuffix), 0.6);
 						case 2:
+							FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom + 0.15}, (Conductor.crotchet / 1000), {ease: FlxEase.quadOut});
 							countdownSet = makeCountdownSprite(introAlts[1]);
 							insert(members.indexOf(notes), countdownSet);
 							
 							if (countdownSounds) FlxG.sound.play(Paths.sound('intro1' + introSoundsSuffix), 0.6);
 						case 3:
+							FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom}, (Conductor.crotchet / 1000), {ease: FlxEase.quartOut});
 							countdownGo = makeCountdownSprite(introAlts[2]);
 							
 							insert(members.indexOf(notes), countdownGo);
 							
 							if (countdownSounds) FlxG.sound.play(Paths.sound('introGo' + introSoundsSuffix), 0.6);
-							
 						case 4:
 					}
 					
 					callOnScripts('onCountdownTick', [swagCounter]);
+					callHUDFunc(hud -> hud.onCountdown(swagCounter));
 					
 					swagCounter += 1;
 				}, 5);
@@ -2528,6 +2531,7 @@ class PlayState extends MusicBeatState
 					{
 						daNote.x += script_SUSTAINENDOffsets[daNote.noteData].x;
 						daNote.y += script_SUSTAINENDOffsets[daNote.noteData].y;
+						daNote.y += ClientPrefs.downScroll ? 300 : 0; // this pissed me off a lot so
 					}
 				}
 				

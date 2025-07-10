@@ -51,6 +51,8 @@ class BaseHUD extends FlxTypedContainer<FlxBasic>
 	public function onCharacterChange() {}
 	
 	public function onHealthChange(health:Float) {}
+
+	public function onCountdown(count:Int) {}
 	
 	public function getVar(obj:String):Dynamic
 	{

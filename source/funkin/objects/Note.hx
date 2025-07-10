@@ -380,6 +380,8 @@ class Note extends FlxSprite
 				prevNote.baseScaleX = prevNote.scale.x;
 				prevNote.baseScaleY = prevNote.scale.y;
 				// prevNote.setGraphicSize();
+
+				offsetY = 0;
 			}
 			
 			if (handler.data.isPixel)
