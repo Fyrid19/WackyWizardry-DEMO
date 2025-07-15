@@ -1,6 +1,7 @@
 package funkin.game.huds;
 
 import flixel.ui.FlxBar;
+import flixel.util.FlxTimer;
 import flixel.util.FlxStringUtil;
 import flixel.util.FlxSpriteUtil;
 import flixel.util.helpers.FlxBounds;
@@ -25,6 +26,16 @@ class DimensionalHUD extends BaseHUD {
     var scoreTxt:FlxText;
     var accuracyTxt:FlxText;
 	var ratingsTxt:FlxText;
+
+	var noteRatingTxt:FlxText;
+	var noteComboTxt:FlxText;
+	var ratingData:Map<String, FlxColor> = [
+		'sick' => 0xFFFFFF00,
+		'good' => 0xFF00FF00,
+		'bad' => 0xFF0000FF,
+		'shit' => 0xFFAA00FF,
+		'miss' => 0xFFFF0000
+	];
 
     var font:String = Paths.font('pointless.ttf');
 
@@ -66,10 +77,10 @@ class DimensionalHUD extends BaseHUD {
 		accuracyTxt.visible = !ClientPrefs.hideHud;
 		add(accuracyTxt);
 		
-		ratingsTxt = new FlxText(0, 0, FlxG.width * 0.15, "", 18);
+		ratingsTxt = new FlxText(0, 0, FlxG.width * 0.17, "", 18);
 		ratingsTxt.setFormat(font, 18, FlxColor.BLACK, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.WHITE);
 		ratingsTxt.scrollFactor.set();
-		ratingsTxt.borderSize = 2;
+		ratingsTxt.borderSize = 1.75;
 		ratingsTxt.visible = !ClientPrefs.hideHud;
 		add(ratingsTxt);
 		
@@ -92,7 +103,26 @@ class DimensionalHUD extends BaseHUD {
 		add(timeBar);
 		add(timeTxt);
 		
-		onUpdateScore(0, 100, 0);
+		var posX:Float = FlxG.width * 0.5;
+		noteRatingTxt = new FlxText(posX, 0, FlxG.width / 2, "", 22);
+		noteRatingTxt.setFormat(font, 22, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		noteRatingTxt.y = !ClientPrefs.downScroll ? FlxG.height * 0.45 : FlxG.height * 0.55;
+		noteRatingTxt.scrollFactor.set();
+		noteRatingTxt.borderSize = 1.75;
+		noteRatingTxt.visible = !ClientPrefs.hideHud;
+		noteRatingTxt.alpha = 0;
+		add(noteRatingTxt);
+		
+		noteComboTxt = new FlxText(noteRatingTxt.x, 0, noteRatingTxt.fieldWidth, "", 16);
+		noteComboTxt.setFormat(font, 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		noteComboTxt.y = !ClientPrefs.downScroll ? noteRatingTxt.y + noteRatingTxt.height + 5 : noteRatingTxt.y - noteComboTxt.height - 5;
+		noteComboTxt.scrollFactor.set();
+		noteComboTxt.borderSize = 1.75;
+		noteComboTxt.visible = !ClientPrefs.hideHud;
+		noteComboTxt.alpha = 0;
+		add(noteComboTxt);
+		
+		onUpdateScore(0, 0, 0);
 		
 		ratingsTxt.y = !ClientPrefs.downScroll ? FlxG.height - ratingsTxt.height - 50 : 50;
 		
@@ -182,8 +212,8 @@ class DimensionalHUD extends BaseHUD {
 	}
 
     override function beatHit() {
-		iconP1.scale.set(1.2, 1.2);
-		iconP2.scale.set(1.2, 1.2);
+		iconP1.scale.set(1.2, 0.9);
+		iconP2.scale.set(1.2, 0.9);
 		
 		iconP1.updateHitbox();
 		iconP2.updateHitbox();
@@ -195,14 +225,39 @@ class DimensionalHUD extends BaseHUD {
 
     override function onUpdateScore(score:Int = 0, accuracy:Float = 0, misses:Int = 0, missed:Bool = false) {
 		// scoreTxt.text = FlxStringUtil.formatMoney(score, false);
-        accuracyTxt.text = '$accuracy%';
+		
+		if (score > 0)
+        	accuracyTxt.text = '$accuracy%';
+		else
+			accuracyTxt.text = '100%';
 
-		ratingsTxt.text = 'EPIC: ' + U.padDigits(parent.epics, 3) + '\n'
-		+ 'SICK: ' + U.padDigits(parent.sicks, 3) + '\n'
+		ratingsTxt.text = 'SICK: ' + U.padDigits(parent.sicks, 3) + '\n'
 		+ 'GOOD: ' + U.padDigits(parent.goods, 3) + '\n'
 		+ 'BAD: ' + U.padDigits(parent.bads, 3) + '\n'
 		+ 'SHIT: ' + U.padDigits(parent.shits, 3) + '\n'
 		+ 'MISSES: ' + U.padDigits(misses, 3) + '\n';
+
+		if (missed) popUpScore('miss', 0);
+	}
+
+	var comboTimer:FlxTimer = null;
+	override function popUpScore(ratingImage:String, combo:Int) {
+		FlxTween.cancelTweensOf(noteRatingTxt);
+		FlxTween.cancelTweensOf(noteComboTxt);
+		if (comboTimer != null) comboTimer.cancel();
+
+		noteRatingTxt.alpha = 1;
+		noteComboTxt.alpha = 1;
+
+		noteRatingTxt.text = ratingImage.toUpperCase();
+		noteComboTxt.text = U.padDigits(combo, 3);
+
+		noteRatingTxt.color = ratingData[ratingImage];
+
+		comboTimer = new FlxTimer().start(1, function(tmr:FlxTimer) {
+			FlxTween.tween(noteRatingTxt, {alpha: 0}, 0.5);
+			FlxTween.tween(noteComboTxt, {alpha: 0}, 0.5);
+		});
 	}
 
     public function updateIconsScale(elapsed:Float) {
@@ -218,7 +273,7 @@ class DimensionalHUD extends BaseHUD {
     public function updateIconsPosition() {
 		final iconOffset:Int = 26;
 
-        var healthOffset:Float = (healthBar.percent - 50) * 1.35;
+        var healthOffset:Float = (healthBar.percent - 50) * 1.45;
 
 		if (!healthBar.leftToRight) {
 			iconP1.x = (healthBar.barCenter + (150 * iconP1.scale.x - 150) / 2 - iconOffset) + healthOffset;
@@ -238,7 +293,7 @@ class DimensionalHUD extends BaseHUD {
         var colorLeft:FlxColor = dad.healthColour;
         var colorRight:FlxColor = dad.healthColour;
 
-        colorBorder.brightness = 0.5;
+        colorBorder.brightness = 0.55;
         colorRight.brightness = 0.7;
 
         timeBar.setColors(colorLeft, colorRight, colorBorder);

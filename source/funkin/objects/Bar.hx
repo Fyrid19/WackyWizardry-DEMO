@@ -36,7 +36,7 @@ class Bar extends FlxSpriteGroup
 		setBounds(boundX, boundY);
 		
 		if (image != null) bg = new FlxSprite().loadGraphic(Paths.image(image));
-		else bg = new FlxSprite().makeGraphic(width, height, FlxColor.BLACK);
+		else bg = new FlxSprite().makeGraphic(width, height, FlxColor.WHITE);
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		bg.setPosition(bg.x + bgOffset.x, bg.y + bgOffset.y);
 		

@@ -512,7 +512,8 @@ class PlayState extends MusicBeatState
 		// If u have epics enabled
 		if (ClientPrefs.useEpicRankings)
 		{
-			ratingsData.unshift(new Rating('epic'));
+			// just gonna remove this, it isnt necessary and kinda messes with the hud a lil
+			// ratingsData.unshift(new Rating('epic'));
 		}
 		
 		FlxG.sound.music?.stop();
