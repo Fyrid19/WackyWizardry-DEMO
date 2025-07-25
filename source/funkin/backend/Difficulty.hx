@@ -8,7 +8,7 @@ class Difficulty
 	/**
 	 * Constant list of the default Difficulties used by the game
 	 */
-	public static final defaultDifficulties:Array<String> = ['Easy', 'Normal', 'Hard'];
+	public static final defaultDifficulties:Array<String> = ['Normal'];
 	
 	/**
 	 * Resets the currently loaded difficulties back to default

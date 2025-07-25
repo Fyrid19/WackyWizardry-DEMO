@@ -99,7 +99,7 @@ class TitleState extends MusicBeatState
 		
 		FlxG.mouse.visible = false;
 		#if FREEPLAY
-		FlxG.switchState(FreeplayState.new);
+		FlxG.switchState(funkin.states.wacky.FreeplayState.new);
 		#elseif CHARTING
 		FlxG.switchState(ChartingState.new);
 		#else

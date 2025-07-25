@@ -39,15 +39,18 @@ class DimensionalHUD extends BaseHUD {
 
     var font:String = Paths.font('pointless.ttf');
 
+	var healthBarY:Float = 0;
     override function init() {
         name = 'DDE';
 
         healthBar = new DdeHealthBar(0, 0, parent);
         healthBar.screenCenter(X);
-        healthBar.y = (!ClientPrefs.downScroll) ? FlxG.height - healthBar.height : 5;
+        healthBar.y = (!ClientPrefs.downScroll) ? FlxG.height + healthBar.height + 20 : -healthBar.height - 20;
 		healthBar.visible = !ClientPrefs.hideHud;
 		healthBar.alpha = ClientPrefs.healthBarAlpha;
         add(healthBar);
+
+		healthBarY = (!ClientPrefs.downScroll) ? FlxG.height - healthBar.height : 5;
 		
 		iconP1 = new HealthIcon(parent.boyfriend.healthIcon, true);
 		iconP1.y = healthBar.y;
@@ -72,6 +75,7 @@ class DimensionalHUD extends BaseHUD {
 		accuracyTxt.setFormat(font, 32, FlxColor.BLACK, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.WHITE);
 		accuracyTxt.x = -50;
 		accuracyTxt.y = !ClientPrefs.downScroll ? FlxG.height - accuracyTxt.height - 50 : 50;
+		accuracyTxt.alpha = 0;
 		accuracyTxt.scrollFactor.set();
 		accuracyTxt.borderSize = 2.5;
 		accuracyTxt.visible = !ClientPrefs.hideHud;
@@ -79,6 +83,7 @@ class DimensionalHUD extends BaseHUD {
 		
 		ratingsTxt = new FlxText(0, 0, FlxG.width * 0.17, "", 18);
 		ratingsTxt.setFormat(font, 18, FlxColor.BLACK, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.WHITE);
+		ratingsTxt.alpha = 0;
 		ratingsTxt.scrollFactor.set();
 		ratingsTxt.borderSize = 1.75;
 		ratingsTxt.visible = !ClientPrefs.hideHud;
@@ -95,7 +100,7 @@ class DimensionalHUD extends BaseHUD {
 		if (ClientPrefs.downScroll) timeTxt.y = FlxG.height - 44;
 		if (ClientPrefs.timeBarType == 'Song Name') timeTxt.text = PlayState.SONG.song;
 
-		timeBar = new Bar(0, timeTxt.y + (timeTxt.height / 4), null, function() return parent.songPercent, 0, 1, 400, 20);
+		timeBar = new Bar(0, timeTxt.y + (timeTxt.height / 4), '', function() return parent.songPercent, 0, 1, 600, 14);
 		timeBar.scrollFactor.set();
 		timeBar.screenCenter(X);
 		timeBar.alpha = 0;
@@ -127,6 +132,16 @@ class DimensionalHUD extends BaseHUD {
 		ratingsTxt.y = !ClientPrefs.downScroll ? FlxG.height - ratingsTxt.height - 50 : 50;
 		
         reloadHealthBarColors();
+		
+		parent.setOnScripts('healthBar', healthBar);
+		parent.setOnScripts('iconP1', iconP1);
+		parent.setOnScripts('iconP2', iconP2);
+		parent.setOnScripts('accuracyTxt', accuracyTxt);
+		parent.setOnScripts('ratingsTxt', ratingsTxt);
+		parent.setOnScripts('timeBar', timeBar);
+		parent.setOnScripts('timeTxt', timeTxt);
+		parent.setOnScripts('noteRatingTxt', noteRatingTxt);
+		parent.setOnScripts('noteComboTxt', noteComboTxt);
     }
     
 	override function update(elapsed:Float) {
@@ -151,9 +166,27 @@ class DimensionalHUD extends BaseHUD {
 		}
     }
 
+	override function onCountdown(count:Int) {
+		switch (count) {
+			case 0:
+				FlxTween.tween(iconP1, {y: healthBarY}, (Conductor.crotchet / 1000), {ease: FlxEase.circOut});
+			case 1:
+				FlxTween.tween(iconP2, {y: healthBarY}, (Conductor.crotchet / 1000), {ease: FlxEase.circOut});
+			case 2:
+				FlxTween.tween(healthBar, {y: healthBarY}, (Conductor.crotchet / 1000), {ease: FlxEase.circOut});
+			case 3:
+				iconP1.scale.set(1.4, 1.4);
+				iconP2.scale.set(1.4, 1.4);
+				FlxTween.tween(iconP1, {'scale.x': 1, 'scale.y': 1}, Conductor.crotchet / 1250 * parent.gfSpeed, {ease: FlxEase.circOut});
+				FlxTween.tween(iconP2, {'scale.x': 1, 'scale.y': 1}, Conductor.crotchet / 1250 * parent.gfSpeed, {ease: FlxEase.circOut});
+		}
+	}
+
 	override function onSongStart() {
 		FlxTween.tween(timeBar, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
 		FlxTween.tween(timeTxt, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
+		FlxTween.tween(accuracyTxt, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
+		FlxTween.tween(ratingsTxt, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
 	}
 
     public var animSuffix:String = '';
@@ -212,13 +245,21 @@ class DimensionalHUD extends BaseHUD {
 	}
 
     override function beatHit() {
-		iconP1.scale.set(1.2, 0.9);
-		iconP2.scale.set(1.2, 0.9);
-		
-		iconP1.updateHitbox();
-		iconP2.updateHitbox();
+		if (curBeat % parent.gfSpeed == 0) { //new shit
+			iconP1.scale.set(1.4, 0.9);
+			iconP2.scale.set(1.4, 0.9);
 
-        if (curBeat % 2 == 0) {
+			FlxTween.angle(iconP1, -5, 0, Conductor.crotchet / 1300 * parent.gfSpeed, {ease: FlxEase.backOut});
+			FlxTween.angle(iconP2, 5, 0, Conductor.crotchet / 1300 * parent.gfSpeed, {ease: FlxEase.backOut});
+
+			FlxTween.tween(iconP1, {'scale.x': 1, 'scale.y': 1}, Conductor.crotchet / 1250 * parent.gfSpeed, {ease: FlxEase.circOut});
+			FlxTween.tween(iconP2, {'scale.x': 1, 'scale.y': 1}, Conductor.crotchet / 1250 * parent.gfSpeed, {ease: FlxEase.circOut});
+
+			iconP1.updateHitbox();
+			iconP2.updateHitbox();
+		}
+
+        if (curBeat % parent.gfSpeed * 2 == 0) {
             if (!healthBar.trans) healthBar.playAnim('bump' + animSuffix);
         }
 	}
@@ -261,13 +302,13 @@ class DimensionalHUD extends BaseHUD {
 	}
 
     public function updateIconsScale(elapsed:Float) {
-		var mult:Float = FlxMath.lerp(1, iconP1.scale.x, Math.exp(-elapsed * 9));
-		iconP1.scale.set(mult, mult);
-		iconP1.updateHitbox();
+		// var mult:Float = FlxMath.lerp(1, iconP1.scale.x, Math.exp(-elapsed * 9));
+		// iconP1.scale.set(mult, mult);
+		// iconP1.updateHitbox();
 		
-		var mult:Float = FlxMath.lerp(1, iconP2.scale.x, Math.exp(-elapsed * 9));
-		iconP2.scale.set(mult, mult);
-		iconP2.updateHitbox();
+		// var mult:Float = FlxMath.lerp(1, iconP2.scale.x, Math.exp(-elapsed * 9));
+		// iconP2.scale.set(mult, mult);
+		// iconP2.updateHitbox();
 	}
 
     public function updateIconsPosition() {
@@ -293,7 +334,7 @@ class DimensionalHUD extends BaseHUD {
         var colorLeft:FlxColor = dad.healthColour;
         var colorRight:FlxColor = dad.healthColour;
 
-        colorBorder.brightness = 0.55;
+        colorBorder.brightness = 0.4;
         colorRight.brightness = 0.7;
 
         timeBar.setColors(colorLeft, colorRight, colorBorder);
@@ -382,9 +423,9 @@ class DdeHealthBar extends FlxSpriteGroup {
 		bounds.max = max;
 	}
 
-    public function playAnim(anim:String, ?loop:Bool = false) {
-        healthBarLeft.animation.play(anim, loop);
-        healthBarRight.animation.play(anim, loop);
+    public function playAnim(anim:String, ?force:Bool = true) {
+        healthBarLeft.animation.play(anim, force);
+        healthBarRight.animation.play(anim, force);
         // trace(anim);
     }
 

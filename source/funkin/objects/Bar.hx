@@ -35,7 +35,7 @@ class Bar extends FlxSpriteGroup
 		this.valueFunction = valueFunction;
 		setBounds(boundX, boundY);
 		
-		if (image != null) bg = new FlxSprite().loadGraphic(Paths.image(image));
+		if (image.length > 0) bg = new FlxSprite().loadGraphic(Paths.image(image));
 		else bg = new FlxSprite().makeGraphic(width, height, FlxColor.WHITE);
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		bg.setPosition(bg.x + bgOffset.x, bg.y + bgOffset.y);
@@ -51,9 +51,9 @@ class Bar extends FlxSpriteGroup
 		rightBar.color = FlxColor.BLACK;
 		rightBar.antialiasing = ClientPrefs.globalAntialiasing;
 		
+		add(bg);
 		add(leftBar);
 		add(rightBar);
-		add(bg);
 		
 		regenerateClips();
 	}

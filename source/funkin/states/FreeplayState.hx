@@ -11,6 +11,7 @@ import flixel.tweens.FlxTween;
 import funkin.backend.Difficulty;
 import funkin.states.editors.ChartingState;
 import funkin.data.WeekData;
+import funkin.data.SongMetadata;
 import funkin.states.*;
 import funkin.states.substates.*;
 import funkin.data.*;
@@ -508,24 +509,5 @@ class FreeplayState extends MusicBeatState
 		scoreBG.x = FlxG.width - (scoreBG.scale.x / 2);
 		diffText.x = Std.int(scoreBG.x + (scoreBG.width / 2));
 		diffText.x -= diffText.textField.textWidth / 2;
-	}
-}
-
-class SongMetadata
-{
-	public var songName:String = "";
-	public var week:Int = 0;
-	public var songCharacter:String = "";
-	public var color:Int = -7179779;
-	public var folder:String = "";
-	
-	public function new(song:String, week:Int, songCharacter:String, color:Int)
-	{
-		this.songName = song;
-		this.week = week;
-		this.songCharacter = songCharacter;
-		this.color = color;
-		this.folder = Mods.currentModDirectory;
-		if (this.folder == null) this.folder = '';
 	}
 }

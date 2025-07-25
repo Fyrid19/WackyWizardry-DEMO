@@ -3407,7 +3407,7 @@ class PlayState extends MusicBeatState
 			{
 				trace('WENT BACK TO FREEPLAY??');
 				CoolUtil.cancelMusicFadeTween();
-				FlxG.switchState(() -> new FreeplayState());
+				FlxG.switchState(() -> new funkin.states.wacky.FreeplayState());
 				FlxG.sound.playMusic(Paths.music('freakyMenu'));
 				FlxG.sound.music.volume = 1;
 				changedDifficulty = false;
