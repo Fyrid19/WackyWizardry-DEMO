@@ -22,14 +22,14 @@ class SongLogo extends FlxSprite
 		var scaledY = FlxMath.remapToRange(targetY, 0, 1, 0, 1.3);
 		final lerpRate = FlxMath.getElapsedLerp(0.12, elapsed);
         
-        y = FlxMath.lerp(y, (scaledY * 400) + (FlxG.height * 0.4), lerpRate);
+        y = FlxMath.lerp(y, (scaledY * 400) + (FlxG.height * 0.5 - height / 2), lerpRate);
         if (forceX != Math.NEGATIVE_INFINITY)
         {
             x = forceX;
         }
         else
         {
-            x = FlxMath.lerp(x, (targetY * 250) + (FlxG.height * 0.75), lerpRate);
+            x = FlxMath.lerp(x, (targetY * 100) + (FlxG.width / 2 - width / 2) + 230, lerpRate);
         }
 	}
 }

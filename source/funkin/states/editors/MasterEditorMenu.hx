@@ -19,7 +19,8 @@ class MasterEditorMenu extends MusicBeatState
 		'Dialogue Portrait Editor',
 		'Character Editor',
 		'Chart Editor',
-		'Note Skin Editor (unfinished)'
+		'Note Skin Editor (unfinished)',
+		'Dialogue Testing'
 	];
 	private var grpTexts:FlxTypedGroup<Alphabet>;
 	private var directories:Array<String> = [null];
@@ -121,6 +122,8 @@ class MasterEditorMenu extends MusicBeatState
 					CoolUtil.loadAndSwitchState(ChartingState.new, false);
 				case 'Note Skin Editor (unfinished)':
 					CoolUtil.loadAndSwitchState(() -> new NoteSkinEditor('default'), false);
+				case 'Dialogue Testing':
+					FlxG.switchState(() -> new DialogueTestState());
 			}
 			FlxG.sound.music.volume = 0;
 			#if PRELOAD_ALL

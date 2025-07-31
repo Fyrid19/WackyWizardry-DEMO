@@ -1,7 +1,10 @@
 package funkin.states.wacky;
 
+import flixel.addons.display.FlxBackdrop;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.util.FlxGradient;
+
+import flixel.addons.ui.U;
 
 import funkin.states.editors.ChartingState;
 import funkin.objects.SongLogo;
@@ -24,16 +27,26 @@ class FreeplayState extends MusicBeatState {
     public var divider:FlxSprite;
     public var charRender:FlxSprite;
 
+    public var barUp:FlxBackdrop;
+    public var barDown:FlxBackdrop;
+    
+	public var scoreTxt:FlxText;
+	public var helpTxt:FlxText;
+	public var lerpScore:Int = 0;
+	public var lerpRating:Float = 0;
+	public var intendedScore:Int = 0;
+	public var intendedRating:Float = 0;
+
 	public var grpSongs:FlxTypedGroup<SongLogo>;
 	public var songs:Array<SongMetadata> = [];
     
 	public var intendedColor:Int;
 
-    public var charRenderY:Int = 0;
+    public var charRenderX:Float = 0;
 
     override function create() {
 		FunkinAssets.cache.clearStoredMemory();
-		// FunkinAssets.cache.clearUnusedMemory();
+		FunkinAssets.cache.clearUnusedMemory();
 		
 		persistentUpdate = true;
 		PlayState.isStoryMode = false;
@@ -89,9 +102,38 @@ class FreeplayState extends MusicBeatState {
             Mods.currentModDirectory = songs[i].folder;
         }
 
+        barDown = new FlxBackdrop(Paths.image('freeplay/sonicbars'), X);
+		barDown.antialiasing = ClientPrefs.globalAntialiasing;
+        barDown.velocity.set(100, 0);
+		barDown.updateHitbox();
+		barDown.screenCenter(X);
+        barDown.y = FlxG.height - barDown.height + 110;
+        barDown.rotation = -10;
+        add(barDown);
+
+        barUp = new FlxBackdrop(Paths.image('freeplay/sonicbars'), X);
+		barUp.antialiasing = ClientPrefs.globalAntialiasing;
+        barUp.velocity.set(-100, 0);
+		barUp.updateHitbox();
+		barUp.screenCenter(X);
+        barUp.y = -110;
+        barUp.flipY = true;
+        barUp.rotation = -10;
+        add(barUp);
+
+        helpTxt = new FlxText(0, 0, FlxG.width - 3, "Press SPACE to listen to the instrumental / Press RESET to Reset your Score and Accuracy.", 14);
+		helpTxt.setFormat(Paths.font("comic/italic.ttf"), 14, FlxColor.WHITE, RIGHT, OUTLINE, FlxColor.BLACK);
+        helpTxt.y = FlxG.height - helpTxt.height - 3;
+        add(helpTxt);
+
+        scoreTxt = new FlxText(0, 0, FlxG.width - 3, "HIGH SCORE: 000000", 28);
+		scoreTxt.setFormat(Paths.font("comic/bolditalic.ttf"), 28, FlxColor.WHITE, RIGHT, OUTLINE, FlxColor.BLACK);
+        scoreTxt.y = helpTxt.y - scoreTxt.height - 3;
+        add(scoreTxt);
+
         songBG = new FlxSprite().loadGraphic(Paths.image('freeplay/backgrounds/placeholder'));
         songBG.antialiasing = ClientPrefs.globalAntialiasing;
-        songBG.angle = -20;
+        songBG.angle = -10;
         songBG.x = -100;
         songBG.y = -50;
         songBG.setGraphicSize(Std.int(songBG.width * 1.35));
@@ -105,19 +147,21 @@ class FreeplayState extends MusicBeatState {
         add(gradient);
 
         divider = new FlxSprite().loadGraphic(Paths.image('freeplay/divider'));
-        divider.antialiasing = ClientPrefs.globalAntialiasing;
         divider.setGraphicSize(0, Std.int(songBG.height * 1.15));
+        divider.antialiasing = ClientPrefs.globalAntialiasing;
         divider.angle = songBG.angle;
         divider.x = songBG.x - 30;
         divider.x += songBG.width;
-        divider.y = songBG.y + 250;
+        divider.y = songBG.y + 290;
         add(divider);
 
+        charRenderX = songBG.x;
         charRender = new FlxSprite().loadGraphic(Paths.image('freeplay/renders/placeholder'));
+        charRender.setGraphicSize(Std.int(charRender.width * 0.85));
         charRender.antialiasing = ClientPrefs.globalAntialiasing;
-        charRender.angle = songBG.angle;
-        charRender.x = songBG.x;
-        charRender.y = songBG.y;
+        charRender.angle = songBG.angle - 3;
+        charRender.x = charRenderX;
+        charRender.y = songBG.y - 20;
         add(charRender);
 			
         debugBG = new FlxSprite().makeScaledGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
@@ -133,6 +177,8 @@ class FreeplayState extends MusicBeatState {
 		FlxTween.tween(gradient, {y: gradient.y + 20}, 5, {ease: FlxEase.quadInOut, type: PINGPONG});
 		FlxTween.tween(songBG, {x: songBG.x - 10}, 5.5, {ease: FlxEase.quadInOut, type: PINGPONG});
 		FlxTween.tween(gradient, {x: gradient.x - 10}, 5.5, {ease: FlxEase.quadInOut, type: PINGPONG});
+		FlxTween.tween(charRender, {y: charRender.y + 10}, 2.5, {ease: FlxEase.quadInOut, type: PINGPONG});
+		FlxTween.tween(charRender, {angle: charRender.angle + 6}, 5, {ease: FlxEase.quadInOut, type: PINGPONG});
 			
         if (curSelected >= songs.length) curSelected = 0;
         gradient.color = songs[curSelected].color;
@@ -143,8 +189,28 @@ class FreeplayState extends MusicBeatState {
         super.create();
     }
 
+	var instPlaying:Int = -1;
 	var holdTime:Float = 0;
     override function update(elapsed:Float) {
+        lerpScore = Math.floor(FlxMath.lerp(lerpScore, intendedScore, FlxMath.bound(elapsed * 24, 0, 1)));
+        lerpRating = FlxMath.lerp(lerpRating, intendedRating, FlxMath.bound(elapsed * 12, 0, 1));
+			
+        if (Math.abs(lerpScore - intendedScore) <= 10) lerpScore = intendedScore;
+        if (Math.abs(lerpRating - intendedRating) <= 0.01) lerpRating = intendedRating;
+			
+        var ratingSplit:Array<String> = Std.string(funkin.utils.MathUtil.floorDecimal(lerpRating * 100, 2)).split('.');
+        if (ratingSplit.length < 2)
+        { // No decimals, add an empty space
+            ratingSplit.push('');
+        }
+        
+        while (ratingSplit[1].length < 2)
+        { // Less than 2 decimals in it, add decimals then
+            ratingSplit[1] += '0';
+        }
+        
+        scoreTxt.text = 'HIGH SCORE: ' + U.padDigits(lerpScore, 6) + ' (' + ratingSplit.join('.') + '%)';
+
         if (controls.BACK) {
             persistentUpdate = false;
             FlxTween.cancelTweensOf(gradient, ['color']);
@@ -182,7 +248,20 @@ class FreeplayState extends MusicBeatState {
             }
         }
 
-        if (controls.ACCEPT)
+        if (FlxG.keys.justPressed.SPACE)
+        {
+            if (instPlaying != curSelected)
+            {
+                FlxG.sound.music.volume = 0;
+                Mods.currentModDirectory = songs[curSelected].folder;
+                var poop:String = Highscore.formatSong(songs[curSelected].songName.toLowerCase(), 0);
+                PlayState.SONG = Song.loadFromJson(poop, songs[curSelected].songName.toLowerCase());
+                
+                FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 0.7);
+                instPlaying = curSelected;
+            }
+        }
+        else if (controls.ACCEPT)
         {
             persistentUpdate = false;
             var songLowercase:String = Paths.formatToSongPath(songs[curSelected].songName);
@@ -237,6 +316,11 @@ class FreeplayState extends MusicBeatState {
         if (playSound) FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
         
         curSelected = FlxMath.wrap(curSelected + change, 0, songs.length - 1);
+
+        #if !switch
+		intendedScore = Highscore.getScore(songs[curSelected].songName, 0);
+		intendedRating = Highscore.getRating(songs[curSelected].songName, 0);
+		#end
         
         var newColor:Int = songs[curSelected].color;
         if (newColor != intendedColor)
@@ -266,6 +350,10 @@ class FreeplayState extends MusicBeatState {
 
         var graphic2 = Paths.image('freeplay/renders/' + songs[curSelected].songCharacter.replace(' ', '-'));
         charRender.loadGraphic(graphic2 ?? Paths.image('freeplay/renders/placeholder'));
+
+        charRender.x = charRenderX - 30;
+        FlxTween.cancelTweensOf(charRender, ['x']);
+		FlxTween.tween(charRender, {x: charRenderX}, 0.5, {ease: FlxEase.circOut});
         
         Mods.currentModDirectory = songs[curSelected].folder;
         PlayState.storyWeek = songs[curSelected].week;
