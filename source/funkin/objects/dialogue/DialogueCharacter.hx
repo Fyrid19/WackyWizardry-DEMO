@@ -3,24 +3,39 @@ package funkin.objects.dialogue;
 import haxe.Json;
 import openfl.utils.Assets;
 
+import funkin.objects.character.AnimateCharacter; // i dont feel like implementing this myself right now, probably gonna be placeholder
+import flxanimate.FlxAnimateController;
+import flxanimate.AnimateSprite;
+
 typedef DialogueCharacterFile =
 {
 	var image:String;
-	var dialogue_pos:String;
+	var fps:Int;
 	var no_antialiasing:Bool;
-	
+	var defaultPos:String;
+	var sound:DialogueSoundData;
 	var animations:Array<DialogueAnimArray>;
-	var position:Array<Float>;
+	var offset:Array<Float>;
 	var scale:Float;
 }
 
 typedef DialogueAnimArray =
 {
 	var anim:String;
-	var loop_name:String;
-	var loop_offsets:Array<Int>;
-	var idle_name:String;
-	var idle_offsets:Array<Int>;
+	var animXml:String;
+	var ?fps:Int;
+	var looped:Bool;
+	var offset:Array<Int>;
+	var blinkRates:Array<Int>;
+	var unblinkRates:Array<Int>;
+	var ?sound:DialogueSoundData;
+}
+
+typedef DialogueSoundData = 
+{
+	var sounds:Array<String>;
+	var pitch:Array<Float>;
+	var prefix:String;
 }
 
 // heavily edited to work with the custom dialogue
@@ -34,18 +49,26 @@ class DialogueCharacter extends FlxSprite
 	
 	public var curCharacter:String = 'bf';
 	public var neutralAnim:String = 'neutral';
+	public var emotion:String = 'neutral';
 	public var position:String = 'right';
+	public var posOffset:Array<Float> = [0, 0];
 	public var flipXDefault:Bool = false;
+	public var hasFocus:Bool = false;
+
+	public var dialogueSounds:Array<FlxSound> = [];
 
 	public var blinkRate:Array<Float> = [0.7, 1.3]; // How rapid the blinking is (Random between the range of these two numbers)
 	public var unblinkRate:Array<Float> = [0.05, 0.1]; // How long they will blink for (Ditto)
 	
-	public function new(x:Float = 0, y:Float = 0, character:String = null)
+	public function new(character:String = null, position:String = 'left', emotion:String = 'neutral')
 	{
-		super(x, y);
+		super();
 		
 		if (character == null) character = DEFAULT_CHARACTER;
 		this.curCharacter = character;
+
+		this.position = position;
+		this.emotion = emotion;
 		
 		reloadCharacterJson(character);
 		frames = Paths.getSparrowAtlas('dialogue/portraits/' + jsonFile.image);
@@ -90,12 +113,15 @@ class DialogueCharacter extends FlxSprite
 			case 'right':
 				FlxG.width * 0.75;
 			default:
-				FlxG.width * 0.75;
+				FlxG.width * 0.25;
 		}
+
+		realPosition += posOffset[0];
 		
 		var scaledX = FlxMath.remapToRange(realPosition - width / 2, 0, 1, 0, 1.3);
 		final lerpRate = FlxMath.getElapsedLerp(0.08, elapsed);
         x = FlxMath.lerp(x, scaledX, lerpRate); // so if the position were to change during dialogue it flows smoothly
+		y += posOffset[1];
 
 		super.update(elapsed);
 	}
@@ -132,7 +158,7 @@ class DialogueCharacter extends FlxSprite
 		{
 			for (anim in jsonFile.animations)
 			{
-				animation.addByPrefix(anim.anim, anim.loop_name, 24);
+				animation.addByPrefix(anim.anim, anim.animXml, anim.fps);
 				dialogueAnimations.set(anim.anim, anim);
 			}
 		}

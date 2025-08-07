@@ -52,6 +52,9 @@ import funkin.backend.SyncedFlxSoundGroup;
 import funkin.video.FunkinVideoSprite;
 #end
 
+import funkin.objects.dialogue.DialogueBox as SuperDialogueBox;
+import funkin.objects.dialogue.DialogueBox.DialogueFile as SuperDialogueFile;
+
 class PlayState extends MusicBeatState
 {
 	public var modManager:ModManager;
@@ -186,6 +189,7 @@ class PlayState extends MusicBeatState
 	public static var storyWeek:Int = 0;
 	public static var storyPlaylist:Array<String> = [];
 	public static var storyDifficulty:Int = 1;
+	public static var fromRestart:Bool = false;
 	
 	public var spawnTime:Float = 3000;
 	
@@ -317,6 +321,7 @@ class PlayState extends MusicBeatState
 	
 	var dialogue:Array<String> = ['blah blah blah', 'coolswag'];
 	var dialogueJson:DialogueFile = null;
+	var coolestDialogueEver:SuperDialogueFile = null;
 	
 	public var songScore:Int = 0;
 	public var songHits:Int = 0;
@@ -574,6 +579,7 @@ class PlayState extends MusicBeatState
 		#end
 		
 		setOnScripts('isStoryMode', isStoryMode);
+		setOnScripts('fromRestart', fromRestart);
 		
 		var songName:String = Paths.formatToSongPath(SONG.song);
 		
@@ -720,6 +726,12 @@ class PlayState extends MusicBeatState
 		{
 			dad.setPosition(GF_X, GF_Y);
 			if (gf != null) gf.visible = false;
+		}
+		
+		var file:String = Paths.getPath('data/dialogue/' + songName); // Checks for DDE dialogue
+		if (OpenFlAssets.exists(file))
+		{
+			coolestDialogueEver = SuperDialogueBox.parse(file);
 		}
 		
 		var file:String = Paths.json(songName + '/dialogue'); // Checks for json/Psych Engine dialogue
@@ -1114,7 +1126,7 @@ class PlayState extends MusicBeatState
 		char.y += char.positionArray[1];
 	}
 	
-	public function startVideo(name:String):Void
+	public function startVideo(name:String, ?callback:Void->Void):Void
 	{
 		#if VIDEOS_ALLOWED
 		final fileName = Paths.video(name);
@@ -1131,7 +1143,8 @@ class PlayState extends MusicBeatState
 			FlxG.addChildBelowMouse(vid);
 			vid.onEndReached.add(() -> {
 				remove(bg);
-				startAndEnd();
+				if (callback != null) callback();
+				else startAndEnd();
 				
 				FlxG.removeChild(vid);
 				vid.dispose();
@@ -1203,6 +1216,39 @@ class PlayState extends MusicBeatState
 			{
 				startCountdown();
 			}
+		}
+	}
+
+	public var ddeDialogue:SuperDialogueBox;
+	
+	public function startDialogueAlt(dialogueFile:SuperDialogueFile):Void
+	{
+		if (ddeDialogue != null) return;
+		
+		if (dialogueFile.dialogue.length > 0)
+		{
+			ddeDialogue = new SuperDialogueBox(dialogueFile);
+			ddeDialogue.scrollFactor.set();
+			if (endingSong)
+			{
+				ddeDialogue.finishCallback = function() {
+					ddeDialogue = null;
+					endSong();
+				}
+			}
+			else
+			{
+				ddeDialogue.finishCallback = function() {
+					ddeDialogue = null;
+					startCountdown();
+				}
+			}
+			ddeDialogue.nextCallback = startNextDialogue;
+			ddeDialogue.skipCallback = skipDialogue;
+			ddeDialogue.cameras = [camHUD];
+			add(ddeDialogue);
+			
+			ddeDialogue.beginDialogue();
 		}
 	}
 	
