@@ -98,5 +98,7 @@ class Init extends FlxState
 		funkin.backend.plugins.DebugTextPlugin.init();
 		
 		funkin.backend.plugins.FullScreenPlugin.init();
+		
+		funkin.backend.plugins.OpenConsolePlugin.init();
 	}
 }

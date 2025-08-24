@@ -728,7 +728,7 @@ class PlayState extends MusicBeatState
 			if (gf != null) gf.visible = false;
 		}
 		
-		var file:String = Paths.getPath('data/dialogue/' + songName); // Checks for DDE dialogue
+		var file:String = Paths.getPath('data/dialogue/dialogue/' + songName); // Checks for DDE dialogue
 		if (OpenFlAssets.exists(file))
 		{
 			coolestDialogueEver = SuperDialogueBox.parse(file);
@@ -1221,7 +1221,7 @@ class PlayState extends MusicBeatState
 
 	public var ddeDialogue:SuperDialogueBox;
 	
-	public function startDialogueAlt(dialogueFile:SuperDialogueFile):Void
+	public function startDialogueAlt(dialogueFile:SuperDialogueFile, ?delay:Float = 2):Void
 	{
 		if (ddeDialogue != null) return;
 		

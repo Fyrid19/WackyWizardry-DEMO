@@ -3,7 +3,6 @@ package funkin.objects.dialogue;
 import haxe.Json;
 import openfl.utils.Assets;
 
-import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.group.FlxSpriteGroup;
 import flixel.addons.text.FlxTypeText;
 import flixel.addons.display.shapes.FlxShapeCircle;
@@ -25,10 +24,9 @@ typedef DialogueFile = {
 
 typedef DialogueLine = {
     var speed:Float;
-    var charFocus:String;
-    var characters:Array<DialogueCharInfo>;
+    var character:String;
     var position:String;
-    var namePlate:String;
+    var emotion:String;
     var boxEmotion:String;
     var line:String;
     var ?font:String;
@@ -42,61 +40,43 @@ class DialogueBox extends FlxSpriteGroup {
         font:  'comic',
         dialogue:  [
             {
-                speed: 0.03,
-                charFocus:  'bf',
-                characters: [
-                    {
-                        name: 'bf',
-                        emotion: 'neutral',
-                        position: 'left'
-                    }
-                ],
-                position:  'right',
-                namePlate: 'bf',
-                boxEmotion:  'regular',
-                line:  'this is the default dialogue. hi',
-                font:  null
+                speed: 0.04,
+                character: 'bf',
+                position: 'right',
+                emotion: 'neutral',
+                boxEmotion: 'regular',
+                line: 'this is the default dialogue. hi ←↓↑→',
+                font: null
             },
             {
-                speed:  0.03,
-                charFocus:  'bf',
-                characters: [
-                    {
-                        name: 'bf',
-                        emotion: 'neutral',
-                        position: 'left'
-                    }
-                ],
-                position:  'left',
-                namePlate: 'bf',
-                boxEmotion:  'think',
-                line:  'which means, there is no dialogue',
-                font:  null
+                speed: 0.04,
+                character: 'dave',
+                position: 'left',
+                emotion: 'neutral',
+                boxEmotion: 'think',
+                line: 'which means, there is no dialogue',
+                font: null
             },
             {
-                speed:  0.03,
-                charFocus:  'bf',
-                characters: [
-                    {
-                        name: 'bf',
-                        emotion: 'neutral',
-                        position: 'left'
-                    }
-                ],
-                position:  'right',
-                namePlate: 'bf',
-                boxEmotion:  'intense',
-                line:  'go get some dialogue! fool.',
-                font:  null
+                speed: 0.04,
+                character: 'bf',
+                position: 'middleRight',
+                emotion: 'blissful',
+                boxEmotion: 'intense',
+                line: 'go get some dialogue! fool.',
+                font: null
             }
         ]
     };
 
     var background:FlxSprite;
     var nextIndicator:FlxShapeCircle;
+    var namePlate:FlxSprite;
     var textBox:FlxTypeText;
     var noteSymbols:FlxSpriteGroup;
-    var characters:Map<String, DialogueCharacter> = new Map<String, DialogueCharacter>();
+    var charGroup:FlxSpriteGroup;
+    var charMap:Map<String, DialogueCharacter> = new Map();
+    var focusedChar:String;
 
     var defaultFont = Paths.font('comic/normal.ttf');
 
@@ -123,16 +103,24 @@ class DialogueBox extends FlxSpriteGroup {
 
         dialogueFile = dialogue ?? fallbackFile;
 
+        charGroup = new FlxSpriteGroup();
+        add(charGroup);
+
         background = new FlxSprite(x, y);
         background.frames = Paths.getSparrowAtlas('dialogue/boxes/default');
         background.animation.addByPrefix('regular', 'regular_box', 24, true);
         background.animation.addByPrefix('intense', 'intense_box', 24, true);
         background.animation.addByPrefix('think', 'think_box', 24, true);
         background.animation.play('regular', true);
+        background.antialiasing = ClientPrefs.globalAntialiasing;
         add(background);
 
         textBox = new FlxTypeText(x + 40, y + 160, FlxG.width - 80, '', 24);
         textBox.setFormat(defaultFont, 24, FlxColor.BLACK, LEFT, OUTLINE, FlxColor.WHITE);
+        add(textBox);
+
+        namePlate = new FlxSprite();
+        namePlate.antialiasing = ClientPrefs.globalAntialiasing;
         add(textBox);
 
         textBox.completeCallback = () -> { onComplete(); };
@@ -149,16 +137,33 @@ class DialogueBox extends FlxSpriteGroup {
         alpha = 0;
     }
 
+    var oldLength:Int = 0;
     override function update(elapsed:Float) {
         var curLine = dialogueFile.dialogue[dialogueProgress];
-        switch (textBox.text.charAt(textBox.text.length - 1)) {
-            case '.' | '!' | '?':
-                textBox.delay = lineSpeed * 10;
-            case ',':
-                textBox.delay = lineSpeed * 5;
-            default:
-                textBox.delay = lineSpeed;
+        var focusedChar:DialogueCharacter = charMap[curLine.character];
+        if (textBox.text.length > oldLength) {
+            switch (textBox.text.charAt(textBox.text.length - 1)) {
+                case '.' | '!' | '?':
+                    textBox.delay = lineSpeed * 10;
+                    if (focusedChar != null) focusedChar.talking = 0;
+                case ',':
+                    textBox.delay = lineSpeed * 5;
+                    if (focusedChar != null) focusedChar.talking = 0;
+                default:
+                    textBox.delay = lineSpeed;
+            }
+
+            if (focusedChar != null) {
+                focusedChar.talking = 2;
+                focusedChar.speak();
+            }
+            
+            oldLength = textBox.text.length;
         }
+
+        if (textBox.text.charAt(textBox.text.length - 1) == '←') trace('left');
+
+        if (textBox.text == curLine.line) focusedChar.talking = 0;
 
         progressTxt.text = 'line: $dialogueProgress';
 
@@ -214,23 +219,29 @@ class DialogueBox extends FlxSpriteGroup {
             default: false;
         }
 
-        // trace(line);
-        // trace(line.characters);
-        // characters.clear();
-        for (char in line.characters) {
-            trace('char: ' + char.name + ' | position: ' + char.position + ' | emotion: ' + char.emotion);
+        namePlate.loadGraphic(Paths.image('dialogue/plates/' + line.character + '_title'));
+        namePlate.y = (background.y - namePlate.height/2) + 150;
+        namePlate.x = background.flipX ? 20 : FlxG.width - namePlate.width - 20;
 
-            if (!characters.exists(char.name)) {
-                var newChar:DialogueCharacter = new DialogueCharacter(char.name, char.position, char.emotion);
-                characters.set(char.name, newChar);
-            } else {
-                characters.get(char.name).position = char.position;
-                characters.get(char.name).emotion = char.emotion;
-            }
-        }
+        addCharacter(line.character, line.position, line.emotion);
 
         changeEmotion(line.boxEmotion);
         typeText(line.line, line.speed);
+    }
+
+    public function addCharacter(charName:String, position:String = 'left', emotion:String = 'neutral') {
+        for (char in charMap) char.switchFocus(false);
+        if (!charMap.exists(charName)) {
+            var newChar:DialogueCharacter = new DialogueCharacter(charName, position, emotion);
+            newChar.loadCharAtlas();
+            charMap.set(charName, newChar);
+            charGroup.add(newChar);
+            trace('new char "$charName"');
+        } else {
+            charMap.get(charName).changeEmotion(emotion);
+            charMap.get(charName).switchPosition(position);
+            charMap.get(charName).switchFocus(true);
+        }
     }
 
     public function skipDialogue() {
@@ -249,6 +260,7 @@ class DialogueBox extends FlxSpriteGroup {
         lineSpeed = speed;
         textBox.resetText(newText);
         textBox.start(speed);
+        oldLength = 0;
     }
 
     public static function parse(path:String):DialogueFile {

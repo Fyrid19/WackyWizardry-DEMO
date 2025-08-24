@@ -273,6 +273,7 @@ class PauseSubState extends MusicBeatSubstate
 						practiceText.visible = PlayState.instance.practiceMode;
 					case "Restart Song":
 						restartSong();
+						PlayState.fromRestart = true;
 					case "Leave Charting Mode":
 						restartSong();
 						PlayState.chartingMode = false;
@@ -322,7 +323,6 @@ class PauseSubState extends MusicBeatSubstate
 			PlayState.instance.paused = true; // For lua
 			FlxG.sound.music.volume = 0;
 			PlayState.instance.vocals.volume = 0;
-			PlayState.fromRestart = true;
 			
 			if (noTrans)
 			{

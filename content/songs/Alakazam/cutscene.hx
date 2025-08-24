@@ -3,8 +3,9 @@ var PlayStateI = PlayState.instance; // just so i dont have to write this over a
 function onCreate() {
     if (isStoryMode && !fromRestart)
     PlayStateI.songStartCallback = function() {
-        PlayStateI.startVideo('alakazamstoryboard');
-        fromRestart = false;
-        trace('ooga');
+        PlayStateI.startVideo('alakazamstoryboard', () -> {
+            PlayStateI.startDialogueAlt(null);
+        });
+        trace('playing video');
     }
 }

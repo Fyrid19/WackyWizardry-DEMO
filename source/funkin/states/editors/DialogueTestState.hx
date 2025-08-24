@@ -9,6 +9,7 @@ import flixel.addons.ui.FlxUIInputText;
 import flixel.addons.ui.FlxUINumericStepper;
 import flixel.addons.display.FlxGridOverlay;
 import flixel.addons.display.FlxBackdrop;
+import flixel.util.FlxAxes;
 
 class DdeDialogueEditorState extends MusicBeatState {
     public static var _dialogue:DialogueFile;
@@ -46,11 +47,11 @@ class DialogueTestState extends MusicBeatState {
     override function create() {
 		FlxG.mouse.visible = true;
 
-        var gridSize:Int = 40;
-        var grid = FlxGridOverlay.createGrid(gridSize, gridSize, gridSize * 2, gridSize * 2, true, 0x7C7C7C, 0x4D4D4D);
-        var bg = new FlxBackdrop(grid);
-        bg.velocity.set(50, 0);
-        add(bg);
+        var grid:FlxBackdrop = new FlxBackdrop(Paths.image('gridd'), XY);
+        grid.setGraphicSize(Std.int(grid.width * 2));
+        grid.velocity.y = 40;
+        grid.antialiasing = false;
+        add(grid);
 
         testBox = new DialogueBox();
         // testBox.screenCenter();
