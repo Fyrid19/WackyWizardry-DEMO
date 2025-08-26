@@ -8,12 +8,14 @@ import math.Vector3;
 import flixel.FlxSprite;
 import flixel.math.FlxPoint;
 
+import flixel.addons.effects.FlxSkewedSprite;
+
 import funkin.objects.*;
 import funkin.game.shaders.*;
 import funkin.states.*;
 import funkin.data.*;
 
-class StrumNote extends FlxSprite
+class StrumNote extends FlxSkewedSprite
 {
 	public var rgbShader:RGBShaderReference;
 	
@@ -24,6 +26,7 @@ class StrumNote extends FlxSprite
 	
 	public var vec3Cache:Vector3 = new Vector3(); // for vector3 operations in modchart code
 	public var defScale:FlxPoint = FlxPoint.get(); // for modcharts to keep the scaling
+	public var defSkew:FlxPoint = FlxPoint.get(); // ditto but skew
 	
 	public var resetAnim:Float = 0;
 	public var noteData:Int = 0;
@@ -134,6 +137,7 @@ class StrumNote extends FlxSprite
 			loadAnimations();
 		}
 		defScale.copyFrom(scale);
+		defSkew.copyFrom(skew);
 		updateHitbox();
 		
 		antialiasing = handler.data.antialiasing;
@@ -228,6 +232,7 @@ class StrumNote extends FlxSprite
 	override function destroy()
 	{
 		defScale.put();
+		defSkew.put();
 		vec3Cache = null;
 		super.destroy();
 	}

@@ -40,6 +40,7 @@ class ModManager
 			BeatModifier,
 			AlphaModifier,
 			ReceptorScrollModifier,
+			SkewModifier,
 			ScaleModifier, // u cause sustains to break.
 			TransformModifier,
 			InfinitePathModifier,

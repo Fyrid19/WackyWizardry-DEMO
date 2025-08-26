@@ -64,21 +64,26 @@ class DimensionalHUD extends BaseHUD {
 		iconP2.alpha = ClientPrefs.healthBarAlpha;
 		add(iconP2);
 		
-		scoreTxt = new FlxText(0, healthBar.y + 40, FlxG.width, "", 20);
-		scoreTxt.setFormat(font, 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		scoreTxt = new FlxText(0, 0, FlxG.width, "", 24);
+		scoreTxt.setFormat(font, 24, FlxColor.BLACK, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.WHITE);
+		scoreTxt.x = -50;
+		scoreTxt.alpha = 0;
 		scoreTxt.scrollFactor.set();
 		scoreTxt.borderSize = 1.25;
 		scoreTxt.visible = !ClientPrefs.hideHud;
-		// add(scoreTxt);
 		
 		accuracyTxt = new FlxText(0, 0, FlxG.width, "", 32);
 		accuracyTxt.setFormat(font, 32, FlxColor.BLACK, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.WHITE);
 		accuracyTxt.x = -50;
-		accuracyTxt.y = !ClientPrefs.downScroll ? FlxG.height - accuracyTxt.height - 50 : 50;
 		accuracyTxt.alpha = 0;
 		accuracyTxt.scrollFactor.set();
 		accuracyTxt.borderSize = 2.5;
 		accuracyTxt.visible = !ClientPrefs.hideHud;
+
+		scoreTxt.y = !ClientPrefs.downScroll ? FlxG.height - accuracyTxt.height - 50 : 50;
+		accuracyTxt.y = !ClientPrefs.downScroll ? scoreTxt.y - accuracyTxt.height - 5 : scoreTxt.y + scoreTxt.height + 5;
+
+		add(scoreTxt);
 		add(accuracyTxt);
 		
 		ratingsTxt = new FlxText(0, 0, FlxG.width * 0.17, "", 18);
@@ -109,20 +114,20 @@ class DimensionalHUD extends BaseHUD {
 		add(timeTxt);
 		
 		var posX:Float = FlxG.width * 0.5;
-		noteRatingTxt = new FlxText(posX, 0, FlxG.width / 2, "", 22);
-		noteRatingTxt.setFormat(font, 22, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		noteRatingTxt = new FlxText(posX, 0, FlxG.width / 2, "", 34);
+		noteRatingTxt.setFormat(font, 34, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		noteRatingTxt.y = !ClientPrefs.downScroll ? FlxG.height * 0.45 : FlxG.height * 0.55;
 		noteRatingTxt.scrollFactor.set();
-		noteRatingTxt.borderSize = 1.75;
+		noteRatingTxt.borderSize = 2.25;
 		noteRatingTxt.visible = !ClientPrefs.hideHud;
 		noteRatingTxt.alpha = 0;
 		add(noteRatingTxt);
 		
-		noteComboTxt = new FlxText(noteRatingTxt.x, 0, noteRatingTxt.fieldWidth, "", 16);
-		noteComboTxt.setFormat(font, 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		noteComboTxt = new FlxText(noteRatingTxt.x, 0, noteRatingTxt.fieldWidth, "", 28);
+		noteComboTxt.setFormat(font, 28, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		noteComboTxt.y = !ClientPrefs.downScroll ? noteRatingTxt.y + noteRatingTxt.height + 5 : noteRatingTxt.y - noteComboTxt.height - 5;
 		noteComboTxt.scrollFactor.set();
-		noteComboTxt.borderSize = 1.75;
+		noteComboTxt.borderSize = 2.25;
 		noteComboTxt.visible = !ClientPrefs.hideHud;
 		noteComboTxt.alpha = 0;
 		add(noteComboTxt);
@@ -136,6 +141,7 @@ class DimensionalHUD extends BaseHUD {
 		parent.setOnScripts('healthBar', healthBar);
 		parent.setOnScripts('iconP1', iconP1);
 		parent.setOnScripts('iconP2', iconP2);
+		parent.setOnScripts('scoreTxt', scoreTxt);
 		parent.setOnScripts('accuracyTxt', accuracyTxt);
 		parent.setOnScripts('ratingsTxt', ratingsTxt);
 		parent.setOnScripts('timeBar', timeBar);
@@ -186,6 +192,7 @@ class DimensionalHUD extends BaseHUD {
 		FlxTween.tween(timeBar, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
 		FlxTween.tween(timeTxt, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
 		FlxTween.tween(accuracyTxt, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
+		FlxTween.tween(scoreTxt, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
 		FlxTween.tween(ratingsTxt, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
 	}
 
@@ -249,8 +256,8 @@ class DimensionalHUD extends BaseHUD {
 			iconP1.scale.set(1.4, 0.9);
 			iconP2.scale.set(1.4, 0.9);
 
-			FlxTween.angle(iconP1, -5, 0, Conductor.crotchet / 1300 * parent.gfSpeed, {ease: FlxEase.backOut});
-			FlxTween.angle(iconP2, 5, 0, Conductor.crotchet / 1300 * parent.gfSpeed, {ease: FlxEase.backOut});
+			FlxTween.angle(iconP1, -7, 0, Conductor.crotchet / 1300 * parent.gfSpeed, {ease: FlxEase.backOut});
+			FlxTween.angle(iconP2, 7, 0, Conductor.crotchet / 1300 * parent.gfSpeed, {ease: FlxEase.backOut});
 
 			FlxTween.tween(iconP1, {'scale.x': 1, 'scale.y': 1}, Conductor.crotchet / 1250 * parent.gfSpeed, {ease: FlxEase.circOut});
 			FlxTween.tween(iconP2, {'scale.x': 1, 'scale.y': 1}, Conductor.crotchet / 1250 * parent.gfSpeed, {ease: FlxEase.circOut});
@@ -265,7 +272,7 @@ class DimensionalHUD extends BaseHUD {
 	}
 
     override function onUpdateScore(score:Int = 0, accuracy:Float = 0, misses:Int = 0, missed:Bool = false) {
-		// scoreTxt.text = FlxStringUtil.formatMoney(score, false);
+		scoreTxt.text = Std.string(score);
 		
 		if (score > 0)
         	accuracyTxt.text = '$accuracy%';
@@ -287,8 +294,8 @@ class DimensionalHUD extends BaseHUD {
 		FlxTween.cancelTweensOf(noteComboTxt);
 		if (comboTimer != null) comboTimer.cancel();
 
-		noteRatingTxt.alpha = 1;
-		noteComboTxt.alpha = 1;
+		noteRatingTxt.alpha = 0.5;
+		noteComboTxt.alpha = 0.5;
 
 		noteRatingTxt.text = ratingImage.toUpperCase();
 		noteComboTxt.text = U.padDigits(combo, 3);

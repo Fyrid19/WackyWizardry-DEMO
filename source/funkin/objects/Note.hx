@@ -7,6 +7,8 @@ import flixel.FlxSprite;
 import flixel.math.FlxPoint;
 import flixel.math.FlxRect;
 
+import flixel.addons.effects.FlxSkewedSprite;
+
 import funkin.data.*;
 import funkin.game.shaders.*;
 import funkin.objects.character.Character;
@@ -24,7 +26,7 @@ typedef EventNote =
 	value2:String
 }
 
-class Note extends FlxSprite
+class Note extends FlxSkewedSprite
 {
 	public static var handler:NoteSkinHelper;
 	public static var keys:Int = 4;
@@ -41,6 +43,7 @@ class Note extends FlxSprite
 		
 	public var vec3Cache:Vector3 = new Vector3(); // for vector3 operations in modchart code
 	public var defScale:FlxPoint = FlxPoint.get(); // for modcharts to keep the scaling
+	public var defSkew:FlxPoint = FlxPoint.get(); // ditto but skew
 	
 	public var mAngle:Float = 0;
 	public var bAngle:Float = 0;
@@ -209,6 +212,7 @@ class Note extends FlxSprite
 			scale.y *= ratio;
 			baseScaleY = scale.y;
 			defScale.y = scale.y;
+			defSkew.y = skew.y;
 			updateHitbox();
 		}
 	}
@@ -351,6 +355,7 @@ class Note extends FlxSprite
 			alpha = 0.6;
 			multAlpha = 0.6;
 			hitsoundDisabled = true;
+			// if(ClientPrefs.downScroll) flipY = true;
 			
 			offsetX += width / 2;
 			copyAngle = false;
@@ -487,7 +492,7 @@ class Note extends FlxSprite
 				lastNoteOffsetXForPixelAutoAdjusting = (width - 7) * (handler.data.scale / 2);
 				offsetX -= lastNoteOffsetXForPixelAutoAdjusting;
 				
-				/*if(animName != null && !animName.endsWith('end'))
+				/*if(animName != null && !animName.contains('end'))
 					{
 						lastScaleY /= lastNoteScaleToo;
 						lastNoteScaleToo = (6 / height);
@@ -617,6 +622,7 @@ class Note extends FlxSprite
 		prevNote = null;
 		vec3Cache = null;
 		defScale.put();
+		defSkew.put();
 		super.destroy();
 	}
 	

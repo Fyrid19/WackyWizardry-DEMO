@@ -1000,7 +1000,7 @@ class PlayState extends MusicBeatState
 			
 			script_SUSTAINENDOffsets[i].x = noteSkin.data.noteAnimations[i][2].offsets[0];
 			script_SUSTAINENDOffsets[i].y = noteSkin.data.noteAnimations[i][2].offsets[1];
-			script_SUSTAINENDOffsets[i].y *= (ClientPrefs.downScroll ? -1 : 1);
+			// script_SUSTAINENDOffsets[i].y *= (ClientPrefs.downScroll ? -1 : 1);
 			
 			// trace('Sus: ${script_SUSTAINOffsets[i].y} | End: ${script_SUSTAINENDOffsets[i].y}');
 			
@@ -2572,13 +2572,13 @@ class PlayState extends MusicBeatState
 					if (deg != 0) daNote.mAngle = (deg + 90);
 					else daNote.mAngle = 0;
 					
-					daNote.x += script_SUSTAINOffsets[daNote.noteData].x;
-					daNote.y += script_SUSTAINOffsets[daNote.noteData].y;
-					if (daNote.animation.curAnim.name.endsWith('end'))
-					{
+					if (daNote.animation.curAnim.name.contains('end')) {
 						daNote.x += script_SUSTAINENDOffsets[daNote.noteData].x;
 						daNote.y += script_SUSTAINENDOffsets[daNote.noteData].y;
-						daNote.y += ClientPrefs.downScroll ? 300 : 0; // this pissed me off a lot so
+						// if (ClientPrefs.downScroll) daNote.y += 12;
+					} else {
+						daNote.x += script_SUSTAINOffsets[daNote.noteData].x;
+						daNote.y += script_SUSTAINOffsets[daNote.noteData].y;
 					}
 				}
 				
@@ -3947,7 +3947,7 @@ class PlayState extends MusicBeatState
 		if (playfield.autoPlayed)
 		{
 			var time:Float = 0.15;
-			if (note.isSustainNote && !note.animation.curAnim.name.endsWith('end'))
+			if (note.isSustainNote && !note.animation.curAnim.name.contains('end'))
 			{
 				time += 0.15;
 			}
@@ -4011,7 +4011,7 @@ class PlayState extends MusicBeatState
 			if (field.autoPlayed)
 			{
 				var time:Float = 0.15;
-				if (note.isSustainNote && !note.animation.curAnim.name.endsWith('end'))
+				if (note.isSustainNote && !note.animation.curAnim.name.contains('end'))
 				{
 					time += 0.15;
 				}
@@ -4186,7 +4186,7 @@ class PlayState extends MusicBeatState
 			if (field.autoPlayed)
 			{
 				var time:Float = 0.15;
-				if (note.isSustainNote && !note.animation.curAnim.name.endsWith('end'))
+				if (note.isSustainNote && !note.animation.curAnim.name.contains('end'))
 				{
 					time += 0.15;
 				}

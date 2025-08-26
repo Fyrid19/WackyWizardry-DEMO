@@ -9,6 +9,7 @@ class RGBPalette
 	public var g(default, set):FlxColor;
 	public var b(default, set):FlxColor;
 	public var mult(default, set):Float;
+	public var flash(default, set):Float;
 	
 	private function set_r(color:FlxColor)
 	{
@@ -38,12 +39,20 @@ class RGBPalette
 		return mult;
 	}
 	
+	private function set_flash(value:Float)
+	{
+		flash = FlxMath.bound(value, 0, 1);
+		shader.u_flash.value = [flash];
+		return flash;
+	}
+	
 	public function new()
 	{
 		r = 0xFFFF0000;
 		g = 0xFF00FF00;
 		b = 0xFF0000FF;
 		mult = 1.0;
+		flash = 0.0;
 	}
 }
 
@@ -54,6 +63,7 @@ class RGBShaderReference
 	public var g(default, set):FlxColor;
 	public var b(default, set):FlxColor;
 	public var mult(default, set):Float;
+	public var flash(default, set):Float = 0;
 	public var enabled(default, set):Bool = true;
 	
 	public var parent:RGBPalette;
@@ -74,6 +84,7 @@ class RGBShaderReference
 			g = parent.g;
 			b = parent.b;
 			mult = parent.mult;
+			flash = parent.flash;
 		}
 	}
 	
@@ -101,6 +112,12 @@ class RGBShaderReference
 		return (mult = parent.mult = value);
 	}
 	
+	private function set_flash(value:Float)
+	{
+		if (allowNew && value != _original.flash) cloneOriginal();
+		return (flash = parent.flash = value);
+	}
+	
 	private function set_enabled(value:Bool)
 	{
 		_owner.shader = value ? parent.shader : null;
@@ -121,6 +138,7 @@ class RGBShaderReference
 			parent.g = _original.g;
 			parent.b = _original.b;
 			parent.mult = _original.mult;
+			parent.flash = _original.flash;
 			_owner.shader = parent.shader;
 			// trace('created new shader');
 		}
@@ -136,6 +154,7 @@ class RGBPaletteShader extends FlxShader
 		uniform vec3 g;
 		uniform vec3 b;
 		uniform float mult;
+		uniform float u_flash;
 
 		vec4 flixel_texture2DCustom(sampler2D bitmap, vec2 coord) {
 			vec4 color = flixel_texture2D(bitmap, coord);

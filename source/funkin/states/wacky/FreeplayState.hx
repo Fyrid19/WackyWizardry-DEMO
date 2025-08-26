@@ -1,5 +1,8 @@
 package funkin.states.wacky;
 
+import haxe.Json;
+import openfl.utils.Assets;
+
 import flixel.addons.display.FlxBackdrop;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.util.FlxGradient;
@@ -15,6 +18,12 @@ import funkin.states.substates.*;
 import funkin.data.*;
 import funkin.objects.*;
 
+typedef RenderData = {
+    var offset:Array<Float>;
+    var scale:Float;
+    var antialiasing:Bool;
+}
+
 class FreeplayState extends MusicBeatState {
 	public static var curSelected:Int = 0;
 
@@ -25,6 +34,8 @@ class FreeplayState extends MusicBeatState {
     public var songBG:FlxSprite;
     public var gradient:FlxSprite;
     public var divider:FlxSprite;
+
+    public var renderData:RenderData;
     public var charRender:FlxSprite;
 
     public var barUp:FlxBackdrop;
@@ -43,6 +54,7 @@ class FreeplayState extends MusicBeatState {
 	public var intendedColor:Int;
 
     public var charRenderX:Float = 0;
+    public var charRenderHeight:Float = 0;
 
     override function create() {
 		FunkinAssets.cache.clearStoredMemory();
@@ -148,19 +160,22 @@ class FreeplayState extends MusicBeatState {
 
         divider = new FlxSprite().loadGraphic(Paths.image('freeplay/divider'));
         divider.setGraphicSize(0, Std.int(songBG.height * 1.15));
+        divider.updateHitbox();
         divider.antialiasing = ClientPrefs.globalAntialiasing;
         divider.angle = songBG.angle;
-        divider.x = songBG.x - 30;
+        divider.x = songBG.x - 70;
         divider.x += songBG.width;
-        divider.y = songBG.y + 290;
+        divider.y = songBG.y + 20;
         add(divider);
 
-        charRenderX = songBG.x;
+        charRenderX = songBG.x + 340;
+        charRenderHeight = Std.int(songBG.height * 0.85);
         charRender = new FlxSprite().loadGraphic(Paths.image('freeplay/renders/placeholder'));
-        charRender.setGraphicSize(Std.int(charRender.width * 0.85));
+        charRender.setGraphicSize(0, Std.int(songBG.height * 0.85));
+        charRender.updateHitbox();
         charRender.antialiasing = ClientPrefs.globalAntialiasing;
         charRender.angle = songBG.angle - 3;
-        charRender.x = charRenderX;
+        charRender.x = charRenderX - charRender.width/2;
         charRender.y = songBG.y - 20;
         add(charRender);
 			
@@ -348,12 +363,26 @@ class FreeplayState extends MusicBeatState {
         var graphic = Paths.image('freeplay/backgrounds/' + songs[curSelected].songName.replace(' ', '-'));
         songBG.loadGraphic(graphic ?? Paths.image('freeplay/backgrounds/placeholder'));
 
-        var graphic2 = Paths.image('freeplay/renders/' + songs[curSelected].songCharacter.replace(' ', '-'));
+        var charPath = 'freeplay/renders/' + songs[curSelected].songCharacter.replace(' ', '-');
+        var graphic2 = Paths.image(charPath);
         charRender.loadGraphic(graphic2 ?? Paths.image('freeplay/renders/placeholder'));
 
-        charRender.x = charRenderX - 30;
+        if (Paths.fileExists('images/$charPath.json', TEXT)) {
+            renderData = Json.parse(Paths.getTextFromFile('images/$charPath.json'));
+            charRender.offset.set(renderData.offset[0] ?? 0, renderData.offset[1] ?? 0);
+            charRender.setGraphicSize(0, Std.int(charRenderHeight * (renderData.scale ?? 1)));
+            charRender.antialiasing = renderData.antialiasing ?? ClientPrefs.globalAntialiasing;
+            trace(renderData);
+        } else {
+            charRender.offset.set(0, 0);
+            charRender.setGraphicSize(0, Std.int(charRenderHeight));
+            charRender.antialiasing = ClientPrefs.globalAntialiasing;
+            trace('dont');
+        }
+
+        charRender.x = charRenderX - charRender.width/2 - 30;
         FlxTween.cancelTweensOf(charRender, ['x']);
-		FlxTween.tween(charRender, {x: charRenderX}, 0.5, {ease: FlxEase.circOut});
+		FlxTween.tween(charRender, {x: charRenderX - charRender.width/2}, 0.5, {ease: FlxEase.circOut});
         
         Mods.currentModDirectory = songs[curSelected].folder;
         PlayState.storyWeek = songs[curSelected].week;

@@ -1,0 +1,42 @@
+- FYRIDEV DEVLOG (hah funny get it yeah get it GET IT) -
+
+7/7/2025
+ - Quantized notes work properly
+ - In turn the noteskin editor is broken but ill probably fix it when i have time
+ - Notes are in the assets folder rather than the content folder but they 
+   still exist there as well (remove em if you want i probably will later)
+ - generally not much it was just a bunch of stuff that was a pain to code
+ - oh also alakazam chart was just updated to actually apply the noteskin
+
+7/10/2025
+ - HUD is almost fully implemented (i just need to do ratings)
+ - Charted Break In (meant to edit it a bit before i sent it but i dont feel like it)
+ - not much else of note really, hope to start on dialogue soon
+
+7/16/2025
+ - Fully finished the HUD (with nice transitions and a satisfying icon bop (imo anyway))
+ - Updated Break In
+ - will start on either dialogue or freeplay soon since im making the logos
+
+7/24/2025
+ - Updated the time bar to be more accurate
+ - Freeplay has been started on and is mostly functional
+ - these changes are big but theres not much to note honestly
+ - will start on dialogue after freeplay (or i could now and multitask or whatever)
+
+8/4/2025
+ - Starting on implementing dialogue
+ - Freeplay is basically finished
+ - Added storyboard cutscene for Alakazam
+ - thats it i think ill finish the dialogue now
+
+8/24/2025 - 8/25/2025
+ - After basically an entire month, the dialogue is (mostly) functional! (hurrah)
+ - Summoning is like almost done, just needs sprites and events (and a modchart)
+ - DO NOT play Alakazam in story mode it crashes trying to load the dialogue box
+ - Freeplay is more polished & softcoded some stuff
+ - Added app icon
+ - Possibly a lot more i could be forgetting
+ - oh yeah i finally removed the red dde notes in the assets because they have no reason to exist
+ - Modcharts and events are now my main priority, will be shifting my focus as i 
+   finish up the dialogue
