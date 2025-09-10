@@ -21,17 +21,25 @@ class SkewModifier extends NoteModifier
 	
 	function getSkew(sprite:Dynamic, skew:FlxPoint, data:Int, player:Int)
 	{
+		var x = skew.x;
 		var y = skew.y;
 		skew.x *= 1 - getValue(player);
 		skew.y *= 1 - getValue(player);
-		var angle = 1;
+		var skewX = getSubmodValue("skewX", player) + getSubmodValue('skew${data}X', player);
+		var skewY = getSubmodValue("skewY", player) + getSubmodValue('skew${data}Y', player);
+		
+		skew.x *= 1 - skewX;
+		skew.y *= 1 - skewY;
+		var angle = 0;
 		
 		skew.x *= (Math.sin(angle * Math.PI / 180)) + (Math.cos(angle * Math.PI / 180));
-		skew.x *= (Math.sin(angle * Math.PI / 180)) + (Math.cos(angle * Math.PI / 180));
-		
 		skew.y *= (Math.cos(angle * Math.PI / 180)) + (Math.sin(angle * Math.PI / 180));
-		skew.y *= (Math.cos(angle * Math.PI / 180)) + (Math.sin(angle * Math.PI / 180));
-		if ((sprite is Note) && sprite.isSustainNote) skew.y = y;
+
+		if ((sprite is Note) && sprite.isSustainNote)
+		{
+			skew.x = x;
+			skew.y = y;
+		}
 		
 		return skew;
 	}
@@ -84,6 +92,8 @@ class SkewModifier extends NoteModifier
 	override function getSubmods()
 	{
 		var subMods:Array<String> = [
+			"skewX",
+			"skewY",
 			"receptorSkewX",
 			"receptorSkewY",
 			"noteSkewX",
@@ -94,6 +104,8 @@ class SkewModifier extends NoteModifier
 		var kNum = receptors.length;
 		for (i in 0...PlayState.SONG.keys)
 		{
+			subMods.push('skew${i}X');
+			subMods.push('skew${i}Y');
 			subMods.push('receptor${i}SkewX');
 			subMods.push('receptor${i}SkewY');
 			subMods.push('note${i}SkewX');

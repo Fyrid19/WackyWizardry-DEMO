@@ -7,6 +7,8 @@ import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.addons.ui.FlxUIState;
 import flixel.addons.transition.FlxTransitionSprite.TransitionStatus;
 
+import funkin.backend.DebugDisplay;
+
 import funkin.backend.BaseTransitionState;
 import funkin.states.transitions.SwipeTransition;
 import funkin.data.*;
@@ -87,6 +89,8 @@ class MusicBeatState extends FlxUIState
 		}
 		
 		FlxTransitionableState.skipNextTransOut = false;
+
+        DebugDisplay.offset.y = 0;
 	}
 	
 	public function refreshZ(?group:FlxTypedGroup<FlxBasic>)

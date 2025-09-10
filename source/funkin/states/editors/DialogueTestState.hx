@@ -72,8 +72,6 @@ class DialogueTestState extends MusicBeatState {
         add(submitDialogue);
         add(testText);
 
-        testBox.dialogueStarted = false;
-        testBox.dialogueProgress = 0;
         testBox.beginDialogue();
 
         super.create();
@@ -81,8 +79,6 @@ class DialogueTestState extends MusicBeatState {
 
     override function update(elapsed:Float) {
         if (controls.RESET) {
-            testBox.dialogueStarted = false;
-            testBox.dialogueProgress = 0;
             testBox.beginDialogue();
         }
 

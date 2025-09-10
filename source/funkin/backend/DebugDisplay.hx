@@ -1,5 +1,7 @@
 package funkin.backend;
 
+import openfl.utils.Assets;
+
 import openfl.display.BitmapData;
 import openfl.display.Bitmap;
 import openfl.text.TextField;
@@ -18,6 +20,8 @@ class DebugDisplay extends Sprite
 	
 	var text:TextField;
 	var underlay:Bitmap;
+
+	public static var offset:FlxPoint = new FlxPoint();
 	
 	/**
 		The current frame rate, expressed using frames-per-second
@@ -31,15 +35,12 @@ class DebugDisplay extends Sprite
 	
 	@:noCompletion private var times:Array<Float>;
 	
-	public function new(x:Float = 10, y:Float = 10, color:Int = 0x000000)
+	public function new(color:Int = 0x000000)
 	{
 		super();
 		
-		this.x = x;
-		this.y = y;
-		
 		underlay = new Bitmap();
-		underlay.bitmapData = new BitmapData(1, 1, true, 0x6F000000);
+		underlay.bitmapData = new BitmapData(1, 1, true, 0x00000000);
 		addChild(underlay);
 		
 		text = new TextField();
@@ -48,7 +49,7 @@ class DebugDisplay extends Sprite
 		currentFPS = 0;
 		text.selectable = false;
 		text.mouseEnabled = false;
-		text.defaultTextFormat = new TextFormat("_sans", 14, color);
+		text.defaultTextFormat = new TextFormat(Assets.getFont("assets/fonts/comic/bolditalic.ttf").fontName, 12, color);
 		text.autoSize = LEFT;
 		text.multiline = true;
 		text.text = "FPS: ";
@@ -61,7 +62,7 @@ class DebugDisplay extends Sprite
 	var deltaTimeout:Float = 0.0;
 	
 	// Event Handlers
-	private override function __enterFrame(deltaTime:Float):Void
+	private override function __enterFrame(deltaTime:Int):Void
 	{
 		final now:Float = haxe.Timer.stamp() * 1000;
 		times.push(now);
@@ -74,6 +75,11 @@ class DebugDisplay extends Sprite
 			deltaTimeout += deltaTime;
 			return;
 		}
+		
+		x = 10 + offset.x;
+		y = 2 + offset.y;
+
+		super.__enterFrame(deltaTime);
 		
 		currentFPS = times.length < FlxG.updateFramerate ? times.length : FlxG.updateFramerate;
 		updateText();
@@ -92,7 +98,7 @@ class DebugDisplay extends Sprite
 	{
 		if (!updating) return;
 		
-		text.text = 'FPS: $currentFPS • Memory: ${flixel.util.FlxStringUtil.formatBytes(memoryMegas)}';
+		text.text = 'FPS: $currentFPS \nMemory: ${flixel.util.FlxStringUtil.formatBytes(memoryMegas)}';
 		
 		text.textColor = 0xFFFFFFFF;
 		if (currentFPS < FlxG.drawFramerate * 0.5) text.textColor = 0xFFFF0000;

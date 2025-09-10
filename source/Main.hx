@@ -73,7 +73,7 @@ class Main extends Sprite
 		addChild(game);
 		
 		#if !mobile
-		fpsVar = new DebugDisplay(10, 3, 0xFFFFFF);
+		fpsVar = new DebugDisplay(0xFFFFFF);
 		addChild(fpsVar);
 		Lib.current.stage.align = "tl";
 		Lib.current.stage.scaleMode = StageScaleMode.NO_SCALE;

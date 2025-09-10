@@ -5,8 +5,8 @@ import openfl.utils.Assets;
 
 import flixel.group.FlxSpriteGroup;
 import flixel.addons.text.FlxTypeText;
-import flixel.addons.display.shapes.FlxShapeCircle;
 import flixel.input.keyboard.FlxKey;
+import flixel.util.FlxSignal;
 
 typedef DialogueCharInfo = {
     var name:String;
@@ -28,102 +28,138 @@ typedef DialogueLine = {
     var position:String;
     var emotion:String;
     var boxEmotion:String;
+    var namePlate:String;
     var line:String;
     var ?font:String;
+    var useNotes:Bool;
 }
 
-class DialogueBox extends FlxSpriteGroup {
-    public var dialogueFile:DialogueFile = null;
-    public var fallbackFile:DialogueFile = {
+class DialogueData {
+    static var fallback:DialogueFile = {
         music:  'freakyMenu',
         bg:  'menuBG',
         font:  'comic',
         dialogue:  [
             {
-                speed: 0.04,
+                speed: 0.08,
                 character: 'bf',
                 position: 'right',
                 emotion: 'neutral',
                 boxEmotion: 'regular',
-                line: 'this is the default dialogue. hi ←↓↑→',
-                font: null
-            },
-            {
-                speed: 0.04,
-                character: 'dave',
-                position: 'left',
-                emotion: 'neutral',
-                boxEmotion: 'think',
-                line: 'which means, there is no dialogue',
-                font: null
+                namePlate: 'bf',
+                line: '←—— ↓——. ↑—— →——!',
+                font: null,
+                useNotes: true
             },
             {
                 speed: 0.04,
                 character: 'bf',
-                position: 'middleRight',
-                emotion: 'blissful',
-                boxEmotion: 'intense',
-                line: 'go get some dialogue! fool.',
-                font: null
+                position: 'right',
+                emotion: 'neutral',
+                boxEmotion: 'think',
+                namePlate: 'bf',
+                line: 'hi',
+                font: null,
+                useNotes: false
             }
         ]
     };
 
-    var background:FlxSprite;
-    var nextIndicator:FlxShapeCircle;
-    var namePlate:FlxSprite;
-    var textBox:FlxTypeText;
-    var noteSymbols:FlxSpriteGroup;
-    var charGroup:FlxSpriteGroup;
-    var charMap:Map<String, DialogueCharacter> = new Map();
-    var focusedChar:String;
+    public static function getDefaultData():DialogueFile return fallback;
+    
+    public static function parse(path:String):DialogueFile {
+		#if MODS_ALLOWED
+		if (FileSystem.exists(path)) {
+			return cast Json.parse(File.getContent(path));
+		}
+		#end
+		return cast Json.parse(Assets.getText(path));
+	}
+}
+
+@:access(flixel.addons.text.FlxTypeText)
+class DialogueBox extends FlxSpriteGroup {
+    var _file:DialogueFile = null;
+    var _baseY:Float = 0;
+
+    // VARIABLES
+    public var progress:Int = 0;
+    public var curIndex:Int = 0;
+    public var lineSpeed:Float = 0.04;
+    public var bgPath:String = '';
+    
+    public var dialogueStarting:Bool = true;
+    public var dialogueEnded:Bool = false;
+
+    // used mainly for skipping dialogue stuff
+    var useNotes:Bool = false;
+    var lineString:String = ''; 
 
     var defaultFont = Paths.font('comic/normal.ttf');
 
-    public var lineSpeed:Float = 0.03;
-    public var dialogueStarted:Bool = false;
-    public var dialogueProgress:Int = 0;
-    
-    public var startY:Float;
+    // SPRITES
+    var box:FlxSprite;
+    var background:FlxSprite;
+    var nextIndicator:FlxSprite;
+    var namePlate:FlxSprite;
+    var textBox:FlxTypeText;
+    var textBoxNote:NoteAlphabet;
+    var charGroup:FlxSpriteGroup;
+    var charMap:Map<String, DialogueCharacter> = new Map();
+    // var focusedChar:String;
 
-    public var completeCallback:Void->Void;
-    public var nextCallback:Void->Void;
-    public var skipCallback:Void->Void;
-    public var finishCallback:Void->Void;
-
-    // keys
-    public var skipKeys:Array<FlxKey> = [FlxKey.ESCAPE];
-    public var progressKeys:Array<FlxKey> = [FlxKey.SPACE, FlxKey.ENTER];
-
-    // debug stuff
+    // DEBUG
     var progressTxt:FlxText;
+
+    // CALLBACKS
+    public var completeLineCallback:Void->Void;
+    public var nextLineCallback:Void->Void;
+    public var skipLineCallback:Void->Void;
+
+    public var startDialogueCallback:Void->Void;
+    public var finishDialogueCallback:Void->Void;
+
+    // SIGNALS (unused for now)
+    public static var onCompleteLine:FlxSignal = new FlxSignal();
+    public static var onNextLine:FlxSignal = new FlxSignal();
+    public static var onSkipLine:FlxSignal = new FlxSignal();
+
+    public static var onStartDialogue:FlxSignal = new FlxSignal();
+    public static var onFinishDialogue:FlxSignal = new FlxSignal();
+
+    // KEYS
+    public var progressKeys:Array<FlxKey> = [FlxKey.ENTER];
 
     public function new(?dialogue:DialogueFile) {
         super();
 
-        dialogueFile = dialogue ?? fallbackFile;
+        _file = dialogue ?? DialogueData.getDefaultData();
+
+        bgPath = _file.bg ?? '';
 
         charGroup = new FlxSpriteGroup();
         add(charGroup);
 
-        background = new FlxSprite(x, y);
-        background.frames = Paths.getSparrowAtlas('dialogue/boxes/default');
-        background.animation.addByPrefix('regular', 'regular_box', 24, true);
-        background.animation.addByPrefix('intense', 'intense_box', 24, true);
-        background.animation.addByPrefix('think', 'think_box', 24, true);
-        background.animation.play('regular', true);
-        background.antialiasing = ClientPrefs.globalAntialiasing;
-        add(background);
+        box = new FlxSprite(x, y);
+        box.frames = Paths.getSparrowAtlas('dialogue/boxes/default');
+        box.animation.addByPrefix('regular', 'regular_box', 24, true);
+        box.animation.addByPrefix('intense', 'intense_box', 24, true);
+        box.animation.addByPrefix('think', 'think_box', 24, true);
+        box.animation.play('regular', true);
+        box.antialiasing = ClientPrefs.globalAntialiasing;
+        add(box);
 
-        textBox = new FlxTypeText(x + 40, y + 160, FlxG.width - 80, '', 24);
+        textBox = new FlxTypeText(x + 70, y + 160, FlxG.width - 100, '', 24);
         textBox.setFormat(defaultFont, 24, FlxColor.BLACK, LEFT, OUTLINE, FlxColor.WHITE);
         add(textBox);
 
+        textBoxNote = new NoteAlphabet(x + 60, y + 140, 0.5);
+        add(textBoxNote);
+
         namePlate = new FlxSprite();
         namePlate.antialiasing = ClientPrefs.globalAntialiasing;
-        add(textBox);
-
-        textBox.completeCallback = () -> { onComplete(); };
+        namePlate.visible = false;
+        add(namePlate);
 
 		// nextIndicator = new FlxShapeCircle(FlxG.width - 100, FlxG.height - 100, 40, null, FlxColor.BLACK);
         // nextIndicator.visible = false;
@@ -131,106 +167,56 @@ class DialogueBox extends FlxSpriteGroup {
 
         progressTxt = new FlxText(x, y, FlxG.width, '', 36);
         progressTxt.setFormat(defaultFont, 36, FlxColor.BLACK, LEFT, OUTLINE, FlxColor.WHITE);
+        progressTxt.visible = false;
         add(progressTxt);
 
-        y = startY = FlxG.height - background.height;
-        alpha = 0;
+        y = _baseY = FlxG.height - box.height;
+        // alpha = 0;
     }
 
     var oldLength:Int = 0;
     override function update(elapsed:Float) {
-        var curLine = dialogueFile.dialogue[dialogueProgress];
+        var curLine:DialogueLine = getCurrentLineData();
         var focusedChar:DialogueCharacter = charMap[curLine.character];
+        
+        if (textBoxNote != null) textBoxNote.delay = textBox.delay;
+
+        // var splitWords:Array<String> = curLine.line.split("");
         if (textBox.text.length > oldLength) {
-            switch (textBox.text.charAt(textBox.text.length - 1)) {
-                case '.' | '!' | '?':
-                    textBox.delay = lineSpeed * 10;
+            switch (textBox.text.charAt(oldLength)) {
+                case '.' | '!' | '?' | ':':
+                    textBox.delay = lineSpeed * 8;
                     if (focusedChar != null) focusedChar.talking = 0;
                 case ',':
-                    textBox.delay = lineSpeed * 5;
+                    textBox.delay = lineSpeed * 4;
                     if (focusedChar != null) focusedChar.talking = 0;
                 default:
                     textBox.delay = lineSpeed;
-            }
-
-            if (focusedChar != null) {
-                focusedChar.talking = 2;
-                focusedChar.speak();
+                    focusedChar.talking = 2;
+                    if (textBox.text.charAt(oldLength) != ' ') // experimenting, could remove
+                        focusedChar.speak();
             }
             
             oldLength = textBox.text.length;
         }
 
-        if (textBox.text.charAt(textBox.text.length - 1) == '←') trace('left');
+        if (textBox.text == textBox._finalText && focusedChar != null) focusedChar.talking = 0;
 
-        if (textBox.text == curLine.line) focusedChar.talking = 0;
-
-        progressTxt.text = 'line: $dialogueProgress';
-
-        if (skipKeys != null && skipKeys.length > 0 && FlxG.keys.anyJustPressed(skipKeys)) {
-            textBox.skip();
-            endDialogue(finishCallback);
-        }
-
-        if (progressKeys != null && progressKeys.length > 0 && FlxG.keys.anyJustPressed(progressKeys)) {
-            if (textBox.text != curLine.line) {
-                textBox.skip();
-                if (skipCallback != null) skipCallback();
-            } else {
-                progressDialogue(finishCallback);
-                if (nextCallback != null) nextCallback();
+        if (!dialogueEnded && !dialogueStarting) {
+            if (progressKeys != null && progressKeys.length > 0 && FlxG.keys.anyJustPressed(progressKeys)) {
+                if (textBox.text == textBox._finalText) {
+                    if (progress >= _file.dialogue.length) endDialogue();
+                    else progressDialogue();
+                } else {
+                    skipLine();
+                }
             }
-		}
-
-        // nextIndicator.visible = textBox.text == curLine.line;
-
+        }
+        
         super.update(elapsed);
     }
 
-    public function changeEmotion(emotion:String) {
-        if (background.animation.exists(emotion)) background.animation.play(emotion, true);
-    }
-
-    public function onComplete() {
-        if (completeCallback != null) completeCallback(); // theres probably a better way to do this but im fucking tired man
-    }
-
-    public function beginDialogue() {
-        alpha = 0;
-        y = startY + 50;
-
-        FlxTween.tween(this, {y: startY, alpha: 1}, 0.5, {ease: FlxEase.quadOut, onComplete: function(t) {
-            changeLine(dialogueFile.dialogue[0]);
-            dialogueStarted = true;
-            dialogueProgress = 0;
-        }});
-    }
-
-    public function progressDialogue(?endCallback:Void->Void) {
-        dialogueProgress += 1;
-        if (dialogueFile.dialogue[dialogueProgress] != null) changeLine(dialogueFile.dialogue[dialogueProgress]);
-        else endDialogue(endCallback);
-    }
-
-    public function changeLine(line:DialogueLine) {
-        background.flipX = switch(line.position) {
-            case 'right' | 'middleRight': false;
-            case 'left' | 'middleLeft': true;
-            default: false;
-        }
-
-        namePlate.loadGraphic(Paths.image('dialogue/plates/' + line.character + '_title'));
-        namePlate.y = (background.y - namePlate.height/2) + 150;
-        namePlate.x = background.flipX ? 20 : FlxG.width - namePlate.width - 20;
-
-        addCharacter(line.character, line.position, line.emotion);
-
-        changeEmotion(line.boxEmotion);
-        typeText(line.line, line.speed);
-    }
-
     public function addCharacter(charName:String, position:String = 'left', emotion:String = 'neutral') {
-        for (char in charMap) char.switchFocus(false);
         if (!charMap.exists(charName)) {
             var newChar:DialogueCharacter = new DialogueCharacter(charName, position, emotion);
             newChar.loadCharAtlas();
@@ -240,35 +226,110 @@ class DialogueBox extends FlxSpriteGroup {
         } else {
             charMap.get(charName).changeEmotion(emotion);
             charMap.get(charName).switchPosition(position);
-            charMap.get(charName).switchFocus(true);
         }
     }
 
-    public function skipDialogue() {
-        textBox.skip();
-    }
-
-    public function endDialogue(?callback:Void->Void) {
-        dialogueProgress = 0;
-        dialogueStarted = false;
-		FlxTween.tween(this, {y: y + 50, alpha: 0}, 0.5, {ease: FlxEase.quadOut});
-        if (callback != null) callback();
-    }
-
-    public function typeText(?newText:String = 'Hello world!', ?speed:Float = 0.08) {
-        trace(newText + ' (speed: $speed)');
+    public function typeText(text:String, speed:Float) {
         lineSpeed = speed;
-        textBox.resetText(newText);
-        textBox.start(speed);
+        textBox.resetText(text);
+        textBox.start(speed, true);
         oldLength = 0;
     }
 
-    public static function parse(path:String):DialogueFile {
-		#if MODS_ALLOWED
-		if (FileSystem.exists(path)) {
-			return cast Json.parse(File.getContent(path));
-		}
-		#end
-		return cast Json.parse(Assets.getText(path));
-	}
+    public function typeNoteText(text:String, speed:Float) {
+        textBoxNote.changeText(text);
+        textBoxNote.startTypedText(speed);
+    }
+
+    public function beginDialogue() {
+        alpha = 0;
+        y = _baseY + 50;
+        progress = 0;
+        namePlate.visible = false;
+
+        dialogueEnded = false;
+        dialogueStarting = true;
+
+        FlxG.sound.playMusic(Paths.music(_file.music ?? 'freakyMenu'), 0, false);
+		FlxG.sound.music.fadeIn();
+
+        FlxTween.tween(this, {y: _baseY, alpha: 1}, 0.5, {ease: FlxEase.quadOut});
+
+        new FlxTimer().start(0.5, (tmr:FlxTimer) -> {
+            progressDialogue();
+            namePlate.visible = true;
+            dialogueStarting = false;
+        });
+    }
+
+    function endDialogue() {
+        dialogueEnded = true;
+        FlxTween.tween(this, {y: _baseY + 50, alpha: 0}, 0.5, {ease: FlxEase.quadOut});
+        FlxG.sound.music.fadeOut(0.5, 0);
+        if (finishDialogueCallback != null) finishDialogueCallback();
+    }
+
+    function progressDialogue() {
+        var curLine:DialogueLine = getCurrentLineData();
+        trace(curLine.line + ' (speed: ${curLine.speed})');
+
+        box.flipX = switch(curLine.position) {
+            case 'right' | 'middleRight': false;
+            case 'left' | 'middleLeft': true;
+            default: false;
+        }
+
+        box.animation.play(curLine.boxEmotion ?? 'regular');
+
+        namePlate.loadGraphic(Paths.image('dialogue/plates/' + curLine.namePlate + '_title'));
+        namePlate.y = (box.y - namePlate.height/2) + 90;
+        namePlate.x = box.flipX ? 80 : FlxG.width - namePlate.width - 80;
+
+        addCharacter(curLine.character, curLine.position, curLine.emotion);
+
+        for (char in charMap) {
+            char.switchFocus(char.character == curLine.character);
+        }
+
+        textBox.visible = !curLine.useNotes;
+        textBoxNote.clearText();
+
+        var line:String = curLine.line ?? ' ';
+        var speed:Float = curLine.speed ?? 0.04;
+        typeText(line, speed);
+        if (curLine.useNotes) typeNoteText(line, speed);
+        useNotes = curLine.useNotes;
+        lineString = line;
+
+        progress++;
+
+        if (nextLineCallback != null) nextLineCallback();
+    }
+
+    function skipLine() {
+        textBox.skip();
+        if (useNotes) textBoxNote.quickReplace(lineString);
+        if (skipLineCallback != null) skipLineCallback();
+    }
+
+    function getCurrentLineData():DialogueLine {
+        var lineToReturn:DialogueLine = {
+            speed: 0.04,
+            character: 'bf',
+            position: 'left',
+            emotion: 'neutral',
+            boxEmotion: 'regular',
+            namePlate: 'bf',
+            line: ' ',
+            font: null,
+            useNotes: false
+        };
+
+        if (_file != null)
+        if (_file.dialogue != null)
+        if (_file.dialogue[progress] != null)
+        lineToReturn = _file.dialogue[progress];
+
+        return lineToReturn;
+    }
 }

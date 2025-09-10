@@ -104,7 +104,7 @@ class DialogueCharacter extends AnimateSprite {
 
 		var realPos:Float = 0;
 
-		if (hasFocus) {
+		if (!hasFocus) {
 			color = 0xAFAFAF;
 			realPos = switch(position) {
 				case 'left':
@@ -163,6 +163,9 @@ class DialogueCharacter extends AnimateSprite {
 		}
 	}
 
+	// this just assumes every animation has sound data and 
+	// it makes it run EVERY TIME, im sure thats probably 
+	// not good so ill get it fixed after the first release - kay
 	public function reloadSounds() {
 		sounds = [];
 		var animSounds:DialogueSoundData = animSoundData.get(emotion) ?? jsonFile.sound;
@@ -170,7 +173,7 @@ class DialogueCharacter extends AnimateSprite {
 			var newSound:FlxSound = new FlxSound();
 			newSound.loadEmbedded(Paths.sound('dialogue/' + animSounds.prefix + sound));
 			sounds.push(newSound);
-			trace('sound added: $sound ($character)');
+			// trace('sound added: $sound ($character)');
 		}
 	}
 

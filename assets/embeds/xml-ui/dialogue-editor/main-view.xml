@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vbox width="100%" height="100%">
+    <menubar id="menuBar" width="100%" paddingLeft="200">
+        <style>
+            .menu {
+            width: 160px;
+            }
+        </style>
+
+	    <import source="style.xml" />
+
+        <menu text="File">
+            <menuitem id="fileNewMenuItem" text="New File" shortcutText="Ctrl+N" />
+            <menu-separator />
+            <menuitem id="fileOpenMenuItem" text="Open File" shortcutText="Ctrl+O" />
+            <menu-separator />
+            <menuitem id="fileSaveMenuItem" text="Save File" shortcutText="Ctrl+S" />
+            <menuitem id="fileSaveAsMenuItem" text="Save File As" shortcutText="Ctrl+Shift+S" />
+        </menu>
+        <menu text="Edit">
+            <menuitem id="editDialogueDataMenuItem" text="Edit Data" shortcutText="Ctrl+E" />
+            <menu-check-box id="hideUiMenuItem" text="Hide UI" shortcutText="Alt+H" />
+            <menu-check-box id="autoSaveMenuItem" text="Autosave" shortcutText="Ctrl+Alt+S" />
+        </menu>
+        <menu text="Window">
+            <menuitem id="dialogueWindowMenuItem" text="Dialogue Window" shortcutText="Ctrl+G" />
+            <menuitem id="helpWindowMenuItem" text="Help Window" shortcutText="Ctrl+H" />
+        </menu>
+    </menubar>
+</vbox>

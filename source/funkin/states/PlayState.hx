@@ -731,7 +731,7 @@ class PlayState extends MusicBeatState
 		var file:String = Paths.getPath('data/dialogue/dialogue/' + songName); // Checks for DDE dialogue
 		if (OpenFlAssets.exists(file))
 		{
-			coolestDialogueEver = SuperDialogueBox.parse(file);
+			coolestDialogueEver = funkin.objects.dialogue.DialogueBox.DialogueData.parse(file);
 		}
 		
 		var file:String = Paths.json(songName + '/dialogue'); // Checks for json/Psych Engine dialogue
@@ -1231,20 +1231,20 @@ class PlayState extends MusicBeatState
 			ddeDialogue.scrollFactor.set();
 			if (endingSong)
 			{
-				ddeDialogue.finishCallback = function() {
+				ddeDialogue.finishDialogueCallback = function() {
 					ddeDialogue = null;
 					endSong();
 				}
 			}
 			else
 			{
-				ddeDialogue.finishCallback = function() {
+				ddeDialogue.finishDialogueCallback = function() {
 					ddeDialogue = null;
 					startCountdown();
 				}
 			}
-			ddeDialogue.nextCallback = startNextDialogue;
-			ddeDialogue.skipCallback = skipDialogue;
+			ddeDialogue.nextLineCallback = startNextDialogue;
+			ddeDialogue.skipLineCallback = skipDialogue;
 			ddeDialogue.cameras = [camHUD];
 			add(ddeDialogue);
 			

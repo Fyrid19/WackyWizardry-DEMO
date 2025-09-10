@@ -123,7 +123,7 @@ class MasterEditorMenu extends MusicBeatState
 				case 'Note Skin Editor (unfinished)':
 					CoolUtil.loadAndSwitchState(() -> new NoteSkinEditor('default'), false);
 				case 'Dialogue Testing':
-					FlxG.switchState(() -> new DialogueTestState());
+					FlxG.switchState(DialogueTestState.new);
 			}
 			FlxG.sound.music.volume = 0;
 			#if PRELOAD_ALL
