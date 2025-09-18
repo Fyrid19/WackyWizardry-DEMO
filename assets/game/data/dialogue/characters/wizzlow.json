@@ -1,0 +1,449 @@
+{
+    "image": "placeholder",
+	"fps": 24,
+	"no_antialiasing": false,
+	"defaultPos": "left",
+    "neutralAnim": "neutral",
+    "animations": [
+        {
+            "name": "pondering",
+            "anim": "pondering",
+            "blinkRates": [
+                0.7,
+                1.3
+            ],
+            "fps": -1,
+            "looped": false,
+            "offset": [
+                14,
+                -16
+            ],
+            "sound": null,
+            "unblinkRates": [
+                0.05,
+                0.1
+            ]
+        },
+        {
+            "name": "challenging",
+            "anim": "challenging",
+            "blinkRates": [
+                0.7,
+                1.3
+            ],
+            "fps": -1,
+            "looped": false,
+            "offset": [
+                189,
+                10
+            ],
+            "sound": null,
+            "unblinkRates": [
+                0.05,
+                0.1
+            ]
+        },
+        {
+            "name": "lookback_arms",
+            "anim": "lookback_arms",
+            "blinkRates": [
+                0.7,
+                1.3
+            ],
+            "fps": -1,
+            "looped": false,
+            "offset": [
+                204,
+                18
+            ],
+            "sound": null,
+            "unblinkRates": [
+                0.05,
+                0.1
+            ]
+        },
+        {
+            "name": "curious_questioning",
+            "anim": "curious_questioning",
+            "blinkRates": [
+                0.7,
+                1.3
+            ],
+            "fps": -1,
+            "looped": false,
+            "offset": [
+                0,
+                5
+            ],
+            "sound": null,
+            "unblinkRates": [
+                0.05,
+                0.1
+            ]
+        },
+        {
+            "name": "hopeful",
+            "anim": "hopeful",
+            "blinkRates": [
+                0.7,
+                1.3
+            ],
+            "fps": -1,
+            "looped": false,
+            "offset": [
+                0,
+                -15
+            ],
+            "sound": null,
+            "unblinkRates": [
+                0.05,
+                0.1
+            ]
+        },
+        {
+            "name": "nervous_dig_arms",
+            "anim": "nervous_dig_arms",
+            "blinkRates": [
+                0.7,
+                1.3
+            ],
+            "fps": -1,
+            "looped": false,
+            "offset": [
+                233,
+                21
+            ],
+            "sound": null,
+            "unblinkRates": [
+                0.05,
+                0.1
+            ]
+        },
+        {
+            "name": "lecturing_whiteboard",
+            "anim": "lecturing_whiteboard",
+            "blinkRates": [
+                0.7,
+                1.3
+            ],
+            "fps": -1,
+            "looped": false,
+            "offset": [
+                287,
+                22
+            ],
+            "sound": null,
+            "unblinkRates": [
+                0.05,
+                0.1
+            ]
+        },
+        {
+            "name": "horrified_arms",
+            "anim": "horrified_arms",
+            "blinkRates": [
+                0.7,
+                1.3
+            ],
+            "fps": -1,
+            "looped": false,
+            "offset": [
+                317,
+                28
+            ],
+            "sound": null,
+            "unblinkRates": [
+                0.05,
+                0.1
+            ]
+        },
+        {
+            "name": "disappointed",
+            "anim": "disappointed",
+            "blinkRates": [
+                0.7,
+                1.3
+            ],
+            "fps": -1,
+            "looped": false,
+            "offset": [
+                69,
+                -61
+            ],
+            "sound": null,
+            "unblinkRates": [
+                0.05,
+                0.1
+            ]
+        },
+        {
+            "name": "nervous",
+            "anim": "nervous",
+            "blinkRates": [
+                0.7,
+                1.3
+            ],
+            "fps": -1,
+            "looped": false,
+            "offset": [
+                296,
+                12
+            ],
+            "sound": null,
+            "unblinkRates": [
+                0.05,
+                0.1
+            ]
+        },
+        {
+            "name": "horrified",
+            "anim": "horrified",
+            "blinkRates": [
+                0.7,
+                1.3
+            ],
+            "fps": -1,
+            "looped": false,
+            "offset": [
+                86,
+                -5
+            ],
+            "sound": null,
+            "unblinkRates": [
+                0.05,
+                0.1
+            ]
+        },
+        {
+            "name": "consoling",
+            "anim": "consoling",
+            "blinkRates": [
+                0.7,
+                1.3
+            ],
+            "fps": -1,
+            "looped": false,
+            "offset": [
+                278,
+                -51
+            ],
+            "sound": null,
+            "unblinkRates": [
+                0.05,
+                0.1
+            ]
+        },
+        {
+            "name": "nervous_dig",
+            "anim": "nervous_dig",
+            "blinkRates": [
+                0.7,
+                1.3
+            ],
+            "fps": -1,
+            "looped": false,
+            "offset": [
+                54,
+                -22
+            ],
+            "sound": null,
+            "unblinkRates": [
+                0.05,
+                0.1
+            ]
+        },
+        {
+            "name": "smiling",
+            "anim": "smiling",
+            "blinkRates": [
+                0.7,
+                1.3
+            ],
+            "fps": -1,
+            "looped": false,
+            "offset": [
+                54,
+                1
+            ],
+            "sound": null,
+            "unblinkRates": [
+                0.05,
+                0.1
+            ]
+        },
+        {
+            "name": "lookback",
+            "anim": "lookback",
+            "blinkRates": [
+                0.7,
+                1.3
+            ],
+            "fps": -1,
+            "looped": false,
+            "offset": [
+                62,
+                5
+            ],
+            "sound": null,
+            "unblinkRates": [
+                0.05,
+                0.1
+            ]
+        },
+        {
+            "name": "neutral",
+            "anim": "neutral",
+            "blinkRates": [
+                0.7,
+                1.3
+            ],
+            "fps": -1,
+            "looped": false,
+            "offset": [
+                0,
+                0
+            ],
+            "sound": null,
+            "unblinkRates": [
+                0.05,
+                0.1
+            ]
+        },
+        {
+            "name": "cowering",
+            "anim": "cowering",
+            "blinkRates": [
+                0.7,
+                1.3
+            ],
+            "fps": -1,
+            "looped": false,
+            "offset": [
+                173,
+                -98
+            ],
+            "sound": null,
+            "unblinkRates": [
+                0.05,
+                0.1
+            ]
+        },
+        {
+            "name": "lecturing",
+            "anim": "lecturing",
+            "blinkRates": [
+                0.7,
+                1.3
+            ],
+            "fps": -1,
+            "looped": false,
+            "offset": [
+                219,
+                25
+            ],
+            "sound": null,
+            "unblinkRates": [
+                0.05,
+                0.1
+            ]
+        },
+        {
+            "name": "suprised",
+            "anim": "suprised",
+            "blinkRates": [
+                0.7,
+                1.3
+            ],
+            "fps": -1,
+            "looped": false,
+            "offset": [
+                142,
+                7
+            ],
+            "sound": null,
+            "unblinkRates": [
+                0.05,
+                0.1
+            ]
+        },
+        {
+            "name": "freaking_out",
+            "anim": "freaking_out",
+            "blinkRates": [
+                0.7,
+                1.3
+            ],
+            "fps": -1,
+            "looped": false,
+            "offset": [
+                192,
+                -54
+            ],
+            "sound": null,
+            "unblinkRates": [
+                0.05,
+                0.1
+            ]
+        },
+        {
+            "name": "frightened",
+            "anim": "frightened",
+            "blinkRates": [
+                0.7,
+                1.3
+            ],
+            "fps": -1,
+            "looped": false,
+            "offset": [
+                160,
+                80
+            ],
+            "sound": null,
+            "unblinkRates": [
+                0.05,
+                0.1
+            ]
+        },
+        {
+            "name": "consoling_frown",
+            "anim": "consoling_frown",
+            "blinkRates": [
+                0.7,
+                1.3
+            ],
+            "fps": -1,
+            "looped": false,
+            "offset": [
+                278,
+                -52
+            ],
+            "sound": null,
+            "unblinkRates": [
+                0.05,
+                0.1
+            ]
+        }
+    ],
+	"sound": {
+        "sounds": [
+            "aa",
+            "ee",
+            "eh",
+            "oo"
+        ],
+        "pitch": [
+            0,
+            0
+        ],
+        "prefix": "dave/dave_"
+    },
+	"origin": [
+        172,
+        549
+    ],
+	"offset": [
+        0,
+        -200
+    ],
+	"scale": 0.94
+}

@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<TextureAtlas imagePath="Mikey New.png">
+<SubTexture name="Mikey New I0000" x="0" y="917" width="251" height="285" frameX="-91" frameY="-69" frameWidth="372" frameHeight="364" />
+<SubTexture name="Mikey New I0001" x="481" y="618" width="247" height="293" frameX="-91" frameY="-49" frameWidth="372" frameHeight="364" />
+<SubTexture name="Mikey New I0002" x="728" y="618" width="225" height="293" frameX="-94" frameY="-42" frameWidth="372" frameHeight="364" />
+<SubTexture name="Mikey New I0003" x="608" y="0" width="225" height="302" frameX="-94" frameY="-32" frameWidth="372" frameHeight="364" />
+<SubTexture name="Mikey New I0004" x="608" y="0" width="225" height="302" frameX="-94" frameY="-32" frameWidth="372" frameHeight="364" />
+<SubTexture name="Mikey New I0005" x="608" y="0" width="225" height="302" frameX="-94" frameY="-32" frameWidth="372" frameHeight="364" />
+<SubTexture name="Mikey New L0000" x="833" y="300" width="249" height="299" frameX="-64" frameY="-39" frameWidth="405" frameHeight="372" />
+<SubTexture name="Mikey New L0001" x="588" y="318" width="240" height="299" frameX="-76" frameY="-39" frameWidth="405" frameHeight="372" />
+<SubTexture name="Mikey New L0002" x="267" y="618" width="214" height="298" frameX="-108" frameY="-41" frameWidth="405" frameHeight="372" />
+<SubTexture name="Mikey New L0003" x="267" y="618" width="214" height="298" frameX="-108" frameY="-41" frameWidth="405" frameHeight="372" />
+<SubTexture name="Mikey New D0000" x="1128" y="556" width="195" height="263" frameX="-77" frameY="-80" frameWidth="352" frameHeight="345" />
+<SubTexture name="Mikey New D0001" x="1128" y="287" width="195" height="269" frameX="-77" frameY="-74" frameWidth="352" frameHeight="345" />
+<SubTexture name="Mikey New D0002" x="1128" y="0" width="195" height="287" frameX="-77" frameY="-43" frameWidth="352" frameHeight="345" />
+<SubTexture name="Mikey New D0003" x="1128" y="0" width="195" height="287" frameX="-77" frameY="-43" frameWidth="352" frameHeight="345" />
+<SubTexture name="Mikey New U0000" x="0" y="0" width="304" height="318" frameX="-47" frameY="-31" frameWidth="356" frameHeight="377" />
+<SubTexture name="Mikey New U0001" x="304" y="0" width="304" height="312" frameX="-47" frameY="-37" frameWidth="356" frameHeight="377" />
+<SubTexture name="Mikey New U0002" x="0" y="318" width="287" height="300" frameX="-56" frameY="-59" frameWidth="356" frameHeight="377" />
+<SubTexture name="Mikey New U0003" x="0" y="318" width="287" height="300" frameX="-56" frameY="-59" frameWidth="356" frameHeight="377" />
+<SubTexture name="Mikey New R0000" x="287" y="318" width="301" height="300" frameX="-24" frameY="-46" frameWidth="349" frameHeight="373" />
+<SubTexture name="Mikey New R0001" x="833" y="0" width="295" height="300" frameX="-24" frameY="-46" frameWidth="349" frameHeight="373" />
+<SubTexture name="Mikey New R0002" x="0" y="618" width="267" height="299" frameX="-24" frameY="-47" frameWidth="349" frameHeight="373" />
+<SubTexture name="Mikey New R0003" x="0" y="618" width="267" height="299" frameX="-24" frameY="-47" frameWidth="349" frameHeight="373" />
+</TextureAtlas>

@@ -54,7 +54,7 @@ class OutdatedState extends MusicBeatState
 				FlxTween.tween(warnText, {alpha: 0}, 1,
 					{
 						onComplete: function(twn:FlxTween) {
-							FlxG.switchState(MainMenuState.new);
+							FlxG.switchState(funkin.states.wacky.MainMenuState.new);
 						}
 					});
 			}

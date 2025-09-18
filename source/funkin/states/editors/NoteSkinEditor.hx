@@ -491,7 +491,7 @@ class NoteSkinEditor extends MusicBeatState
 			
 			if (FlxG.keys.justPressed.ESCAPE)
 			{
-				FlxG.switchState(MainMenuState.new);
+				FlxG.switchState(funkin.states.wacky.MainMenuState.new);
 			}
 			
 			if (FlxG.keys.pressed.CONTROL)

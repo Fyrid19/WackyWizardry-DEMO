@@ -365,7 +365,7 @@ class NoteOffsetState extends MusicBeatState
 			try
 			{
 				timeBar.destroy();
-				FlxG.switchState(MainMenuState.new);
+				FlxG.switchState(funkin.states.wacky.MainMenuState.new);
 			}
 			catch (e)
 			{

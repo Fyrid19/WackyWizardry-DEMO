@@ -21,11 +21,13 @@ class TransformModifier extends NoteModifier
 	override function getPos(time:Float, visualDiff:Float, timeDiff:Float, beat:Float, pos:Vector3, data:Int, player:Int, obj:FlxSprite)
 	{
 		pos.x += getValue(player) + getSubmodValue("transformX-a", player);
-		pos.y += getSubmodValue("transformY", player) + getSubmodValue("transformY-a", player);
+		if (ClientPrefs.downScroll) pos.y += getSubmodValue("transformY", player) + getSubmodValue("transformY-a", player);
+		else pos.y -= getSubmodValue("transformY", player) + getSubmodValue("transformY-a", player);
 		pos.z += getSubmodValue('transformZ', player) + getSubmodValue("transformZ-a", player);
 		
 		pos.x += getSubmodValue('transform${data}X', player) + getSubmodValue('transform${data}X-a', player);
-		pos.y += getSubmodValue('transform${data}Y', player) + getSubmodValue('transform${data}Y-a', player);
+		if (ClientPrefs.downScroll) pos.y += getSubmodValue('transform${data}Y', player) + getSubmodValue('transform${data}Y-a', player);
+		else pos.y -= getSubmodValue('transform${data}Y', player) + getSubmodValue('transform${data}Y-a', player);
 		pos.z += getSubmodValue('transform${data}Z', player) + getSubmodValue('transform${data}Z-a', player);
 		
 		return pos;

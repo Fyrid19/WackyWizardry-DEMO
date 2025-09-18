@@ -1,0 +1,78 @@
+{
+	"animations": [
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"loop": false,
+			"fps": 15,
+			"anim": "idle",
+			"indices": [],
+			"name": "Mikey New I"
+		},
+		{
+			"offsets": [
+				-43,
+				-14
+			],
+			"loop": false,
+			"fps": 15,
+			"anim": "singDOWN",
+			"indices": [],
+			"name": "Mikey New D"
+		},
+		{
+			"offsets": [
+				99,
+				10
+			],
+			"loop": false,
+			"fps": 15,
+			"anim": "singLEFT",
+			"indices": [],
+			"name": "Mikey New L"
+		},
+		{
+			"offsets": [
+				-10,
+				60
+			],
+			"loop": false,
+			"fps": 15,
+			"anim": "singUP",
+			"indices": [],
+			"name": "Mikey New U"
+		},
+		{
+			"offsets": [
+				-164,
+				23
+			],
+			"loop": false,
+			"fps": 15,
+			"anim": "singRIGHT",
+			"indices": [],
+			"name": "Mikey New R"
+		}
+	],
+	"no_antialiasing": false,
+	"image": "characters/Mikey_New",
+	"position": [
+		0,
+		0
+	],
+	"healthicon": "mikey",
+	"flip_x": false,
+	"healthbar_colors": [
+		0,
+		138,
+		0
+	],
+	"camera_position": [
+		-110,
+		-130
+	],
+	"sing_duration": 6.1,
+	"scale": 1.9
+}

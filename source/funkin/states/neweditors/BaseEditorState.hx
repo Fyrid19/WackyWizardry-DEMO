@@ -25,7 +25,7 @@ class BaseEditorState extends UIState {
         if (FlxG.keys.justPressed.ESCAPE) { // todo add an are you sure thing here, or just a callback so you can edit what it does yourself
 		    FlxG.mouse.visible = false;
             FlxG.sound.play(Paths.sound('cancelMenu'));
-            FlxG.switchState(MainMenuState.new);
+            FlxG.switchState(funkin.states.wacky.MainMenuState.new);
         }
 
         super.update(elapsed);

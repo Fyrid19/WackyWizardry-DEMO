@@ -1,0 +1,78 @@
+{
+	"animations": [
+		{
+			"loop": false,
+			"offsets": [
+				1,
+				0
+			],
+			"anim": "idle",
+			"fps": 12,
+			"name": "Andrew I",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				286,
+				-13
+			],
+			"anim": "singLEFT",
+			"fps": 12,
+			"name": "Andrew L",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				123,
+				-5
+			],
+			"anim": "singDOWN",
+			"fps": 12,
+			"name": "Andrew D",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				34,
+				-3
+			],
+			"anim": "singUP",
+			"fps": 12,
+			"name": "Andrew U",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				11,
+				-3
+			],
+			"anim": "singRIGHT",
+			"fps": 12,
+			"name": "Andrew R",
+			"indices": []
+		}
+	],
+	"no_antialiasing": false,
+	"image": "characters/Andrew",
+	"position": [
+		90,
+		-130
+	],
+	"healthicon": "andrew",
+	"flip_x": false,
+	"healthbar_colors": [
+		255,
+		255,
+		111
+	],
+	"camera_position": [
+		-30,
+		-140
+	],
+	"sing_duration": 4,
+	"scale": 1.6
+}

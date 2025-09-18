@@ -42,6 +42,7 @@ class ModManager
 			ReceptorScrollModifier,
 			SkewModifier,
 			ScaleModifier, // u cause sustains to break.
+			AngleModifier,
 			TransformModifier,
 			InfinitePathModifier,
 			AccelModifier,

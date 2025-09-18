@@ -139,10 +139,10 @@ class NoteAlphabet extends FlxSpriteGroup {
         if (sustain) newNote.scale.set(0.5, 0.7);
 
         newNote.x = x;
-        newNote.x += (lastSprite != null ? lastSprite.x + lastSprite.width - newNote.width / 2 - 15: 0);
+        newNote.x += (lastSprite != null ? lastSprite.x + lastSprite.width - newNote.width / 2 - 15 : 0);
         
         if (sustain) {
-            newNote.x -= 50;
+            newNote.x -= 60;
             // newNote.y += fixedSize/2;
         }
 
@@ -229,6 +229,8 @@ class AlphaChar extends FlxSprite {
 				// x -= 35 - (90 * (1.0 - textSize));
 				y -= 16;
             case '.':
+                y -= 25;
+            case ':':
                 y -= 25;
 		}
 	}

@@ -34,8 +34,331 @@
             "fps": -1,
             "looped": false,
             "offset": [
+                0,
+                0
+            ],
+            "sound": null,
+            "unblinkRates": [
+                0.05,
+                0.1
+            ]
+        },
+        {
+            "name": "singledout",
+            "anim": "singledout",
+            "blinkRates": [
+                0.7,
+                4
+            ],
+            "fps": -1,
+            "looped": false,
+            "offset": [
                 15,
                 10
+            ],
+            "sound": null,
+            "unblinkRates": [
+                0.05,
+                0.1
+            ]
+        },
+        {
+            "name": "challenging",
+            "anim": "challenging",
+            "blinkRates": [
+                0.7,
+                4
+            ],
+            "fps": -1,
+            "looped": false,
+            "offset": [
+                359,
+                -10
+            ],
+            "sound": null,
+            "unblinkRates": [
+                0.05,
+                0.1
+            ]
+        },
+        {
+            "name": "determined1",
+            "anim": "determined1",
+            "blinkRates": [
+                0.7,
+                4
+            ],
+            "fps": -1,
+            "looped": false,
+            "offset": [
+                71,
+                -22
+            ],
+            "sound": null,
+            "unblinkRates": [
+                0.05,
+                0.1
+            ]
+        },
+        {
+            "name": "determined2",
+            "anim": "determined2",
+            "blinkRates": [
+                0.7,
+                4
+            ],
+            "fps": -1,
+            "looped": false,
+            "offset": [
+                70,
+                -22
+            ],
+            "sound": null,
+            "unblinkRates": [
+                0.05,
+                0.1
+            ]
+        },
+        {
+            "name": "impatient",
+            "anim": "impatient",
+            "blinkRates": [
+                0.7,
+                4
+            ],
+            "fps": -1,
+            "looped": false,
+            "offset": [
+                0,
+                0
+            ],
+            "sound": null,
+            "unblinkRates": [
+                0.05,
+                0.1
+            ]
+        },
+        {
+            "name": "confused",
+            "anim": "confused",
+            "blinkRates": [
+                0.7,
+                4
+            ],
+            "fps": -1,
+            "looped": false,
+            "offset": [
+                0,
+                0
+            ],
+            "sound": null,
+            "unblinkRates": [
+                0.05,
+                0.1
+            ]
+        },
+        {
+            "name": "bored",
+            "anim": "bored",
+            "blinkRates": [
+                0.7,
+                4
+            ],
+            "fps": -1,
+            "looped": false,
+            "offset": [
+                70,
+                -10
+            ],
+            "sound": null,
+            "unblinkRates": [
+                0.05,
+                0.1
+            ]
+        },
+        {
+            "name": "offering",
+            "anim": "offering",
+            "blinkRates": [
+                0.7,
+                4
+            ],
+            "fps": -1,
+            "looped": false,
+            "offset": [
+                80,
+                -25
+            ],
+            "sound": null,
+            "unblinkRates": [
+                0.05,
+                0.1
+            ]
+        },
+        {
+            "name": "greeting",
+            "anim": "greeting",
+            "blinkRates": [
+                0.7,
+                4
+            ],
+            "fps": -1,
+            "looped": false,
+            "offset": [
+                0,
+                0
+            ],
+            "sound": null,
+            "unblinkRates": [
+                0.05,
+                0.1
+            ]
+        },
+        {
+            "name": "excited",
+            "anim": "excited",
+            "blinkRates": [
+                0.7,
+                4
+            ],
+            "fps": -1,
+            "looped": false,
+            "offset": [
+                30,
+                -5
+            ],
+            "sound": null,
+            "unblinkRates": [
+                0.05,
+                0.1
+            ]
+        },
+        {
+            "name": "dazed",
+            "anim": "dazed",
+            "blinkRates": [
+                0.7,
+                4
+            ],
+            "fps": -1,
+            "looped": false,
+            "offset": [
+                45,
+                -50
+            ],
+            "sound": null,
+            "unblinkRates": [
+                0.05,
+                0.1
+            ]
+        },
+        {
+            "name": "ecstatic",
+            "anim": "ecstatic",
+            "blinkRates": [
+                0.7,
+                4
+            ],
+            "fps": -1,
+            "looped": false,
+            "offset": [
+                10,
+                55
+            ],
+            "sound": null,
+            "unblinkRates": [
+                0.05,
+                0.1
+            ]
+        },
+        {
+            "name": "kissing1",
+            "anim": "kissing1",
+            "blinkRates": [
+                0.7,
+                4
+            ],
+            "fps": -1,
+            "looped": false,
+            "offset": [
+                15,
+                5
+            ],
+            "sound": null,
+            "unblinkRates": [
+                0.05,
+                0.1
+            ]
+        },
+        {
+            "name": "neutralstupid",
+            "anim": "neutralstupid",
+            "blinkRates": [
+                0.7,
+                4
+            ],
+            "fps": -1,
+            "looped": false,
+            "offset": [
+                0,
+                0
+            ],
+            "sound": null,
+            "unblinkRates": [
+                0.05,
+                0.1
+            ]
+        },
+        {
+            "name": "blissful",
+            "anim": "blissful",
+            "blinkRates": [
+                0.7,
+                4
+            ],
+            "fps": -1,
+            "looped": false,
+            "offset": [
+                15,
+                10
+            ],
+            "sound": null,
+            "unblinkRates": [
+                0.05,
+                0.1
+            ]
+        },
+        {
+            "name": "bawling",
+            "anim": "bawling",
+            "blinkRates": [
+                0.7,
+                4
+            ],
+            "fps": -1,
+            "looped": false,
+            "offset": [
+                80,
+                -30
+            ],
+            "sound": null,
+            "unblinkRates": [
+                0.05,
+                0.1
+            ]
+        },
+        {
+            "name": "kissing2",
+            "anim": "kissing2",
+            "blinkRates": [
+                0.7,
+                4
+            ],
+            "fps": -1,
+            "looped": false,
+            "offset": [
+                15,
+                5
             ],
             "sound": null,
             "unblinkRates": [

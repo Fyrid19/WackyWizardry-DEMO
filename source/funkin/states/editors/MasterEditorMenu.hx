@@ -101,7 +101,7 @@ class MasterEditorMenu extends MusicBeatState
 		
 		if (controls.BACK)
 		{
-			FlxG.switchState(() -> new MainMenuState());
+			FlxG.switchState(() -> new funkin.states.wacky.MainMenuState());
 		}
 		
 		if (controls.ACCEPT)

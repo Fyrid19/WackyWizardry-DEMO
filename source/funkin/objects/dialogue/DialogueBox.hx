@@ -30,8 +30,8 @@ typedef DialogueLine = {
     var boxEmotion:String;
     var namePlate:String;
     var line:String;
-    var ?font:String;
     var useNotes:Bool;
+    var ?font:String;
 }
 
 class DialogueData {
@@ -42,25 +42,25 @@ class DialogueData {
         dialogue:  [
             {
                 speed: 0.08,
-                character: 'bf',
+                character: 'dave',
                 position: 'right',
                 emotion: 'neutral',
                 boxEmotion: 'regular',
                 namePlate: 'bf',
                 line: '←—— ↓——. ↑—— →——!',
-                font: null,
-                useNotes: true
+                useNotes: false,
+                font: null
             },
             {
                 speed: 0.04,
-                character: 'bf',
-                position: 'right',
+                character: 'dave',
+                position: 'left',
                 emotion: 'neutral',
-                boxEmotion: 'think',
-                namePlate: 'bf',
-                line: 'hi',
-                font: null,
-                useNotes: false
+                boxEmotion: 'regular',
+                namePlate: 'dave',
+                line: 'old mccdownlad',
+                useNotes: false,
+                font: null
             }
         ]
     };
@@ -106,7 +106,7 @@ class DialogueBox extends FlxSpriteGroup {
     var textBoxNote:NoteAlphabet;
     var charGroup:FlxSpriteGroup;
     var charMap:Map<String, DialogueCharacter> = new Map();
-    // var focusedChar:String;
+    var focusedChar:DialogueCharacter;
 
     // DEBUG
     var progressTxt:FlxText;
@@ -117,6 +117,7 @@ class DialogueBox extends FlxSpriteGroup {
     public var skipLineCallback:Void->Void;
 
     public var startDialogueCallback:Void->Void;
+    public var skipDialogueCallback:Void->Void;
     public var finishDialogueCallback:Void->Void;
 
     // SIGNALS (unused for now)
@@ -128,6 +129,7 @@ class DialogueBox extends FlxSpriteGroup {
     public static var onFinishDialogue:FlxSignal = new FlxSignal();
 
     // KEYS
+    public var skipKeys:Array<FlxKey> = [FlxKey.ESCAPE];
     public var progressKeys:Array<FlxKey> = [FlxKey.ENTER];
 
     public function new(?dialogue:DialogueFile) {
@@ -177,7 +179,6 @@ class DialogueBox extends FlxSpriteGroup {
     var oldLength:Int = 0;
     override function update(elapsed:Float) {
         var curLine:DialogueLine = getCurrentLineData();
-        var focusedChar:DialogueCharacter = charMap[curLine.character];
         
         if (textBoxNote != null) textBoxNote.delay = textBox.delay;
 
@@ -185,19 +186,20 @@ class DialogueBox extends FlxSpriteGroup {
         if (textBox.text.length > oldLength) {
             switch (textBox.text.charAt(oldLength)) {
                 case '.' | '!' | '?' | ':':
-                    textBox.delay = lineSpeed * 8;
+                    textBox.delay = lineSpeed * 5;
                     if (focusedChar != null) focusedChar.talking = 0;
                 case ',':
-                    textBox.delay = lineSpeed * 4;
+                    textBox.delay = lineSpeed * 2.5;
                     if (focusedChar != null) focusedChar.talking = 0;
                 default:
                     textBox.delay = lineSpeed;
-                    focusedChar.talking = 2;
+                    if (focusedChar != null) focusedChar.talking = 2;
                     if (textBox.text.charAt(oldLength) != ' ') // experimenting, could remove
                         focusedChar.speak();
             }
             
             oldLength = textBox.text.length;
+            curIndex = oldLength;
         }
 
         if (textBox.text == textBox._finalText && focusedChar != null) focusedChar.talking = 0;
@@ -210,6 +212,11 @@ class DialogueBox extends FlxSpriteGroup {
                 } else {
                     skipLine();
                 }
+            }
+            
+            if (skipKeys != null && skipKeys.length > 0 && FlxG.keys.anyJustPressed(skipKeys)) {
+                skipLine();
+                endDialogue();
             }
         }
         
@@ -286,6 +293,7 @@ class DialogueBox extends FlxSpriteGroup {
         namePlate.x = box.flipX ? 80 : FlxG.width - namePlate.width - 80;
 
         addCharacter(curLine.character, curLine.position, curLine.emotion);
+        focusedChar = charMap.get(curLine.character) ?? null;
 
         for (char in charMap) {
             char.switchFocus(char.character == curLine.character);
@@ -321,8 +329,8 @@ class DialogueBox extends FlxSpriteGroup {
             boxEmotion: 'regular',
             namePlate: 'bf',
             line: ' ',
-            font: null,
-            useNotes: false
+            useNotes: false,
+            font: null
         };
 
         if (_file != null)

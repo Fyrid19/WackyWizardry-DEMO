@@ -52,8 +52,8 @@ import funkin.backend.SyncedFlxSoundGroup;
 import funkin.video.FunkinVideoSprite;
 #end
 
-import funkin.objects.dialogue.DialogueBox as SuperDialogueBox;
-import funkin.objects.dialogue.DialogueBox.DialogueFile as SuperDialogueFile;
+import funkin.objects.dialogue.DialogueBox as DeependDialogueBox;
+import funkin.objects.dialogue.DialogueBox.DialogueFile as DeependDialogueFile;
 
 class PlayState extends MusicBeatState
 {
@@ -182,13 +182,16 @@ class PlayState extends MusicBeatState
 	public var stage:Stage;
 	
 	public var doof:DialogueBox;
+	public var dialogueBox:DeependDialogueBox;
+	public var dialogueBG:FlxSprite; 
+	public var videoCutscene:FunkinVideoSprite;
 	
 	public static var isPixelStage:Bool = false;
 	public static var SONG:SwagSong = null;
 	public static var isStoryMode:Bool = false;
 	public static var storyWeek:Int = 0;
 	public static var storyPlaylist:Array<String> = [];
-	public static var storyDifficulty:Int = 1;
+	public static var storyDifficulty:Int = 0;
 	public static var fromRestart:Bool = false;
 	
 	public var spawnTime:Float = 3000;
@@ -321,7 +324,7 @@ class PlayState extends MusicBeatState
 	
 	var dialogue:Array<String> = ['blah blah blah', 'coolswag'];
 	var dialogueJson:DialogueFile = null;
-	var coolestDialogueEver:SuperDialogueFile = null;
+	var ddeDialogueJson:DeependDialogueFile = null;
 	
 	public var songScore:Int = 0;
 	public var songHits:Int = 0;
@@ -728,12 +731,6 @@ class PlayState extends MusicBeatState
 			if (gf != null) gf.visible = false;
 		}
 		
-		var file:String = Paths.getPath('data/dialogue/dialogue/' + songName); // Checks for DDE dialogue
-		if (OpenFlAssets.exists(file))
-		{
-			coolestDialogueEver = funkin.objects.dialogue.DialogueBox.DialogueData.parse(file);
-		}
-		
 		var file:String = Paths.json(songName + '/dialogue'); // Checks for json/Psych Engine dialogue
 		if (OpenFlAssets.exists(file))
 		{
@@ -758,6 +755,74 @@ class PlayState extends MusicBeatState
 		doof.finishThing = startCountdown;
 		doof.nextDialogueThing = startNextDialogue;
 		doof.skipDialogueThing = skipDialogue;
+
+		var file:String = Paths.getPath('data/dialogue/dialogue/$songName.json');
+		var hasDialogue:Bool = Paths.fileExists('data/dialogue/dialogue/$songName.json', TEXT);
+		if (hasDialogue) {
+			ddeDialogueJson = funkin.objects.dialogue.DialogueBox.DialogueData.parse(file);
+		}
+
+		var videoPath:String = '$songName-cutscene';
+		var hasCutscene:Bool = Paths.fileExists('videos/$videoPath.mp4', BINARY);
+
+		if (hasDialogue && isStoryMode && !fromRestart && deathCounter == 0) {
+			dialogueBox = new DeependDialogueBox(ddeDialogueJson);
+			dialogueBox.scrollFactor.set();
+			dialogueBox.nextLineCallback = startNextDialogue;
+			dialogueBox.skipDialogueCallback = skipDialogue;
+			dialogueBox.cameras = [camOther];
+			dialogueBox.alpha = 0;
+			countdownDelay = 0.5;
+
+			dialogueBG = new FlxSprite().loadGraphic(Paths.image(dialogueBox.bgPath));
+			dialogueBG.visible = dialogueBox.bgPath.length > 0;
+			dialogueBG.screenCenter();
+			dialogueBG.cameras = [camOther];
+			
+			dialogueBox.finishDialogueCallback = () -> {
+				startCountdown();
+			};
+
+			add(dialogueBG);
+			add(dialogueBox);
+
+			if (!hasCutscene) songStartCallback = spawnDialogueBox;
+		}
+		
+		if (hasCutscene && isStoryMode && !fromRestart && deathCounter == 0) {
+			var black:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
+			black.cameras = [camOther];
+			add(black);
+
+			videoCutscene = new FunkinVideoSprite();
+			add(videoCutscene);
+
+			videoCutscene.onFormat(() -> {
+				videoCutscene.setGraphicSize(0, FlxG.height);
+				videoCutscene.updateHitbox();
+				videoCutscene.screenCenter();
+				videoCutscene.antialiasing = ClientPrefs.globalAntialiasing;
+				videoCutscene.cameras = [camOther];
+			});
+
+			videoCutscene.onEnd(() -> {
+				black.kill();
+				remove(black);
+				black.destroy();
+
+				if (hasDialogue) {
+					spawnDialogueBox();
+				} else {
+					startCountdown();
+				}
+			});
+
+			if (videoCutscene.load(Paths.video(videoPath))) {
+				songStartCallback = () -> {
+					videoCutscene.delayAndStart();
+				}
+			}
+		}
 		
 		Conductor.songPosition = -5000;
 		
@@ -836,6 +901,7 @@ class PlayState extends MusicBeatState
 		setOnScripts('botplayTxt', botplayTxt);
 		
 		setOnScripts('doof', doof);
+		setOnScripts('dialogueBox', dialogueBox);
 		
 		callOnLuas('onCreate', []);
 		
@@ -937,6 +1003,11 @@ class PlayState extends MusicBeatState
 		FunkinAssets.cache.clearUnusedMemory();
 		
 		refreshZ(stage);
+	}
+
+	function spawnDialogueBox() {
+		FlxTween.tween(dialogueBG, {alpha: 1}, 0.5);
+		dialogueBox.beginDialogue();
 	}
 	
 	function noteskinLoading(skin:String = 'default')
@@ -1219,15 +1290,18 @@ class PlayState extends MusicBeatState
 		}
 	}
 
-	public var ddeDialogue:SuperDialogueBox;
+	public var ddeDialogue:DeependDialogueBox;
 	
-	public function startDialogueAlt(dialogueFile:SuperDialogueFile, ?delay:Float = 2):Void
+	public function startDialogueAlt(dialogueFile:DeependDialogueFile):Void
 	{
+		trace('dialogue');
 		if (ddeDialogue != null) return;
+
+		if (dialogueFile != null) ddeDialogueJson = dialogueFile;
 		
-		if (dialogueFile.dialogue.length > 0)
+		if (ddeDialogueJson.dialogue.length > 0)
 		{
-			ddeDialogue = new SuperDialogueBox(dialogueFile);
+			ddeDialogue = new DeependDialogueBox(ddeDialogueJson);
 			ddeDialogue.scrollFactor.set();
 			if (endingSong)
 			{
@@ -1249,6 +1323,18 @@ class PlayState extends MusicBeatState
 			add(ddeDialogue);
 			
 			ddeDialogue.beginDialogue();
+		}
+		else
+		{
+			FlxG.log.warn('Your dialogue file is badly formatted!');
+			if (endingSong)
+			{
+				endSong();
+			}
+			else
+			{
+				startCountdown();
+			}
 		}
 	}
 	
@@ -1288,7 +1374,7 @@ class PlayState extends MusicBeatState
 					// playerStrums.autoPlayed = false;
 					callOnScripts('preReceptorGeneration', [playerStrums, lane]);
 					playerStrums.generateReceptors();
-					playerStrums.fadeIn(isStoryMode || skipArrowStartTween);
+					playerStrums.fadeIn(skipArrowStartTween, countdownDelay);
 					playFields.add(playerStrums);
 					
 					continue;
@@ -1305,7 +1391,7 @@ class PlayState extends MusicBeatState
 					
 					callOnScripts('preReceptorGeneration', [opponentStrums, lane]);
 					opponentStrums.generateReceptors();
-					opponentStrums.fadeIn(isStoryMode || skipArrowStartTween);
+					opponentStrums.fadeIn(skipArrowStartTween, countdownDelay);
 					playFields.add(opponentStrums);
 					
 					continue;
@@ -1318,7 +1404,7 @@ class PlayState extends MusicBeatState
 				strum.autoPlayed = true;
 				strum.ID = lane;
 				strum.generateReceptors();
-				strum.fadeIn(isStoryMode || skipArrowStartTween);
+				strum.fadeIn(skipArrowStartTween, countdownDelay);
 				extraFields.push(strum);
 			}
 			
@@ -1329,7 +1415,7 @@ class PlayState extends MusicBeatState
 			setOnHScripts('opponentStrums', opponentStrums);
 			setOnHScripts('playFields', playFields);
 			
-			callOnScripts('postReceptorGeneration', [isStoryMode || skipArrowStartTween]); // incase you wanna do anything JUST after
+			callOnScripts('postReceptorGeneration', [skipArrowStartTween]); // incase you wanna do anything JUST after
 			
 			for (i in 0...playerStrums.length)
 			{
@@ -3344,6 +3430,7 @@ class PlayState extends MusicBeatState
 		camZooming = false;
 		inCutscene = false;
 		updateTime = false;
+		fromRestart = false;
 		
 		deathCounter = 0;
 		seenCutscene = false;

@@ -299,7 +299,7 @@ class FreeplayState extends MusicBeatState
 				FlxTween.cancelTweensOf(bg, ['color']);
 				
 				FlxG.sound.play(Paths.sound('cancelMenu'));
-				FlxG.switchState(MainMenuState.new);
+				FlxG.switchState(funkin.states.wacky.MainMenuState.new);
 			}
 			
 			if (FlxG.keys.justPressed.CONTROL)

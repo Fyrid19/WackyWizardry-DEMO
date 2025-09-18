@@ -2275,7 +2275,10 @@ class ChartingState extends MusicBeatState
 		{
 			if (FlxG.keys.justPressed.ENTER)
 			{
-				enterSong();
+				if (FlxG.keys.pressed.SHIFT) 
+					ChartingState.playSongFromTimestamp(FlxG.sound.music.time);
+				else
+					enterSong();
 			}
 			
 			if (curSelectedNote != null && curSelectedNote[1] > -1)
@@ -4198,7 +4201,7 @@ class ChartingOptionsSubmenu extends MusicBeatSubstate
 				// 		grpMenuShit.members[curSelected].color = FlxColor.RED;
 				// 	// close();
 				case 'Exit to main menu':
-					FlxG.switchState(() -> new MainMenuState());
+					FlxG.switchState(() -> new funkin.states.wacky.MainMenuState());
 			}
 		}
 	}

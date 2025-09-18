@@ -16,6 +16,7 @@ typedef DialogueCharacterFile =
 	var origin:Array<Float>;
 	var offset:Array<Float>;
 	var scale:Float;
+	var defaultFlipX:Bool;
 }
 
 typedef DialogueAnimArray =
@@ -56,6 +57,8 @@ class DialogueCharacter extends AnimateSprite {
 	var soundArray:Array<String> = null;
 	var soundPrefix:String = null;
 	var soundPitch:Array<Float> = null;
+
+	public var defaultFlipX:Bool;
 	
 	public var blinkRate:Array<Float> = [0.7, 1.3]; // How rapid the blinking is (Random between the range of these two numbers)
 	public var unblinkRate:Array<Float> = [0.05, 0.1]; // How long they will blink for (Ditto)
@@ -75,13 +78,15 @@ class DialogueCharacter extends AnimateSprite {
         super(0, 0, Paths.textureAtlas('dialogue/portraits/${jsonFile.image}'));
 
 		origin.set(jsonFile.origin[0], jsonFile.origin[1]);
-		setGraphicSize(Std.int(width * jsonFile.scale));
+		scale.set(jsonFile.scale, jsonFile.scale);
 
 		if (position == 'left' || position == 'middleLeft' || position == 'middle') {
 			x = -width;
 		} else if (position == 'right' || position == 'middleRight') {
 			x = FlxG.width + width;
 		}
+
+		defaultFlipX = jsonFile.defaultFlipX ?? false;
 
 		antialiasing = ClientPrefs.globalAntialiasing;
 		if (jsonFile.no_antialiasing == true) antialiasing = false;
@@ -143,9 +148,9 @@ class DialogueCharacter extends AnimateSprite {
         x = FlxMath.lerp(x, scaledX, lerpRate);
 
 		flipX = switch(position) {
-            case 'right' | 'middleRight': false;
-            case 'left' | 'middleLeft': true;
-            default: false;
+            case 'right' | 'middleRight': defaultFlipX;
+            case 'left' | 'middleLeft': !defaultFlipX;
+            default: defaultFlipX;
         }
 
 		anim.curFrame = talking + blinkFrameOffset;
@@ -210,11 +215,13 @@ class DialogueCharacter extends AnimateSprite {
 		if (!FileSystem.exists(path))
 		{
 			path = Paths.getPrimaryPath(characterPath);
+			trace('loading "$character"');
 		}
 		
 		if (!FileSystem.exists(path))
 		{
 			path = Paths.getPrimaryPath('data/dialogue/characters/' + DEFAULT_CHARACTER + '.json');
+			trace('file not found, loading "$DEFAULT_CHARACTER"');
 		}
 		rawJson = File.getContent(path);
 		#else

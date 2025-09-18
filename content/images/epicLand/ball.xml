@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="ball.png">
+	<!-- Created with Adobe Animate version 24.0.10.14 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="spin0000" x="5" y="5" width="600" height="600"/>
+	<SubTexture name="spin0001" x="5" y="5" width="600" height="600"/>
+	<SubTexture name="spin0002" x="5" y="5" width="600" height="600"/>
+	<SubTexture name="spin0003" x="5" y="5" width="600" height="600"/>
+	<SubTexture name="spin0004" x="5" y="5" width="600" height="600"/>
+	<SubTexture name="spin0005" x="5" y="5" width="600" height="600"/>
+	<SubTexture name="spin0006" x="5" y="5" width="600" height="600"/>
+	<SubTexture name="spin0007" x="5" y="5" width="600" height="600"/>
+	<SubTexture name="spin0008" x="610" y="5" width="600" height="600"/>
+	<SubTexture name="spin0009" x="610" y="5" width="600" height="600"/>
+	<SubTexture name="spin0010" x="610" y="5" width="600" height="600"/>
+	<SubTexture name="spin0011" x="610" y="5" width="600" height="600"/>
+	<SubTexture name="spin0012" x="610" y="5" width="600" height="600"/>
+	<SubTexture name="spin0013" x="610" y="5" width="600" height="600"/>
+	<SubTexture name="spin0014" x="610" y="5" width="600" height="600"/>
+	<SubTexture name="spin0015" x="610" y="5" width="600" height="600"/>
+	<SubTexture name="spin0016" x="1215" y="5" width="600" height="600"/>
+	<SubTexture name="spin0017" x="1215" y="5" width="600" height="600"/>
+	<SubTexture name="spin0018" x="1215" y="5" width="600" height="600"/>
+	<SubTexture name="spin0019" x="1215" y="5" width="600" height="600"/>
+	<SubTexture name="spin0020" x="1215" y="5" width="600" height="600"/>
+	<SubTexture name="spin0021" x="1215" y="5" width="600" height="600"/>
+	<SubTexture name="spin0022" x="1215" y="5" width="600" height="600"/>
+	<SubTexture name="spin0023" x="1215" y="5" width="600" height="600"/>
+</TextureAtlas>

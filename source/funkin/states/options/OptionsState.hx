@@ -123,7 +123,7 @@ class OptionsState extends MusicBeatState
 					CoolUtil.loadAndSwitchState(PlayState.new);
 					FlxG.sound.music.volume = 0;
 				}
-				else FlxG.switchState(MainMenuState.new);
+				else FlxG.switchState(funkin.states.wacky.MainMenuState.new);
 			}
 			
 			if (controls.ACCEPT)

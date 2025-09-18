@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='utf-8'?>
+<TextureAtlas imagePath="Andrew.png">
+<SubTexture name="Andrew I0000" x="675" y="0" width="231" height="448" frameX="-3" frameY="-57" frameWidth="246" frameHeight="532" />
+<SubTexture name="Andrew I0001" x="0" y="464" width="238" height="442" frameX="-3" frameY="-53" frameWidth="246" frameHeight="532" />
+<SubTexture name="Andrew I0002" x="473" y="464" width="241" height="437" frameX="-2" frameY="-44" frameWidth="246" frameHeight="532" />
+<SubTexture name="Andrew I0003" x="473" y="464" width="241" height="437" frameX="-2" frameY="-44" frameWidth="246" frameHeight="532" />
+<SubTexture name="Andrew I0004" x="473" y="464" width="241" height="437" frameX="-2" frameY="-44" frameWidth="246" frameHeight="532" />
+<SubTexture name="Andrew I0005" x="473" y="464" width="241" height="437" frameX="-2" frameY="-44" frameWidth="246" frameHeight="532" />
+<SubTexture name="Andrew I0006" x="473" y="464" width="241" height="437" frameX="-2" frameY="-44" frameWidth="246" frameHeight="532" />
+<SubTexture name="Andrew L0000" x="785" y="906" width="301" height="384" frameX="-68" frameY="-63" frameWidth="427" frameHeight="483" />
+<SubTexture name="Andrew L0001" x="487" y="906" width="298" height="393" frameX="-75" frameY="-55" frameWidth="427" frameHeight="483" />
+<SubTexture name="Andrew L0002" x="194" y="906" width="293" height="399" frameX="-86" frameY="-49" frameWidth="427" frameHeight="483" />
+<SubTexture name="Andrew L0003" x="194" y="906" width="293" height="399" frameX="-86" frameY="-49" frameWidth="427" frameHeight="483" />
+<SubTexture name="Andrew L0004" x="194" y="906" width="293" height="399" frameX="-86" frameY="-49" frameWidth="427" frameHeight="483" />
+<SubTexture name="Andrew L0005" x="194" y="906" width="293" height="399" frameX="-86" frameY="-49" frameWidth="427" frameHeight="483" />
+<SubTexture name="Andrew D0000" x="0" y="0" width="221" height="464" frameX="-79" frameY="-86" frameWidth="346" frameHeight="559" />
+<SubTexture name="Andrew D0001" x="221" y="0" width="223" height="459" frameX="-81" frameY="-71" frameWidth="346" frameHeight="559" />
+<SubTexture name="Andrew D0002" x="444" y="0" width="231" height="452" frameX="-78" frameY="-65" frameWidth="346" frameHeight="559" />
+<SubTexture name="Andrew D0003" x="444" y="0" width="231" height="452" frameX="-78" frameY="-65" frameWidth="346" frameHeight="559" />
+<SubTexture name="Andrew D0004" x="444" y="0" width="231" height="452" frameX="-78" frameY="-65" frameWidth="346" frameHeight="559" />
+<SubTexture name="Andrew D0005" x="444" y="0" width="231" height="452" frameX="-78" frameY="-65" frameWidth="346" frameHeight="559" />
+<SubTexture name="Andrew U0000" x="1128" y="426" width="194" height="409" frameX="-22" frameY="-41" frameWidth="234" frameHeight="517" />
+<SubTexture name="Andrew U0001" x="906" y="436" width="195" height="405" frameX="-22" frameY="-46" frameWidth="234" frameHeight="517" />
+<SubTexture name="Andrew U0002" x="0" y="906" width="194" height="405" frameX="-23" frameY="-49" frameWidth="234" frameHeight="517" />
+<SubTexture name="Andrew U0003" x="0" y="906" width="194" height="405" frameX="-23" frameY="-49" frameWidth="234" frameHeight="517" />
+<SubTexture name="Andrew U0004" x="0" y="906" width="194" height="405" frameX="-23" frameY="-49" frameWidth="234" frameHeight="517" />
+<SubTexture name="Andrew U0005" x="0" y="906" width="194" height="405" frameX="-23" frameY="-49" frameWidth="234" frameHeight="517" />
+<SubTexture name="Andrew R0000" x="1128" y="0" width="254" height="426" frameX="-11" frameY="-51" frameWidth="275" frameHeight="502" />
+<SubTexture name="Andrew R0001" x="238" y="464" width="235" height="440" frameX="-6" frameY="-40" frameWidth="275" frameHeight="502" />
+<SubTexture name="Andrew R0002" x="906" y="0" width="222" height="436" frameX="-2" frameY="-42" frameWidth="275" frameHeight="502" />
+<SubTexture name="Andrew R0003" x="906" y="0" width="222" height="436" frameX="-2" frameY="-42" frameWidth="275" frameHeight="502" />
+<SubTexture name="Andrew R0004" x="906" y="0" width="222" height="436" frameX="-2" frameY="-42" frameWidth="275" frameHeight="502" />
+<SubTexture name="Andrew R0005" x="906" y="0" width="222" height="436" frameX="-2" frameY="-42" frameWidth="275" frameHeight="502" />
+</TextureAtlas>

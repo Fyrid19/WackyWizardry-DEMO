@@ -43,6 +43,16 @@ class GameOverSubstate extends MusicBeatSubstate
 	public static var endSoundName:Null<String> = null;
 	
 	/**
+	 * The amount of time it takes until it goes back to gameplay.
+	 */
+	public static var endDelay:Float = 0.7;
+	
+	/**
+	 * How far the camera zooms out when confirming.
+	 */
+	public static var zoomOffset:Float = 0;
+	
+	/**
 	 * The game over character.
 	 */
 	public var boyfriend:Null<Character> = null;
@@ -66,6 +76,8 @@ class GameOverSubstate extends MusicBeatSubstate
 		deathSoundName = 'fnf_loss_sfx';
 		loopSoundName = 'gameOver';
 		endSoundName = 'gameOverEnd';
+		endDelay = 0.7;
+		zoomOffset = 0;
 	}
 	
 	override function create()
@@ -124,7 +136,7 @@ class GameOverSubstate extends MusicBeatSubstate
 			PlayState.deathCounter = 0;
 			PlayState.seenCutscene = false;
 			
-			FlxG.switchState(() -> PlayState.isStoryMode ? new StoryMenuState() : new FreeplayState());
+			FlxG.switchState(() -> PlayState.isStoryMode ? new StoryMenuState() : new funkin.states.wacky.FreeplayState());
 			
 			FlxG.sound.playMusic(Paths.music('freakyMenu'));
 			PlayState.instance.callOnScripts('onGameOverConfirm', [false]);
@@ -184,8 +196,9 @@ class GameOverSubstate extends MusicBeatSubstate
 			boyfriend.playAnim('deathConfirm', true);
 			FlxG.sound.music.stop();
 			if (endSoundName != null) FlxG.sound.play(Paths.music(endSoundName));
-			new FlxTimer().start(0.7, function(tmr:FlxTimer) {
-				FlxG.camera.fade(FlxColor.BLACK, 2, false, function() {
+			FlxTween.tween(FlxG.camera, {zoom: FlxG.camera.zoom - zoomOffset}, endDelay + 1, {ease: FlxEase.sineIn});
+			new FlxTimer().start(endDelay / 2, function(tmr:FlxTimer) {
+				FlxG.camera.fade(FlxColor.BLACK, endDelay / 2 + 1, false, function() {
 					FlxG.resetState();
 				});
 			});

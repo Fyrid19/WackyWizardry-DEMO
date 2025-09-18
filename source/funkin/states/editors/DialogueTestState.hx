@@ -90,7 +90,7 @@ class DialogueTestState extends MusicBeatState {
         if (FlxG.keys.justPressed.ESCAPE) {
 		    FlxG.mouse.visible = false;
             FlxG.sound.play(Paths.sound('cancelMenu'));
-            FlxG.switchState(MainMenuState.new);
+            FlxG.switchState(funkin.states.wacky.MainMenuState.new);
         }
         
         if (FlxG.keys.justPressed.TAB) {

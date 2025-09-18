@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='utf-8'?>
+<TextureAtlas imagePath="NinjaAndrew.png">
+<SubTexture name="Bored0000" x="241" y="0" width="289" height="434" frameX="-7" frameY="-36" frameWidth="325" frameHeight="489" />
+<SubTexture name="Bored0001" x="241" y="0" width="289" height="434" frameX="-7" frameY="-36" frameWidth="325" frameHeight="489" />
+<SubTexture name="Bored0002" x="241" y="0" width="289" height="434" frameX="-7" frameY="-36" frameWidth="325" frameHeight="489" />
+<SubTexture name="Bored0003" x="241" y="0" width="289" height="434" frameX="-7" frameY="-36" frameWidth="325" frameHeight="489" />
+<SubTexture name="Smug0000" x="530" y="0" width="289" height="434" frameX="-7" frameY="-36" frameWidth="325" frameHeight="489" />
+<SubTexture name="Smug0001" x="819" y="0" width="289" height="434" frameX="-7" frameY="-36" frameWidth="325" frameHeight="489" />
+<SubTexture name="Smug0002" x="0" y="437" width="289" height="434" frameX="-7" frameY="-36" frameWidth="325" frameHeight="489" />
+<SubTexture name="Smug0003" x="289" y="437" width="289" height="434" frameX="-7" frameY="-36" frameWidth="325" frameHeight="489" />
+<SubTexture name="Smug0004" x="289" y="437" width="289" height="434" frameX="-7" frameY="-36" frameWidth="325" frameHeight="489" />
+<SubTexture name="Smug0005" x="289" y="437" width="289" height="434" frameX="-7" frameY="-36" frameWidth="325" frameHeight="489" />
+<SubTexture name="Smug0006" x="289" y="437" width="289" height="434" frameX="-7" frameY="-36" frameWidth="325" frameHeight="489" />
+<SubTexture name="Smug0007" x="289" y="437" width="289" height="434" frameX="-7" frameY="-36" frameWidth="325" frameHeight="489" />
+<SubTexture name="Smug0008" x="289" y="437" width="289" height="434" frameX="-7" frameY="-36" frameWidth="325" frameHeight="489" />
+<SubTexture name="Smug0009" x="289" y="437" width="289" height="434" frameX="-7" frameY="-36" frameWidth="325" frameHeight="489" />
+<SubTexture name="Wind Back0000" x="578" y="437" width="500" height="418" frameX="-332" frameY="-158" frameWidth="1129" frameHeight="714" />
+<SubTexture name="Wind Back0001" x="578" y="437" width="500" height="418" frameX="-332" frameY="-158" frameWidth="1129" frameHeight="714" />
+<SubTexture name="Wind Back0002" x="578" y="437" width="500" height="418" frameX="-332" frameY="-158" frameWidth="1129" frameHeight="714" />
+<SubTexture name="Wind Back0003" x="578" y="437" width="500" height="418" frameX="-332" frameY="-158" frameWidth="1129" frameHeight="714" />
+<SubTexture name="Swing0000" x="1108" y="0" width="303" height="418" frameX="-332" frameY="-158" frameWidth="1129" frameHeight="714" />
+<SubTexture name="Swing0001" x="0" y="871" width="476" height="418" frameX="-159" frameY="-158" frameWidth="1129" frameHeight="714" />
+<SubTexture name="Swing0002" x="476" y="871" width="342" height="418" frameX="-293" frameY="-158" frameWidth="1129" frameHeight="714" />
+<SubTexture name="Swing0003" x="1108" y="418" width="303" height="418" frameX="-332" frameY="-158" frameWidth="1129" frameHeight="714" />
+<SubTexture name="Swing0004" x="818" y="871" width="490" height="418" frameX="-332" frameY="-158" frameWidth="1129" frameHeight="714" />
+<SubTexture name="Swing0005" x="818" y="871" width="490" height="418" frameX="-332" frameY="-158" frameWidth="1129" frameHeight="714" />
+<SubTexture name="Swing0006" x="818" y="871" width="490" height="418" frameX="-332" frameY="-158" frameWidth="1129" frameHeight="714" />
+<SubTexture name="Swing0007" x="818" y="871" width="490" height="418" frameX="-332" frameY="-158" frameWidth="1129" frameHeight="714" />
+<SubTexture name="Swing0008" x="818" y="871" width="490" height="418" frameX="-332" frameY="-158" frameWidth="1129" frameHeight="714" />
+<SubTexture name="Swing0009" x="1411" y="0" width="333" height="418" frameX="-332" frameY="-158" frameWidth="1129" frameHeight="714" />
+<SubTexture name="Swing0010" x="1411" y="418" width="303" height="418" frameX="-332" frameY="-158" frameWidth="1129" frameHeight="714" />
+<SubTexture name="Swing0011" x="1411" y="836" width="303" height="418" frameX="-332" frameY="-158" frameWidth="1129" frameHeight="714" />
+<SubTexture name="Swing0012" x="0" y="1289" width="303" height="418" frameX="-332" frameY="-158" frameWidth="1129" frameHeight="714" />
+<SubTexture name="Swing0013" x="0" y="1289" width="303" height="418" frameX="-332" frameY="-158" frameWidth="1129" frameHeight="714" />
+<SubTexture name="Swing0014" x="0" y="1289" width="303" height="418" frameX="-332" frameY="-158" frameWidth="1129" frameHeight="714" />
+<SubTexture name="Swing0015" x="0" y="1289" width="303" height="418" frameX="-332" frameY="-158" frameWidth="1129" frameHeight="714" />
+<SubTexture name="idle0000" x="0" y="1289" width="303" height="418" frameX="-212" frameY="-94" frameWidth="913" frameHeight="553" />
+<SubTexture name="Shimmy Idle0000" x="0" y="1289" width="303" height="418" frameX="-212" frameY="-94" frameWidth="913" frameHeight="553" />
+<SubTexture name="Shimmy Idle0001" x="0" y="1289" width="303" height="418" frameX="-212" frameY="-94" frameWidth="913" frameHeight="553" />
+<SubTexture name="Shimmy Idle0002" x="544" y="1289" width="241" height="255" frameX="-261" frameY="-264" frameWidth="913" frameHeight="553" />
+<SubTexture name="Shimmy Idle0003" x="303" y="1289" width="241" height="391" frameX="-261" frameY="-132" frameWidth="913" frameHeight="553" />
+<SubTexture name="Shimmy Idle0004" x="0" y="0" width="241" height="437" frameX="-261" frameY="-82" frameWidth="913" frameHeight="553" />
+<SubTexture name="Shimmy Idle0005" x="0" y="0" width="241" height="437" frameX="-261" frameY="-82" frameWidth="913" frameHeight="553" />
+<SubTexture name="Shimmy Idle0006" x="0" y="0" width="241" height="437" frameX="-261" frameY="-82" frameWidth="913" frameHeight="553" />
+<SubTexture name="Shimmy Idle0007" x="0" y="0" width="241" height="437" frameX="-261" frameY="-82" frameWidth="913" frameHeight="553" />
+</TextureAtlas>

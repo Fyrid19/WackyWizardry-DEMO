@@ -132,7 +132,7 @@
 				0,
 				0
 			],
-			"xmlName": "note splash purple",
+			"xmlName": "splash",
 			"anim": "note0"
 		},
 		{
@@ -140,7 +140,7 @@
 				0,
 				0
 			],
-			"xmlName": "note splash blue",
+			"xmlName": "splash",
 			"anim": "note1"
 		},
 		{
@@ -148,7 +148,7 @@
 				0,
 				0
 			],
-			"xmlName": "note splash green",
+			"xmlName": "splash",
 			"anim": "note2"
 		},
 		{
@@ -156,16 +156,8 @@
 				0,
 				0
 			],
-			"xmlName": "note splash red",
+			"xmlName": "splash",
 			"anim": "note3"
-		},
-		{
-			"offsets": [
-				0,
-				0
-			],
-			"xmlName": "note splash red",
-			"anim": "note4"
 		}
 	],
 	"noteAnimations": [

@@ -39,6 +39,7 @@ class DimensionalHUD extends BaseHUD {
 
     var font:String = Paths.font('pointless.ttf');
 
+	var ratingPosX:Float = 0;
 	var healthBarY:Float = 0;
     override function init() {
         name = 'DDE';
@@ -113,8 +114,8 @@ class DimensionalHUD extends BaseHUD {
 		add(timeBar);
 		add(timeTxt);
 		
-		var posX:Float = FlxG.width * 0.5;
-		noteRatingTxt = new FlxText(posX, 0, FlxG.width / 2, "", 34);
+		ratingPosX = FlxG.width * 0.5;
+		noteRatingTxt = new FlxText(ratingPosX, 0, FlxG.width / 2, "", 34);
 		noteRatingTxt.setFormat(font, 34, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		noteRatingTxt.y = !ClientPrefs.downScroll ? FlxG.height * 0.45 : FlxG.height * 0.55;
 		noteRatingTxt.scrollFactor.set();
@@ -154,6 +155,12 @@ class DimensionalHUD extends BaseHUD {
 		super.update(elapsed);
 		updateIconsPosition();
         updateIconsScale(elapsed);
+
+		if (healthBar.leftToRight) ratingPosX = 0;
+		else ratingPosX = FlxG.width * 0.5;
+
+		noteRatingTxt.x = ratingPosX;
+		noteComboTxt.x = ratingPosX;
 
         if (healthBar.isAnimFinish() && healthBar.getAnim().startsWith('bump') && !healthBar.trans)
             healthBar.playAnim('idle' + animSuffix, true);
@@ -256,8 +263,13 @@ class DimensionalHUD extends BaseHUD {
 			iconP1.scale.set(1.4, 0.9);
 			iconP2.scale.set(1.4, 0.9);
 
-			FlxTween.angle(iconP1, -7, 0, Conductor.crotchet / 1300 * parent.gfSpeed, {ease: FlxEase.backOut});
-			FlxTween.angle(iconP2, 7, 0, Conductor.crotchet / 1300 * parent.gfSpeed, {ease: FlxEase.backOut});
+			if (!healthBar.leftToRight) {
+				FlxTween.angle(iconP1, -7, 0, Conductor.crotchet / 1300 * parent.gfSpeed, {ease: FlxEase.backOut});
+				FlxTween.angle(iconP2, 7, 0, Conductor.crotchet / 1300 * parent.gfSpeed, {ease: FlxEase.backOut});
+			} else {
+				FlxTween.angle(iconP1, 7, 0, Conductor.crotchet / 1300 * parent.gfSpeed, {ease: FlxEase.backOut});
+				FlxTween.angle(iconP2, -7, 0, Conductor.crotchet / 1300 * parent.gfSpeed, {ease: FlxEase.backOut});
+			}
 
 			FlxTween.tween(iconP1, {'scale.x': 1, 'scale.y': 1}, Conductor.crotchet / 1250 * parent.gfSpeed, {ease: FlxEase.circOut});
 			FlxTween.tween(iconP2, {'scale.x': 1, 'scale.y': 1}, Conductor.crotchet / 1250 * parent.gfSpeed, {ease: FlxEase.circOut});
@@ -327,15 +339,17 @@ class DimensionalHUD extends BaseHUD {
 			iconP1.x = (healthBar.barCenter + (150 * iconP1.scale.x - 150) / 2 - iconOffset) + healthOffset;
 			iconP2.x = (healthBar.barCenter - (150 * iconP2.scale.x) / 2 - iconOffset * 2) + healthOffset;
 		} else {
-			iconP1.x = (healthBar.barCenter - (150 * iconP2.scale.x) / 2 - iconOffset * 2) + healthOffset;
-			iconP2.x = (healthBar.barCenter + (150 * iconP1.scale.x - 150) / 2 - iconOffset) + healthOffset;
+			iconP1.x = (healthBar.barCenter - (150 * iconP2.scale.x) / 2 - iconOffset * 2) - healthOffset;
+			iconP2.x = (healthBar.barCenter + (150 * iconP1.scale.x - 150) / 2 - iconOffset) - healthOffset;
 		}
 	}
 
     public function reloadHealthBarColors() {
 		var dad = parent.dad;
 		var bf = parent.boyfriend;
-        healthBar.changeColors(dad.healthColour, bf.healthColour);
+
+		if (!healthBar.leftToRight) healthBar.changeColors(dad.healthColour, bf.healthColour);
+		else healthBar.changeColors(bf.healthColour, dad.healthColour);
 
         var colorBorder:FlxColor = dad.healthColour;
         var colorLeft:FlxColor = dad.healthColour;
@@ -345,6 +359,13 @@ class DimensionalHUD extends BaseHUD {
         colorRight.brightness = 0.7;
 
         timeBar.setColors(colorLeft, colorRight, colorBorder);
+	}
+	
+	public function flipBar()
+	{
+		healthBar.leftToRight = !healthBar.leftToRight;
+		iconP1.flipX = !iconP1.flipX;
+		iconP2.flipX = !iconP2.flipX;
 	}
 }
 

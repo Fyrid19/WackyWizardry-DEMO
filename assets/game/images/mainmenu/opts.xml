@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="opts.png">
+	<!-- Created with Adobe Animate version 24.0.11.4 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="credits0000" x="5" y="5" width="711" height="166"/>
+	<SubTexture name="credits_hover0000" x="721" y="5" width="711" height="166"/>
+	<SubTexture name="freeplay0000" x="5" y="176" width="711" height="166"/>
+	<SubTexture name="freeplay_hover0000" x="721" y="176" width="711" height="166"/>
+	<SubTexture name="options0000" x="5" y="347" width="711" height="166"/>
+	<SubTexture name="options_hover0000" x="721" y="347" width="711" height="166"/>
+	<SubTexture name="story0000" x="5" y="518" width="711" height="166"/>
+	<SubTexture name="story_hover0000" x="721" y="518" width="711" height="166"/>
+</TextureAtlas>

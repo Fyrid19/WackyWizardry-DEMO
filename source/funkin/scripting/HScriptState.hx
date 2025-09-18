@@ -19,7 +19,7 @@ class HScriptState extends MusicBeatState
 		
 		if (!scripted)
 		{
-			FlxG.switchState(() -> new FallbackState('failed to load ($scriptName)!\nDoes it exist?', () -> FlxG.switchState(MainMenuState.new)));
+			FlxG.switchState(() -> new FallbackState('failed to load ($scriptName)!\nDoes it exist?', () -> FlxG.switchState(funkin.states.wacky.MainMenuState.new)));
 		}
 		
 		script.call('onCreate', []);

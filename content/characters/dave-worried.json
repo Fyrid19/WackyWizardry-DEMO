@@ -1,103 +1,103 @@
 {
 	"animations": [
 		{
-			"loop": true,
 			"offsets": [
 				0,
 				0
 			],
-			"anim": "idle",
+			"loop": true,
 			"fps": 24,
-			"name": "worriedidle",
-			"indices": []
+			"anim": "idle",
+			"indices": [],
+			"name": "worriedidle"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				49,
 				-8
 			],
-			"anim": "singLEFT",
+			"loop": false,
 			"fps": 24,
-			"name": "worriedleft",
-			"indices": []
+			"anim": "singLEFT",
+			"indices": [],
+			"name": "worriedleft"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				88,
 				40
 			],
-			"anim": "singRIGHT",
+			"loop": false,
 			"fps": 24,
-			"name": "worriedright",
-			"indices": []
+			"anim": "singRIGHT",
+			"indices": [],
+			"name": "worriedright"
 		},
 		{
+			"loop": false,
 			"offsets": [
 				50,
 				9
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singLEFTmiss",
-			"indices": [],
-			"name": "msingLEFT"
+			"fps": 24,
+			"name": "msingLEFT",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				-1,
 				-26
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singDOWNmiss",
-			"indices": [],
-			"name": "msingDOWN"
+			"fps": 24,
+			"name": "msingDOWN",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				-7,
 				-32
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singDOWN",
-			"indices": [],
-			"name": "worrieddown"
+			"fps": 24,
+			"name": "worrieddown",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				-2,
 				39
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singUPmiss",
-			"indices": [],
-			"name": "msingUP"
+			"fps": 24,
+			"name": "msingUP",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				-23,
 				40
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singUP",
-			"indices": [],
-			"name": "worriedup"
+			"fps": 24,
+			"name": "worriedup",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				25,
 				40
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singRIGHTmiss",
-			"indices": [],
-			"name": "msingRIGHT"
+			"fps": 24,
+			"name": "msingRIGHT",
+			"indices": []
 		}
 	],
 	"no_antialiasing": false,
@@ -108,10 +108,14 @@
 	],
 	"healthicon": "dave",
 	"flip_x": true,
-	"healthbar_colors": [56, 97, 237],
+	"healthbar_colors": [
+		56,
+		97,
+		237
+	],
 	"camera_position": [
-		-60,
-		30
+		20,
+		-10
 	],
 	"sing_duration": 6.1,
 	"scale": 1

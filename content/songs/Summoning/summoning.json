@@ -1,7 +1,7 @@
 {
 	"song": {
 		"player1": "dave-worried",
-		"gfVersion": "gf",
+		"gfVersion": "bf-DEAD",
 		"notes": [
 			{
 				"sectionBeats": 4,
@@ -490,12 +490,6 @@
 						""
 					],
 					[
-						20000,
-						3,
-						100,
-						""
-					],
-					[
 						20600,
 						1,
 						0,
@@ -517,8 +511,15 @@
 					],
 					[
 						19800,
-						1,
+						3,
 						0,
+						"",
+						true
+					],
+					[
+						20000,
+						2,
+						100,
 						"",
 						true
 					]
@@ -565,18 +566,6 @@
 						""
 					],
 					[
-						21600,
-						3,
-						100,
-						""
-					],
-					[
-						21800,
-						1,
-						0,
-						""
-					],
-					[
 						22000,
 						0,
 						100,
@@ -590,7 +579,21 @@
 					],
 					[
 						21400,
-						1,
+						3,
+						0,
+						"",
+						true
+					],
+					[
+						21600,
+						2,
+						100,
+						"",
+						true
+					],
+					[
+						21800,
+						3,
 						0,
 						"",
 						true
@@ -4562,6 +4565,34 @@
 						700,
 						"",
 						true
+					],
+					[
+						114800,
+						4,
+						300,
+						"No Animation",
+						true
+					],
+					[
+						114800,
+						5,
+						300,
+						"No Animation",
+						true
+					],
+					[
+						114800,
+						6,
+						300,
+						"No Animation",
+						true
+					],
+					[
+						114800,
+						7,
+						300,
+						"No Animation",
+						true
 					]
 				],
 				"gfSection": false,
@@ -7638,14 +7669,14 @@
 						160000,
 						4,
 						1300,
-						"",
+						"No Animation",
 						true
 					],
 					[
 						160000,
 						7,
 						1300,
-						"",
+						"No Animation",
 						true
 					],
 					[
@@ -7659,13 +7690,13 @@
 						160000,
 						5,
 						1300,
-						"",
+						"No Animation",
 						true
 					],
 					[
 						160000,
 						2,
-						1100,
+						1300,
 						"",
 						true
 					]
@@ -7752,6 +7783,160 @@
 				"changeBPM": false
 			},
 			{
+				"sectionBeats": 4,
+				"altAnim": false,
+				"mustHitSection": true,
+				"lengthInSteps": 16,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"gfSection": false,
+				"changeBPM": false,
+				"bpm": 150
+			},
+			{
+				"sectionBeats": 4,
+				"altAnim": false,
+				"mustHitSection": true,
+				"lengthInSteps": 16,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"gfSection": false,
+				"bpm": 150,
+				"changeBPM": false
+			},
+			{
+				"sectionBeats": 4,
+				"altAnim": false,
+				"mustHitSection": true,
+				"lengthInSteps": 16,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"gfSection": false,
+				"bpm": 150,
+				"changeBPM": false
+			},
+			{
+				"sectionBeats": 4,
+				"altAnim": false,
+				"mustHitSection": true,
+				"lengthInSteps": 16,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"gfSection": false,
+				"bpm": 150,
+				"changeBPM": false
+			},
+			{
+				"sectionBeats": 4,
+				"altAnim": false,
+				"mustHitSection": true,
+				"lengthInSteps": 16,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"gfSection": false,
+				"bpm": 150,
+				"changeBPM": false
+			},
+			{
+				"sectionBeats": 4,
+				"altAnim": false,
+				"mustHitSection": true,
+				"lengthInSteps": 16,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"gfSection": false,
+				"bpm": 150,
+				"changeBPM": false
+			},
+			{
+				"sectionBeats": 4,
+				"altAnim": false,
+				"mustHitSection": true,
+				"lengthInSteps": 16,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"gfSection": false,
+				"changeBPM": false,
+				"bpm": 150
+			},
+			{
+				"sectionBeats": 4,
+				"altAnim": false,
+				"mustHitSection": true,
+				"lengthInSteps": 16,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"gfSection": false,
+				"changeBPM": false,
+				"bpm": 150
+			},
+			{
+				"sectionBeats": 4,
+				"altAnim": false,
+				"mustHitSection": true,
+				"lengthInSteps": 16,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"gfSection": false,
+				"bpm": 150,
+				"changeBPM": false
+			},
+			{
+				"sectionBeats": 4,
+				"altAnim": false,
+				"mustHitSection": true,
+				"lengthInSteps": 16,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"gfSection": false,
+				"bpm": 150,
+				"changeBPM": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"bpm": 150,
+				"sectionBeats": 4,
+				"changeBPM": false,
+				"mustHitSection": true
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"bpm": 150,
+				"sectionBeats": 4,
+				"changeBPM": false,
+				"mustHitSection": true
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"bpm": 150,
+				"sectionBeats": 4,
+				"changeBPM": false,
+				"mustHitSection": true
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"bpm": 150,
+				"sectionBeats": 4,
+				"changeBPM": false,
+				"mustHitSection": true
+			},
+			{
 				"gfSection": false,
 				"lengthInSteps": 16,
 				"altAnim": false,
@@ -7763,8 +7948,109 @@
 				"mustHitSection": true
 			}
 		],
-		"events": [],
-		"player2": "dad",
+		"events": [
+			[
+				12800,
+				[
+					[
+						"GradientBop",
+						"",
+						""
+					]
+				]
+			],
+			[
+				38400,
+				[
+					[
+						"GradientBop",
+						"",
+						""
+					]
+				]
+			],
+			[
+				64000,
+				[
+					[
+						"GradientBop",
+						"",
+						""
+					]
+				]
+			],
+			[
+				89600,
+				[
+					[
+						"GradientBop",
+						"",
+						""
+					]
+				]
+			],
+			[
+				114700,
+				[
+					[
+						"Play Animation",
+						"trans",
+						"0"
+					],
+					[
+						"Alt Idle Animation",
+						"0",
+						"-trans"
+					]
+				]
+			],
+			[
+				115200,
+				[
+					[
+						"GradientBop",
+						"",
+						""
+					],
+					[
+						"Change Character",
+						"1",
+						"conson-pissy"
+					]
+				]
+			],
+			[
+				140800,
+				[
+					[
+						"GradientBop",
+						"",
+						""
+					]
+				]
+			],
+			[
+				153600,
+				[
+					[
+						"GradientBop",
+						"",
+						""
+					]
+				]
+			],
+			[
+				160000,
+				[
+					[
+						"GradientBop",
+						"",
+						""
+					]
+				]
+			]
+		],
+		"player2": "conson",
 		"keys": 4,
 		"splashSkin": "noteSplashes",
 		"song": "Summoning",

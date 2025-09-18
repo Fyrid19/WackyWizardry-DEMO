@@ -150,7 +150,7 @@ class PlayField extends FlxTypedGroup<StrumNote>
 		}
 	}
 	
-	public function fadeIn(skip:Bool = false)
+	public function fadeIn(skip:Bool = false, ?delay:Float = 0)
 	{
 		for (data in 0...members.length)
 		{
@@ -159,7 +159,7 @@ class PlayField extends FlxTypedGroup<StrumNote>
 			else
 			{
 				babyArrow.alpha = 0;
-				FlxTween.tween(babyArrow, {alpha: baseAlpha}, 1, {ease: FlxEase.circOut, startDelay: 0.5 + (0.2 * data)});
+				FlxTween.tween(babyArrow, {alpha: baseAlpha}, 1, {ease: FlxEase.circOut, startDelay: 0.5 + (0.2 * data) + delay});
 			}
 		}
 	}
