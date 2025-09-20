@@ -222,7 +222,7 @@ class DialogueBox extends FlxSpriteGroup {
 
         if (textBox.text == textBox._finalText && focusedChar != null) focusedChar.talking = 0;
 
-        nextIndicator.visible = textBox.text == textBox._finalText;
+        // nextIndicator.visible = textBox.text == textBox._finalText;
 
         if (!dialogueEnded && !dialogueStarting) {
             if (progressKeys != null && progressKeys.length > 0 && FlxG.keys.anyJustPressed(progressKeys)) {
