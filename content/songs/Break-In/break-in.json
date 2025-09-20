@@ -7687,7 +7687,7 @@
 		"needsVoices": true,
 		"arrowSkin": "",
 		"stage": "castle",
-		"validScore": false,
+		"validScore": true,
 		"lanes": 2,
 		"bpm": 192,
 		"speed": 3

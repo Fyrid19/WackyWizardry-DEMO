@@ -335,7 +335,8 @@ class FreeplayState extends MusicBeatState {
         #if !switch
 		intendedScore = Highscore.getScore(songs[curSelected].songName, 0);
 		intendedRating = Highscore.getRating(songs[curSelected].songName, 0);
-		#end
+		trace(intendedScore);
+        #end
         
         var newColor:Int = songs[curSelected].color;
         if (newColor != intendedColor)

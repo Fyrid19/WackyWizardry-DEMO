@@ -8484,7 +8484,7 @@
 		"needsVoices": true,
 		"arrowSkin": "",
 		"stage": "castleEVIL",
-		"validScore": false,
+		"validScore": true,
 		"lanes": 2,
 		"bpm": 150,
 		"speed": 2.6

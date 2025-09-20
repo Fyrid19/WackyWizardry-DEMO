@@ -346,7 +346,7 @@ class ChartingState extends MusicBeatState
 					gfVersion: 'gf',
 					speed: 1,
 					stage: 'stage',
-					validScore: false,
+					validScore: true, // WHY WAS THE FUCKING DEFAULT OF THIS FALSE THATS SO DUMB
 					keys: 4,
 					lanes: 2
 				};

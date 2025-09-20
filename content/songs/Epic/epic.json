@@ -6127,7 +6127,7 @@
 		"keys": 4,
 		"splashSkin": "noteSplashes",
 		"song": "Epic",
-		"validScore": false,
+		"validScore": true,
 		"stage": "epicLand",
 		"arrowSkin": "",
 		"needsVoices": true,

@@ -1405,7 +1405,7 @@
 		"keys": 4,
 		"splashSkin": "noteSplashes",
 		"song": "Morl",
-		"validScore": false,
+		"validScore": true,
 		"stage": "morl",
 		"arrowSkin": "default",
 		"needsVoices": true,
