@@ -72,7 +72,7 @@
             "fps": -1,
             "looped": false,
             "offset": [
-                359,
+                159,
                 -10
             ],
             "sound": null,
@@ -91,7 +91,7 @@
             "fps": -1,
             "looped": false,
             "offset": [
-                71,
+                0,
                 -22
             ],
             "sound": null,
@@ -110,7 +110,7 @@
             "fps": -1,
             "looped": false,
             "offset": [
-                70,
+                0,
                 -22
             ],
             "sound": null,
@@ -365,6 +365,25 @@
                 0.05,
                 0.1
             ]
+        },
+        {
+            "name": "gone",
+            "anim": "neutral",
+            "blinkRates": [
+                0.7,
+                4
+            ],
+            "fps": -1,
+            "looped": false,
+            "offset": [
+                15,
+                1000
+            ],
+            "sound": null,
+            "unblinkRates": [
+                0.05,
+                0.1
+            ]
         }
     ],
 	"sound": {
@@ -385,8 +404,8 @@
         546.25
     ],
 	"offset": [
-        0,
-        200
+        100,
+        350
     ],
-	"scale": 0.7
+	"scale": 0.8
 }

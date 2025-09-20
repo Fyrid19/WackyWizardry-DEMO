@@ -1,0 +1,34 @@
+{
+	"animations": [
+		{
+			"loop": true,
+			"offsets": [
+				0,
+				0
+			],
+			"anim": "idle",
+			"fps": 24,
+			"name": "unconcious",
+			"indices": []
+		}
+	],
+	"no_antialiasing": false,
+	"image": "characters/color-alts/BOYFRIEND_periodic_purple",
+	"position": [
+		260,
+		430
+	],
+	"healthicon": "bf",
+	"flip_x": true,
+	"healthbar_colors": [
+		105,
+		235,
+		245
+	],
+	"camera_position": [
+		50,
+		-80
+	],
+	"sing_duration": 4,
+	"scale": 1
+}

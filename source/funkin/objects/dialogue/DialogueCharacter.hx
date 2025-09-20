@@ -98,7 +98,7 @@ class DialogueCharacter extends AnimateSprite {
 	override function update(elapsed:Float) {
 		if (canBlink) {
 			blinkTimer = new FlxTimer().start(FlxG.random.float(blinkRate[0], blinkRate[1]), function(t) {
-				blinkFrameOffset = 1;
+				blinkFrameOffset = FlxG.random.int(0, 1);
 				unblinkTimer = new FlxTimer().start(FlxG.random.float(unblinkRate[0], unblinkRate[1]), function(t2) {
 					blinkFrameOffset = 0;
 					canBlink = true;
@@ -256,5 +256,19 @@ class DialogueCharacter extends AnimateSprite {
 
 	public function switchPosition(pos:String) {
 		position = pos;
+	}
+
+	public function exit(?afterKill:Void->Void) {
+		if (position == 'left' || position == 'middleLeft' || position == 'middle') {
+			x = -width;
+		} else if (position == 'right' || position == 'middleRight') {
+			x = FlxG.width + width;
+		}
+
+		new FlxTimer().start(1, (t) -> {
+			this.kill();
+			afterKill();
+			this.destroy();
+		});
 	}
 }

@@ -380,6 +380,10 @@ class FreeplayState extends MusicBeatState {
             trace('dont');
         }
 
+        if (FlxG.random.bool(0.01)) {
+            charRender.loadGraphic(graphic2 ?? Paths.image('freeplay/renders/jason'));
+        }
+
         charRender.x = charRenderX - charRender.width/2 - 30;
         FlxTween.cancelTweensOf(charRender, ['x']);
 		FlxTween.tween(charRender, {x: charRenderX - charRender.width/2}, 0.5, {ease: FlxEase.circOut});

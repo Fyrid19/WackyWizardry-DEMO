@@ -1,0 +1,122 @@
+{
+	"animations": [
+		{
+			"loop": true,
+			"offsets": [
+				0,
+				0
+			],
+			"anim": "idle",
+			"fps": 24,
+			"name": "worriedidle",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				49,
+				-8
+			],
+			"anim": "singLEFT",
+			"fps": 24,
+			"name": "worriedleft",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				88,
+				40
+			],
+			"anim": "singRIGHT",
+			"fps": 24,
+			"name": "worriedright",
+			"indices": []
+		},
+		{
+			"offsets": [
+				50,
+				9
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singLEFTmiss",
+			"indices": [],
+			"name": "msingLEFT"
+		},
+		{
+			"offsets": [
+				-1,
+				-26
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singDOWNmiss",
+			"indices": [],
+			"name": "msingDOWN"
+		},
+		{
+			"offsets": [
+				-7,
+				-32
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singDOWN",
+			"indices": [],
+			"name": "worrieddown"
+		},
+		{
+			"offsets": [
+				-2,
+				39
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singUPmiss",
+			"indices": [],
+			"name": "msingUP"
+		},
+		{
+			"offsets": [
+				-23,
+				40
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singUP",
+			"indices": [],
+			"name": "worriedup"
+		},
+		{
+			"offsets": [
+				25,
+				40
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singRIGHTmiss",
+			"indices": [],
+			"name": "msingRIGHT"
+		}
+	],
+	"no_antialiasing": false,
+	"image": "characters/color-alts/dave_worried_purple",
+	"position": [
+		60,
+		210
+	],
+	"healthicon": "dave",
+	"flip_x": true,
+	"healthbar_colors": [
+		56,
+		97,
+		237
+	],
+	"camera_position": [
+		20,
+		-10
+	],
+	"sing_duration": 6.1,
+	"scale": 1
+}

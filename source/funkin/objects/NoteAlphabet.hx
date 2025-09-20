@@ -1,9 +1,18 @@
 package funkin.objects;
 
+import haxe.Json;
+import openfl.utils.Assets;
+
 import flixel.group.FlxSpriteGroup;
 
 import funkin.game.shaders.RGBPalette;
 import funkin.game.shaders.RGBPalette.RGBShaderReference;
+
+typedef NoteFont = {
+    var image:String;
+    var animations:Array<String>;
+    var useRgbShader:Bool;
+}
 
 class NoteAlphabet extends FlxSpriteGroup {
     var lastSprite:AlphaChar = null;
@@ -180,7 +189,9 @@ class AlphaChar extends FlxSprite {
     public var noteData:Int = -1;
     public var isSustain:Bool = false;
 
-    public static var noteAssets:String = 'note/NOTE_assets';
+    public static var noteFont:NoteFont = null;
+
+    public var useRgbShader:Bool = true;
 
     public function new(isNote:Bool) {
         super();
@@ -188,12 +199,22 @@ class AlphaChar extends FlxSprite {
         this.isNote = isNote;
 
         if (isNote) {
-            frames = Paths.getSparrowAtlas(noteAssets);
+            frames = Paths.getSparrowAtlas(noteFont.image ?? 'note/NOTE_assets');
+            useRgbShader = noteFont.useRgbShader ?? true;
         } else {
             frames = Paths.getSparrowAtlas('alphabet');
         }
 
         antialiasing = ClientPrefs.globalAntialiasing;
+    }
+
+    public static function changeFont(font:String) {
+        if (Paths.fileExists('data/dialogue/noteFonts/$font.json', TEXT)) {
+            noteFont = Json.parse(Paths.getTextFromFile('data/dialogue/noteFonts/$font.json'));
+            trace(noteFont);
+        } else {
+            trace('Cant find $font!');
+        }
     }
 
     public function createSymbol(letter:String)
@@ -231,20 +252,20 @@ class AlphaChar extends FlxSprite {
             case '.':
                 y -= 25;
             case ':':
-                y -= 25;
+                y -= 15;
 		}
 	}
     
     var rgbShader:RGBShaderReference;
 	public function createNote(data:Int, sustain:Bool, ?sustainEnd:Bool) {
         if (!sustain) {
-            animation.addByPrefix('left', 'purple0', 24, false);
-            animation.addByPrefix('down', 'blue0', 24, false);
-            animation.addByPrefix('up', 'green0', 24, false);
-            animation.addByPrefix('right', 'red0', 24, false);
+            animation.addByPrefix('left', noteFont.animations[0] ?? 'purple0', 24, false);
+            animation.addByPrefix('down', noteFont.animations[1] ?? 'blue0', 24, false);
+            animation.addByPrefix('up', noteFont.animations[2] ?? 'green0', 24, false);
+            animation.addByPrefix('right', noteFont.animations[3] ?? 'red0', 24, false);
         } else {
-            animation.addByPrefix('hold', 'purple hold piece', 24, false);
-            animation.addByPrefix('holdend', 'pruple end hold', 24, false);
+            animation.addByPrefix('hold', noteFont.animations[4] ?? 'purple hold piece', 24, false);
+            animation.addByPrefix('holdend', noteFont.animations[5] ?? 'pruple end hold', 24, false);
             angle = 270;
         }
 
@@ -272,6 +293,7 @@ class AlphaChar extends FlxSprite {
         newRGB.g = arr[1];
         newRGB.b = arr[2];
         rgbShader = new RGBShaderReference(this, newRGB);
+        rgbShader.enabled = useRgbShader;
 
         y += 10;
 	}

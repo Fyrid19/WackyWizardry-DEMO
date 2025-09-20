@@ -1,0 +1,12 @@
+{
+    "image": "note/cones",
+    "animations": [
+        "left",
+        "down",
+        "up",
+        "right",
+        "left",
+        "left"
+    ],
+    "useRgbShader": false
+}

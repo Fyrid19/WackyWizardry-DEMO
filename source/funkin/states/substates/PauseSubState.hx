@@ -306,7 +306,7 @@ class PauseSubState extends MusicBeatSubstate
 					case "Exit to menu":
 						PlayState.deathCounter = 0;
 						PlayState.seenCutscene = false;
-						FlxG.switchState(() -> PlayState.isStoryMode ? new StoryMenuState() : new funkin.states.wacky.FreeplayState());
+						FlxG.switchState(() -> PlayState.isStoryMode ? new funkin.states.wacky.MainMenuState() : new funkin.states.wacky.FreeplayState());
 						CoolUtil.cancelMusicFadeTween();
 						FlxG.sound.playMusic(Paths.music('freakyMenu'));
 						PlayState.changedDifficulty = false;

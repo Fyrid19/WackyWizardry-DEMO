@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<TextureAtlas imagePath="pruj.png">
+<SubTexture name="pruj run0000" x="410" y="0" width="177" height="331" frameX="-133" frameY="-57" frameWidth="500" frameHeight="500" />
+<SubTexture name="pruj run0001" x="0" y="0" width="217" height="348" frameX="-99" frameY="-67" frameWidth="500" frameHeight="500" />
+<SubTexture name="pruj idle0000" x="587" y="0" width="218" height="309" frameX="-121" frameY="-110" frameWidth="500" frameHeight="500" />
+<SubTexture name="pruj idle0001" x="217" y="0" width="193" height="336" frameX="-135" frameY="-80" frameWidth="500" frameHeight="500" />
+</TextureAtlas>

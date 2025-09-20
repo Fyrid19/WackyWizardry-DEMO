@@ -325,6 +325,8 @@ class PlayState extends MusicBeatState
 	var dialogue:Array<String> = ['blah blah blah', 'coolswag'];
 	var dialogueJson:DialogueFile = null;
 	var ddeDialogueJson:DeependDialogueFile = null;
+	var ddeEndDialogueJson:DeependDialogueFile = null;
+	var inDialogue:Bool = false;
 	
 	public var songScore:Int = 0;
 	public var songHits:Int = 0;
@@ -781,6 +783,9 @@ class PlayState extends MusicBeatState
 			
 			dialogueBox.finishDialogueCallback = () -> {
 				startCountdown();
+
+				if (dialogueBG != null) FlxTween.tween(dialogueBG, {alpha: 0}, 0.5);
+				inDialogue = false;
 			};
 
 			add(dialogueBG);
@@ -1006,8 +1011,8 @@ class PlayState extends MusicBeatState
 	}
 
 	function spawnDialogueBox() {
-		FlxTween.tween(dialogueBG, {alpha: 1}, 0.5);
 		dialogueBox.beginDialogue();
+		inDialogue = true;
 	}
 	
 	function noteskinLoading(skin:String = 'default')
@@ -1275,54 +1280,6 @@ class PlayState extends MusicBeatState
 			psychDialogue.skipDialogueThing = skipDialogue;
 			psychDialogue.cameras = [camHUD];
 			add(psychDialogue);
-		}
-		else
-		{
-			FlxG.log.warn('Your dialogue file is badly formatted!');
-			if (endingSong)
-			{
-				endSong();
-			}
-			else
-			{
-				startCountdown();
-			}
-		}
-	}
-
-	public var ddeDialogue:DeependDialogueBox;
-	
-	public function startDialogueAlt(dialogueFile:DeependDialogueFile):Void
-	{
-		trace('dialogue');
-		if (ddeDialogue != null) return;
-
-		if (dialogueFile != null) ddeDialogueJson = dialogueFile;
-		
-		if (ddeDialogueJson.dialogue.length > 0)
-		{
-			ddeDialogue = new DeependDialogueBox(ddeDialogueJson);
-			ddeDialogue.scrollFactor.set();
-			if (endingSong)
-			{
-				ddeDialogue.finishDialogueCallback = function() {
-					ddeDialogue = null;
-					endSong();
-				}
-			}
-			else
-			{
-				ddeDialogue.finishDialogueCallback = function() {
-					ddeDialogue = null;
-					startCountdown();
-				}
-			}
-			ddeDialogue.nextLineCallback = startNextDialogue;
-			ddeDialogue.skipLineCallback = skipDialogue;
-			ddeDialogue.cameras = [camHUD];
-			add(ddeDialogue);
-			
-			ddeDialogue.beginDialogue();
 		}
 		else
 		{
@@ -2409,7 +2366,7 @@ class PlayState extends MusicBeatState
 		setOnHScripts('curStep', curStep);
 		setOnHScripts('curBeat', curBeat);
 		
-		if (controls.PAUSE && startedCountdown && canPause)
+		if (controls.PAUSE && startedCountdown && canPause && !inDialogue)
 		{
 			final ret:Dynamic = callOnScripts('onPause', []);
 			if (ret != Globals.Function_Stop) openPauseMenu();
@@ -3380,6 +3337,42 @@ class PlayState extends MusicBeatState
 		vocals.volume = 0;
 		vocals.pause();
 		
+		var songName:String = Paths.formatToSongPath(SONG.song);
+		var file:String = Paths.getPath('data/dialogue/dialogue/$songName-Post.json');
+		var hasEndDialogue:Bool = Paths.fileExists('data/dialogue/dialogue/$songName-Post.json', TEXT);
+		if (hasEndDialogue) {
+			ddeEndDialogueJson = funkin.objects.dialogue.DialogueBox.DialogueData.parse(file);
+		}
+
+		if (hasEndDialogue && isStoryMode) {
+			if (dialogueBox != null) remove(dialogueBox);
+			if (dialogueBG != null) remove(dialogueBG);
+
+			dialogueBox = new DeependDialogueBox(ddeEndDialogueJson);
+			dialogueBox.scrollFactor.set();
+			dialogueBox.nextLineCallback = startNextDialogue;
+			dialogueBox.skipDialogueCallback = skipDialogue;
+			dialogueBox.cameras = [camOther];
+			dialogueBox.alpha = 0;
+
+			dialogueBG = new FlxSprite().loadGraphic(Paths.image(dialogueBox.bgPath));
+			dialogueBG.visible = dialogueBox.bgPath.length > 0;
+			dialogueBG.screenCenter();
+			dialogueBG.cameras = [camOther];
+			
+			dialogueBox.finishDialogueCallback = () -> {
+				endSong();
+
+				if (dialogueBG != null) FlxTween.tween(dialogueBG, {alpha: 0}, 0.5);
+				inDialogue = false;
+			};
+
+			add(dialogueBG);
+			add(dialogueBox);
+
+			songEndCallback = spawnDialogueBox;
+		}
+		
 		if (songEndCallback == null)
 		{
 			FlxG.log.error('songEndCallback is null! using default callback.');
@@ -3501,7 +3494,7 @@ class PlayState extends MusicBeatState
 					FlxG.sound.music.volume = 1;
 					
 					CoolUtil.cancelMusicFadeTween();
-					FlxG.switchState(() -> new StoryMenuState());
+					FlxG.switchState(() -> new funkin.states.wacky.MainMenuState());
 					
 					if (!ClientPrefs.getGameplaySetting('practice', false) && !ClientPrefs.getGameplaySetting('botplay', false))
 					{

@@ -1,0 +1,12 @@
+{
+    "image": "note/NOTE_assets",
+    "animations": [
+        "purple0",
+        "blue0",
+        "green0",
+        "red0",
+        "purple hold piece",
+        "pruple end hold"
+    ],
+    "useRgbShader": true
+}

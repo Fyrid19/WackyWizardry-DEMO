@@ -177,25 +177,6 @@
             ]
         },
         {
-            "name": "nervous",
-            "anim": "nervous",
-            "blinkRates": [
-                0.7,
-                1.3
-            ],
-            "fps": -1,
-            "looped": false,
-            "offset": [
-                296,
-                12
-            ],
-            "sound": null,
-            "unblinkRates": [
-                0.05,
-                0.1
-            ]
-        },
-        {
             "name": "horrified",
             "anim": "horrified",
             "blinkRates": [
@@ -215,7 +196,7 @@
             ]
         },
         {
-            "name": "consoling",
+            "name": "bconsoling",
             "anim": "consoling",
             "blinkRates": [
                 0.7,
@@ -224,7 +205,7 @@
             "fps": -1,
             "looped": false,
             "offset": [
-                278,
+                78,
                 -51
             ],
             "sound": null,
@@ -376,7 +357,7 @@
             "fps": -1,
             "looped": false,
             "offset": [
-                192,
+                0,
                 -54
             ],
             "sound": null,
@@ -395,8 +376,8 @@
             "fps": -1,
             "looped": false,
             "offset": [
-                160,
-                80
+                0,
+                0
             ],
             "sound": null,
             "unblinkRates": [
@@ -414,7 +395,26 @@
             "fps": -1,
             "looped": false,
             "offset": [
-                278,
+                78,
+                -52
+            ],
+            "sound": null,
+            "unblinkRates": [
+                0.05,
+                0.1
+            ]
+        },
+        {
+            "name": "gone",
+            "anim": "consoling_frown",
+            "blinkRates": [
+                0.7,
+                1.3
+            ],
+            "fps": -1,
+            "looped": false,
+            "offset": [
+                -2000,
                 -52
             ],
             "sound": null,
@@ -442,8 +442,8 @@
         549
     ],
 	"offset": [
-        0,
-        200
+        200,
+        300
     ],
 	"scale": 0.94
 }

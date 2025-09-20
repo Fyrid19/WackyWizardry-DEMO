@@ -58,7 +58,7 @@ class NoteSplash extends FlxSprite
 	
 	public function setupNoteSplash(x:Float, y:Float, note:Int = 0, texture:String = null, ?field:PlayField, ?fieldNote:Note = null)
 	{
-		// scale.set(1, 1);
+		scale.set(0.8, 0.8);
 		if (field != null) setPosition(x - field.members[note].swagWidth * 0.95, y - field.members[note].swagWidth * 0.95);
 		else setPosition(x - Note.swagWidth * 0.95, y - Note.swagWidth);
 		
@@ -73,8 +73,8 @@ class NoteSplash extends FlxSprite
 		}
 		if (field != null)
 		{
-			scale.x *= field.scale;
-			scale.y *= field.scale;
+			// scale.x *= field.scale;
+			// scale.y *= field.scale;
 		}
 		data = note;
 		switch (texture)

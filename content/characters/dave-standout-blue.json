@@ -1,0 +1,111 @@
+{
+	"animations": [
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "idle",
+			"indices": [],
+			"name": "standout/davestandout idle"
+		},
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "hey",
+			"indices": [],
+			"name": "standout/davestandout hey"
+		},
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "idle-nervous",
+			"indices": [],
+			"name": "standout/davestandout nervous"
+		},
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "hey-alt",
+			"indices": [],
+			"name": "standout/davestandout storymode hey"
+		},
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "idle-alt",
+			"indices": [],
+			"name": "standout/davestandout storymode idle"
+		},
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "wtf",
+			"indices": [],
+			"name": "standout/davestandout storymode shock"
+		},
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "wtttttnvm",
+			"indices": [],
+			"name": "standout/davestandout storymode less shock"
+		},
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "huh",
+			"indices": [],
+			"name": "standout/davestandout storymode transition nervous"
+		}
+	],
+	"no_antialiasing": false,
+	"image": "characters/color-alts/dave_standout_blue",
+	"position": [
+		570,
+		90
+	],
+	"healthicon": "dave",
+	"flip_x": true,
+	"healthbar_colors": [
+		56,
+		86,
+		251
+	],
+	"camera_position": [
+		0,
+		360
+	],
+	"sing_duration": 4,
+	"scale": 1
+}

@@ -1,91 +1,91 @@
 {
 	"animations": [
 		{
-			"loop": false,
 			"offsets": [
 				0,
 				0
 			],
+			"loop": false,
+			"fps": 24,
 			"anim": "idle",
-			"fps": 24,
-			"name": "idle",
-			"indices": []
+			"indices": [],
+			"name": "idle"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				0,
 				0
 			],
+			"loop": false,
+			"fps": 24,
 			"anim": "singLEFT",
-			"fps": 24,
-			"name": "left",
-			"indices": []
+			"indices": [],
+			"name": "left"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				0,
 				0
 			],
+			"loop": false,
+			"fps": 24,
 			"anim": "singRIGHT",
-			"fps": 24,
-			"name": "right",
-			"indices": []
+			"indices": [],
+			"name": "right"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				0,
 				0
 			],
+			"loop": false,
+			"fps": 24,
 			"anim": "singUP",
-			"fps": 24,
-			"name": "up",
-			"indices": []
+			"indices": [],
+			"name": "up"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				0,
 				0
 			],
+			"loop": false,
+			"fps": 24,
 			"anim": "singDOWN",
-			"fps": 24,
-			"name": "down",
-			"indices": []
+			"indices": [],
+			"name": "down"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				0,
 				0
 			],
+			"loop": false,
+			"fps": 24,
 			"anim": "trans",
-			"fps": 24,
-			"name": "trans",
-			"indices": []
+			"indices": [],
+			"name": "trans"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				0,
 				0
 			],
-			"anim": "idle-trans",
+			"loop": false,
 			"fps": 24,
-			"name": "trans",
+			"anim": "idle-trans",
 			"indices": [
 				8,
 				9
-			]
+			],
+			"name": "trans"
 		}
 	],
 	"no_antialiasing": false,
 	"image": "characters/conson",
 	"position": [
 		-180,
-		-200
+		-160
 	],
 	"healthicon": "conson",
 	"flip_x": false,
@@ -95,9 +95,9 @@
 		20
 	],
 	"camera_position": [
-		-220,
-		-100
+		-60,
+		-130
 	],
 	"sing_duration": 4,
-	"scale": 1.4
+	"scale": 1.3
 }

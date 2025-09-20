@@ -60,7 +60,7 @@
 	"image": "characters/conson-pissy",
 	"position": [
 		-180,
-		-220
+		-160
 	],
 	"healthicon": "conson-super",
 	"flip_x": false,
@@ -70,9 +70,9 @@
 		20
 	],
 	"camera_position": [
-		-170,
-		-160
+		-40,
+		-180
 	],
 	"sing_duration": 4,
-	"scale": 1.4
+	"scale": 1.3
 }

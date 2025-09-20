@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="MORL BURN.png">
+	<!-- Created with Adobe Animate version 24.0.11.4 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="BURN0000" x="3" y="3" width="500" height="500"/>
+	<SubTexture name="BURN0001" x="3" y="3" width="500" height="500"/>
+	<SubTexture name="BURN0002" x="3" y="3" width="500" height="500"/>
+	<SubTexture name="BURN0003" x="3" y="508" width="500" height="500"/>
+	<SubTexture name="BURN0004" x="3" y="508" width="500" height="500"/>
+	<SubTexture name="BURN0005" x="3" y="508" width="500" height="500"/>
+	<SubTexture name="BURN0006" x="3" y="1013" width="500" height="500"/>
+	<SubTexture name="BURN0007" x="3" y="1013" width="500" height="500"/>
+	<SubTexture name="BURN0008" x="3" y="1013" width="500" height="500"/>
+	<SubTexture name="BURN0009" x="3" y="1518" width="500" height="500"/>
+	<SubTexture name="BURN0010" x="3" y="1518" width="500" height="500"/>
+	<SubTexture name="BURN0011" x="3" y="1518" width="500" height="500"/>
+	<SubTexture name="BURN0012" x="508" y="3" width="500" height="500"/>
+	<SubTexture name="BURN0013" x="508" y="3" width="500" height="500"/>
+	<SubTexture name="BURN0014" x="508" y="3" width="500" height="500"/>
+	<SubTexture name="BURN0015" x="508" y="508" width="500" height="500"/>
+	<SubTexture name="BURN0016" x="508" y="508" width="500" height="500"/>
+	<SubTexture name="BURN0017" x="508" y="508" width="500" height="500"/>
+	<SubTexture name="BURN0018" x="508" y="1013" width="500" height="500"/>
+	<SubTexture name="BURN0019" x="508" y="1013" width="500" height="500"/>
+	<SubTexture name="BURN0020" x="508" y="1013" width="500" height="500"/>
+	<SubTexture name="BURN0021" x="508" y="1518" width="500" height="500"/>
+	<SubTexture name="BURN0022" x="508" y="1518" width="500" height="500"/>
+	<SubTexture name="BURN0023" x="508" y="1518" width="500" height="500"/>
+	<SubTexture name="BURN0024" x="508" y="1518" width="500" height="500"/>
+	<SubTexture name="BURN0025" x="508" y="1518" width="500" height="500"/>
+	<SubTexture name="BURN0026" x="508" y="1518" width="500" height="500"/>
+	<SubTexture name="BURN0027" x="508" y="1518" width="500" height="500"/>
+	<SubTexture name="BURN0028" x="508" y="1518" width="500" height="500"/>
+	<SubTexture name="BURN0029" x="508" y="1518" width="500" height="500"/>
+	<SubTexture name="BURN0030" x="508" y="1518" width="500" height="500"/>
+	<SubTexture name="BURN0031" x="508" y="1518" width="500" height="500"/>
+	<SubTexture name="BURN0032" x="508" y="1518" width="500" height="500"/>
+	<SubTexture name="BURN0033" x="508" y="1518" width="500" height="500"/>
+</TextureAtlas>

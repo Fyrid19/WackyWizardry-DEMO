@@ -1,17 +1,3 @@
-import flixel.text.FlxText;
-
-var stepTxt:FlxText;
-
-function onCreate() {
-    stepTxt = new FlxText(0, 400, FlxG.width, '', 36);
-    stepTxt.cameras = [camHUD];
-    add(stepTxt);
-}
-
-function onUpdate(elapsed:Float) {
-    stepTxt.text = Std.string(curStep);
-}
-
 var measure:Int = 16;
 var beat:Int = 4;
 
@@ -189,9 +175,52 @@ function onSongStart() {
                 modManager.queueEase(i, i+2, "stretch", 0, "circOut");
         }
     }
+    
+    bumpyNotes(1472, 1536, 20);
+    slidey(1472, 1536, 20);
+
+    modManager.queueEase(1536, 1540, "transformY", 0, "circOut");
+    modManager.queueEase(1536, 1540, "transformX", -20, "circOut", 0);
+    modManager.queueEase(1536, 1540, "transformX", 20, "circOut", 1);
+
+    for (i in 1536...1600) {
+        switch (i % 16) {
+            case 0:
+                modManager.queueSet(i, "angle", -90);
+                modManager.queueEase(i, i+4, "angle", 0, "backOut");
+            case 4:
+                modManager.queueEase(i, i+4, "angle", 90, "backOut");
+            case 8:
+                modManager.queueEase(i, i+4, "angle", 180, "backOut");
+            case 12:
+                modManager.queueEase(i, i+4, "angle", 270, "backOut");
+        }
+
+        switch (i % 4) {
+            case 0:
+                modManager.queueSet(i, "stretch", -1);
+                modManager.queueEase(i, i+8, "stretch", 0, "elasticOut");
+        }
+    }
 
     modManager.queueSet(1536, 'wave', 1);
     modManager.queueEase(1600, 1616, 'wave', 0);
+    modManager.queueEase(1600, 1616, "angle", 3600, "sineOut");
+    
+    modManager.queueEase(1600, 1616, "transform0Z", 0.1, "circOut");
+    modManager.queueEase(1600, 1616, "transform1Z", -0.14, "circOut");
+    modManager.queueEase(1600, 1616, "transform2Z", 0.15, "circOut");
+    modManager.queueEase(1600, 1616, "transform3Z", -0.12, "circOut");
+    
+    modManager.queueEase(1600, 1616, "transform0X", -90, "circOut", 0);
+    modManager.queueEase(1600, 1616, "transform1X", -30, "circOut", 0);
+    modManager.queueEase(1600, 1616, "transform2X", 40, "circOut", 0);
+    modManager.queueEase(1600, 1616, "transform3X", 50, "circOut", 0);
+    
+    modManager.queueEase(1600, 1616, "transform0X", 90, "circOut", 1);
+    modManager.queueEase(1600, 1616, "transform1X", 30, "circOut", 1);
+    modManager.queueEase(1600, 1616, "transform2X", -40, "circOut", 1);
+    modManager.queueEase(1600, 1616, "transform3X", -50, "circOut", 1);
     
     modManager.queueEase(1600, 1608, 'transformY', -200, 'circOut');
     modManager.queueEase(1608, 1616, 'transformY', 320, 'quadIn');

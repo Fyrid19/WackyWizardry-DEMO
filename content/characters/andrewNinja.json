@@ -1,0 +1,100 @@
+{
+	"animations": [
+		{
+			"loop": false,
+			"offsets": [
+				0,
+				0
+			],
+			"anim": "bored",
+			"fps": 12,
+			"name": "NinjaAndrew Bored",
+			"indices": []
+		},
+		{
+			"loop": true,
+			"offsets": [
+				0,
+				0
+			],
+			"anim": "idle",
+			"fps": 12,
+			"name": "NinjaAndrew Bored",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				0,
+				0
+			],
+			"anim": "smug",
+			"fps": 12,
+			"name": "NinjaAndrew Smug",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				458,
+				197
+			],
+			"anim": "windback",
+			"fps": 12,
+			"name": "NinjaAndrew Wind Back",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				458,
+				197
+			],
+			"anim": "swing",
+			"fps": 12,
+			"name": "NinjaAndrew Swing",
+			"indices": []
+		},
+		{
+			"offsets": [
+				266,
+				95
+			],
+			"indices": [],
+			"fps": 12,
+			"anim": "idle-hm",
+			"loop": false,
+			"name": "NinjaAndrew idle"
+		},
+		{
+			"offsets": [
+				274,
+				92
+			],
+			"indices": [],
+			"fps": 12,
+			"anim": "shimmy",
+			"loop": false,
+			"name": "NinjaAndrew Shimmy Idle"
+		}
+	],
+	"no_antialiasing": false,
+	"image": "characters/NinjaAndrew",
+	"position": [
+		90,
+		-130
+	],
+	"healthicon": "andrew",
+	"flip_x": false,
+	"healthbar_colors": [
+		255,
+		255,
+		111
+	],
+	"camera_position": [
+		-30,
+		-140
+	],
+	"sing_duration": 4,
+	"scale": 1.6
+}

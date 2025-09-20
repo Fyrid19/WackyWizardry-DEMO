@@ -10,13 +10,13 @@ import flixel.addons.transition.FlxTransitionSprite.TransitionStatus;
 import funkin.backend.DebugDisplay;
 
 import funkin.backend.BaseTransitionState;
-import funkin.states.transitions.SwipeTransition;
+import funkin.states.transitions.StageTransition;
 import funkin.data.*;
 import funkin.scripts.*;
 
 class MusicBeatState extends FlxUIState
 {
-	static final _defaultTransState:Class<BaseTransitionState> = SwipeTransition;
+	static final _defaultTransState:Class<BaseTransitionState> = StageTransition;
 	
 	// change these to change the transition
 	public static var transitionInState:Null<Class<BaseTransitionState>> = null;

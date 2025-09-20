@@ -21,6 +21,8 @@ import funkin.states.*;
 import funkin.objects.*;
 import funkin.game.shaders.*;
 
+import funkin.utils.WindowUtil;
+
 typedef TitleData =
 {
 	titlex:Float,
@@ -40,7 +42,7 @@ class TitleState extends MusicBeatState
 	public static var instance:TitleState;
 	
 	public static var title = [
-		'FRIDAY', 'NIGHT', 'FUNKIN'
+		'DDE', 'WACKY', 'WIZARDRY'
 	];
 	
 	public var blackScreen:FlxSprite;
@@ -58,6 +60,7 @@ class TitleState extends MusicBeatState
 	
 	public var titleJSON:TitleData;
 	
+	public static var archiveThing:Bool = false;
 	public static var updateVersion:String = '';
 	
 	override public function create():Void
@@ -111,17 +114,22 @@ class TitleState extends MusicBeatState
 		}
 		else
 		{
-			if (initialized) startIntro();
-			else
-			{
-				new FlxTimer().start(1, function(tmr:FlxTimer) {
-					startIntro();
-				});
+			if (!archiveThing) {
+				if (initialized) startIntro();
+				else
+				{
+					new FlxTimer().start(1, function(tmr:FlxTimer) {
+						startIntro();
+					});
+				}
+			} else {
+				archive();
 			}
 		}
 		#end
 	}
 	
+	var bg:FlxSprite;
 	var logoBl:FlxSprite;
 	var gfDance:FlxSprite;
 	var danceLeft:Bool = false;
@@ -143,21 +151,14 @@ class TitleState extends MusicBeatState
 		
 		if (isHardcodedState() && script.call('onStartIntro') != Globals.Function_Stop)
 		{
-			var bg:FlxSprite = new FlxSprite();
-			
-			if (titleJSON.backgroundSprite != null && titleJSON.backgroundSprite.length > 0 && titleJSON.backgroundSprite != "none")
-			{
-				bg.loadGraphic(Paths.image(titleJSON.backgroundSprite));
-			}
-			else
-			{
-				bg.makeScaledGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
-			}
-			
+			bg = new FlxSprite();
+			bg.loadGraphic(Paths.image('freeplay/bg'));
 			add(bg);
 			
 			logoBl = new FlxSprite(titleJSON.titlex, titleJSON.titley);
 			logoBl.frames = Paths.getSparrowAtlas('logoBumpin');
+			logoBl.setGraphicSize(Std.int(logoBl.width * 0.4));
+			logoBl.y = -logoBl.height;
 			
 			logoBl.antialiasing = ClientPrefs.globalAntialiasing;
 			logoBl.animation.addByPrefix('bump', 'logo bumpin', 24, false);
@@ -176,7 +177,7 @@ class TitleState extends MusicBeatState
 			
 			gfDance.antialiasing = ClientPrefs.globalAntialiasing;
 			
-			add(gfDance);
+			// add(gfDance);
 			gfDance.shader = swagShader.shader;
 			add(logoBl);
 			logoBl.shader = swagShader.shader;
@@ -209,8 +210,7 @@ class TitleState extends MusicBeatState
 			titleText.updateHitbox();
 			add(titleText);
 			
-			if (initialized) skipIntro();
-			else initialized = true;
+			initialized = true;
 		}
 		
 		if(isHardcodedState() && script.call('createText') != Globals.Function_Stop){
@@ -226,16 +226,19 @@ class TitleState extends MusicBeatState
 			
 			credTextShit.visible = false;
 			
-			ngSpr = new FlxSprite(0, FlxG.height * 0.52).loadGraphic(Paths.image('newgrounds_logo'));
+			ngSpr = new FlxSprite(0, FlxG.height * 0.44).loadGraphic(Paths.image('dde'));
 			add(ngSpr);
 			ngSpr.visible = false;
-			ngSpr.setGraphicSize(Std.int(ngSpr.width * 0.8));
+			ngSpr.setGraphicSize(Std.int(ngSpr.width * 0.4));
 			ngSpr.updateHitbox();
 			ngSpr.screenCenter(X);
 			ngSpr.antialiasing = ClientPrefs.globalAntialiasing;
 			
 			FlxTween.tween(credTextShit, {y: credTextShit.y + 20}, 2.9, {ease: FlxEase.quadInOut, type: PINGPONG});
 		}
+		
+		if (initialized) skipIntro();
+		else initialized = true;
 		
 		script.call('onCreatePost', []);
 	}
@@ -331,6 +334,12 @@ class TitleState extends MusicBeatState
 					});
 					// FlxG.sound.play(Paths.music('titleShoot'), 0.7);
 				}
+				
+				if (controls.BACK) {
+					archiveThing = true;
+					FlxG.sound.play(Paths.sound('cancelMenu'));
+					FlxG.switchState(TitleState.new);
+				}
 			}
 			
 			if (initialized && pressedEnter && !skippedIntro)
@@ -425,31 +434,15 @@ class TitleState extends MusicBeatState
 						FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
 						FlxG.sound.music.fadeIn(4, 0, 0.7);
 					case 2:
-						#if PSYCH_WATERMARKS
-						createCoolText(['Psych Engine by'], 15);
-						#else
-						createCoolText(['ninjamuffin99', 'phantomArcade', 'kawaisprite', 'evilsk8er']);
-						#end
+						createCoolText(['ethanlolcat3', 'FyriDev']);
 					case 4:
-						#if PSYCH_WATERMARKS
-						addMoreText('Shadow Mario', 15);
-						addMoreText('RiverOaken', 15);
-						addMoreText('shubs', 15);
-						#else
 						addMoreText('present');
-						#end
-						
 					case 5:
 						deleteCoolText();
 						
 					case 6:
-						#if PSYCH_WATERMARKS
-						createCoolText(['Not associated', 'with'], -40);
-						#else
-						createCoolText(['In association', 'with'], -40);
-						#end
+						createCoolText(['A fanmod', 'of'], -40);
 					case 8:
-						addMoreText('newgrounds', -40);
 						ngSpr.visible = true;
 					case 9:
 						deleteCoolText();
@@ -484,8 +477,35 @@ class TitleState extends MusicBeatState
 			remove(ngSpr);
 			remove(credGroup);
 			FlxG.camera.flash(FlxColor.WHITE, 4);
+
+			FlxTween.tween(logoBl, {y: FlxG.height/2 - logoBl.height/2}, 4, {ease: FlxEase.backOut});
+			FlxTween.tween(bg, {y: -800}, 4, {ease: FlxEase.backOut, onComplete: (t) -> {
+				FlxTween.tween(bg, {y: bg.y + 30}, 2.9, {ease: FlxEase.quadInOut, type: PINGPONG});
+			}});
 			
 			skippedIntro = true;
 		}
+	}
+
+	public function archive() {
+		var archiveBG:FlxSprite = new FlxSprite().loadGraphic(Paths.image('archive_censors'));
+		archiveBG.screenCenter();
+		archiveBG.alpha = 0;
+		archiveBG.antialiasing = false;
+
+		FlxTween.tween(archiveBG, {alpha: 0.3}, 2);
+
+		FlxG.sound.playMusic(Paths.music('ambient-glitching'), 0);
+		FlxG.sound.music.fadeIn(4, 0, 0.7);
+		new FlxTimer().start(2, (t) -> {
+			FlxG.sound.play(Paths.sound('archive'));
+		});
+
+		new FlxTimer().start(24, (t) -> {
+			FlxG.sound.music.fadeOut(4);
+			new FlxTimer().start(6, (t) -> {
+				WindowUtil.crashTheFuckingGame();
+			});
+		});
 	}
 }

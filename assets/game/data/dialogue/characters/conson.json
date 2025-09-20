@@ -1,0 +1,222 @@
+{
+    "image": "conson",
+	"fps": 24,
+	"no_antialiasing": false,
+	"defaultPos": "left",
+    "neutralAnim": "neutral",
+    "defaultFlipX": true,
+    "animations": [
+        {
+            "name": "neutral",
+            "anim": "neutral",
+            "blinkRates": [
+                0.7,
+                1.3
+            ],
+            "fps": -1,
+            "looped": false,
+            "offset": [
+                0,
+                0
+            ],
+            "sound": null,
+            "unblinkRates": [
+                0.05,
+                0.1
+            ]
+        },
+	{
+            "name": "bro",
+            "anim": "bro",
+            "blinkRates": [
+                0.7,
+                1.3
+            ],
+            "fps": -1,
+            "looped": false,
+            "offset": [
+                0,
+                0
+            ],
+            "sound": null,
+            "unblinkRates": [
+                0.05,
+                0.1
+            ]
+        },
+	{
+            "name": "down",
+            "anim": "down",
+            "blinkRates": [
+                0.7,
+                1.3
+            ],
+            "fps": -1,
+            "looped": false,
+            "offset": [
+                0,
+                0
+            ],
+            "sound": null,
+            "unblinkRates": [
+                0.05,
+                0.1
+            ]
+        },
+	{
+            "name": "scared",
+            "anim": "scared",
+            "blinkRates": [
+                0.7,
+                1.3
+            ],
+            "fps": -1,
+            "looped": false,
+            "offset": [
+                0,
+                0
+            ],
+            "sound": null,
+            "unblinkRates": [
+                0.05,
+                0.1
+            ]
+        },
+	{
+            "name": "sideeye",
+            "anim": "sideeye",
+            "blinkRates": [
+                0.7,
+                1.3
+            ],
+            "fps": -1,
+            "looped": false,
+            "offset": [
+                0,
+                0
+            ],
+            "sound": null,
+            "unblinkRates": [
+                0.05,
+                0.1
+            ]
+        },
+	{
+            "name": "super",
+            "anim": "super",
+            "blinkRates": [
+                0.7,
+                1.3
+            ],
+            "fps": -1,
+            "looped": false,
+            "offset": [
+                0,
+                0
+            ],
+            "sound": null,
+            "unblinkRates": [
+                0.05,
+                0.1
+            ]
+        },
+	{
+            "name": "grah-",
+            "anim": "grah-",
+            "blinkRates": [
+                0.7,
+                1.3
+            ],
+            "fps": -1,
+            "looped": false,
+            "offset": [
+                0,
+                0
+            ],
+            "sound": null,
+            "unblinkRates": [
+                0.05,
+                0.1
+            ]
+        },
+	{
+            "name": "lookback",
+            "anim": "lookback",
+            "blinkRates": [
+                0.7,
+                1.3
+            ],
+            "fps": -1,
+            "looped": false,
+            "offset": [
+                0,
+                0
+            ],
+            "sound": null,
+            "unblinkRates": [
+                0.05,
+                0.1
+            ]
+        },
+	{
+            "name": "soup",
+            "anim": "soup",
+            "blinkRates": [
+                0.7,
+                1.3
+            ],
+            "fps": -1,
+            "looped": false,
+            "offset": [
+                0,
+                0
+            ],
+            "sound": null,
+            "unblinkRates": [
+                0.05,
+                0.1
+            ]
+        },
+	{
+            "name": "art",
+            "anim": "art",
+            "blinkRates": [
+                0.7,
+                1.3
+            ],
+            "fps": -1,
+            "looped": false,
+            "offset": [
+                0,
+                0
+            ],
+            "sound": null,
+            "unblinkRates": [
+                0.05,
+                0.1
+            ]
+        }
+    ],
+	"sound": {
+        "sounds": [
+            "uh",
+            "eh",
+            "ah",
+            "ih"
+        ],
+        "pitch": [
+            0,
+            0
+        ],
+        "prefix": "conson/conson_"
+    },
+	"origin": [
+        0,
+        0
+    ],
+	"offset": [
+        0,
+        500
+    ],
+	"scale": 1
+}

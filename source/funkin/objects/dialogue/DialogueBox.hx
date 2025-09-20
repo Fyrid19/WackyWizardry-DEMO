@@ -8,6 +8,10 @@ import flixel.addons.text.FlxTypeText;
 import flixel.input.keyboard.FlxKey;
 import flixel.util.FlxSignal;
 
+import funkin.objects.NoteAlphabet.AlphaChar;
+
+using flixel.util.FlxSpriteUtil;
+
 typedef DialogueCharInfo = {
     var name:String;
     var emotion:String;
@@ -32,6 +36,8 @@ typedef DialogueLine = {
     var line:String;
     var useNotes:Bool;
     var ?font:String;
+    var ?noteFont:String;
+    var ?removeChar:String;
 }
 
 class DialogueData {
@@ -49,7 +55,9 @@ class DialogueData {
                 namePlate: 'bf',
                 line: '←—— ↓——. ↑—— →——!',
                 useNotes: false,
-                font: null
+                font: null,
+                noteFont: null,
+                removeChar: null
             },
             {
                 speed: 0.04,
@@ -60,7 +68,9 @@ class DialogueData {
                 namePlate: 'dave',
                 line: 'old mccdownlad',
                 useNotes: false,
-                font: null
+                font: null,
+                noteFont: null,
+                removeChar: null
             }
         ]
     };
@@ -105,8 +115,10 @@ class DialogueBox extends FlxSpriteGroup {
     var textBox:FlxTypeText;
     var textBoxNote:NoteAlphabet;
     var charGroup:FlxSpriteGroup;
+    var activeCharGroup:FlxSpriteGroup;
     var charMap:Map<String, DialogueCharacter> = new Map();
     var focusedChar:DialogueCharacter;
+    var oldFocusedChar:DialogueCharacter;
 
     // DEBUG
     var progressTxt:FlxText;
@@ -130,7 +142,7 @@ class DialogueBox extends FlxSpriteGroup {
 
     // KEYS
     public var skipKeys:Array<FlxKey> = [FlxKey.ESCAPE];
-    public var progressKeys:Array<FlxKey> = [FlxKey.ENTER];
+    public var progressKeys:Array<FlxKey> = [FlxKey.ENTER, FlxKey.SPACE];
 
     public function new(?dialogue:DialogueFile) {
         super();
@@ -141,6 +153,9 @@ class DialogueBox extends FlxSpriteGroup {
 
         charGroup = new FlxSpriteGroup();
         add(charGroup);
+
+        activeCharGroup = new FlxSpriteGroup();
+        add(activeCharGroup);
 
         box = new FlxSprite(x, y);
         box.frames = Paths.getSparrowAtlas('dialogue/boxes/default');
@@ -163,7 +178,10 @@ class DialogueBox extends FlxSpriteGroup {
         namePlate.visible = false;
         add(namePlate);
 
-		// nextIndicator = new FlxShapeCircle(FlxG.width - 100, FlxG.height - 100, 40, null, FlxColor.BLACK);
+		// nextIndicator = new FlxSprite(); // fucking spriteutil is crashing everything so thank u juli
+        // nextIndicator.drawCircle(0, 0, 50, FlxColor.BLACK);
+        // nextIndicator.x = box.width - nextIndicator.width - 10;
+        // nextIndicator.y = box.height - nextIndicator.height - 10;
         // nextIndicator.visible = false;
 		// add(nextIndicator);
 
@@ -186,10 +204,10 @@ class DialogueBox extends FlxSpriteGroup {
         if (textBox.text.length > oldLength) {
             switch (textBox.text.charAt(oldLength)) {
                 case '.' | '!' | '?' | ':':
-                    textBox.delay = lineSpeed * 5;
+                    textBox.delay = lineSpeed * 3;
                     if (focusedChar != null) focusedChar.talking = 0;
                 case ',':
-                    textBox.delay = lineSpeed * 2.5;
+                    textBox.delay = lineSpeed * 2;
                     if (focusedChar != null) focusedChar.talking = 0;
                 default:
                     textBox.delay = lineSpeed;
@@ -203,6 +221,8 @@ class DialogueBox extends FlxSpriteGroup {
         }
 
         if (textBox.text == textBox._finalText && focusedChar != null) focusedChar.talking = 0;
+
+        nextIndicator.visible = textBox.text == textBox._finalText;
 
         if (!dialogueEnded && !dialogueStarting) {
             if (progressKeys != null && progressKeys.length > 0 && FlxG.keys.anyJustPressed(progressKeys)) {
@@ -236,6 +256,17 @@ class DialogueBox extends FlxSpriteGroup {
         }
     }
 
+    public function removeCharacter(charName:String) {
+        if (charMap.exists(charName)) {
+            var char:DialogueCharacter = charMap.get(charName);
+            if (!char.hasFocus) {
+                char.exit(() -> {
+                    charGroup.remove(char);
+                });
+            }
+        }
+    }
+
     public function typeText(text:String, speed:Float) {
         lineSpeed = speed;
         textBox.resetText(text);
@@ -243,7 +274,8 @@ class DialogueBox extends FlxSpriteGroup {
         oldLength = 0;
     }
 
-    public function typeNoteText(text:String, speed:Float) {
+    public function typeNoteText(text:String, speed:Float, ?font:String) {
+        AlphaChar.changeFont(font ?? 'default');
         textBoxNote.changeText(text);
         textBoxNote.startTypedText(speed);
     }
@@ -257,8 +289,9 @@ class DialogueBox extends FlxSpriteGroup {
         dialogueEnded = false;
         dialogueStarting = true;
 
-        FlxG.sound.playMusic(Paths.music(_file.music ?? 'freakyMenu'), 0, false);
+        FlxG.sound.playMusic(Paths.music(_file.music ?? 'freakyMenu'), 0);
 		FlxG.sound.music.fadeIn();
+        FlxG.sound.play(Paths.sound('dialogueContinue'));
 
         FlxTween.tween(this, {y: _baseY, alpha: 1}, 0.5, {ease: FlxEase.quadOut});
 
@@ -271,6 +304,7 @@ class DialogueBox extends FlxSpriteGroup {
 
     function endDialogue() {
         dialogueEnded = true;
+        FlxG.sound.play(Paths.sound('dialogueEnd'));
         FlxTween.tween(this, {y: _baseY + 50, alpha: 0}, 0.5, {ease: FlxEase.quadOut});
         FlxG.sound.music.fadeOut(0.5, 0);
         if (finishDialogueCallback != null) finishDialogueCallback();
@@ -292,20 +326,34 @@ class DialogueBox extends FlxSpriteGroup {
         namePlate.y = (box.y - namePlate.height/2) + 90;
         namePlate.x = box.flipX ? 80 : FlxG.width - namePlate.width - 80;
 
+        if (curLine.removeChar != null) removeCharacter(curLine.removeChar);
+
         addCharacter(curLine.character, curLine.position, curLine.emotion);
         focusedChar = charMap.get(curLine.character) ?? null;
-
+        
         for (char in charMap) {
             char.switchFocus(char.character == curLine.character);
         }
 
+        if (oldFocusedChar != null) {
+            activeCharGroup.remove(oldFocusedChar);
+            charGroup.add(oldFocusedChar);
+        }
+        
+        charGroup.remove(focusedChar);
+        activeCharGroup.add(focusedChar);
+
+        oldFocusedChar = focusedChar;
+
         textBox.visible = !curLine.useNotes;
         textBoxNote.clearText();
+
+        textBox.font = curLine.font ?? defaultFont;
 
         var line:String = curLine.line ?? ' ';
         var speed:Float = curLine.speed ?? 0.04;
         typeText(line, speed);
-        if (curLine.useNotes) typeNoteText(line, speed);
+        if (curLine.useNotes) typeNoteText(line, speed, curLine.noteFont);
         useNotes = curLine.useNotes;
         lineString = line;
 
