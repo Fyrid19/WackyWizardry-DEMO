@@ -34,6 +34,8 @@ class MainMenuState extends MusicBeatState {
 	var wizzyStaff:FlxSprite;
 
     override function create() {
+        funkin.utils.WindowUtil.setTitle();
+        
 		#if MODS_ALLOWED
 		Mods.pushGlobalMods();
 		#end
@@ -111,28 +113,20 @@ class MainMenuState extends MusicBeatState {
 
         for (item in loadedMenuItems) {
             item.y = 30 + itemSpacing*item.ID;
-            switch item.realName {
-                case 'story':
-                    item.acceptMenu = () -> {
+            item.acceptMenu = () -> {
+                switch item.realName {
+                    case 'story':
                         selectWeek();
-                    }
-                case 'freeplay':
-                    item.acceptMenu = () -> {
-						FlxG.switchState(funkin.states.wacky.FreeplayState.new);
-                    }
-				case 'credits':
-					item.acceptMenu = () -> {
-						FlxG.switchState(CreditsState.new);
-					}
-                case 'options':
-                    item.acceptMenu = () -> {
-						FlxG.switchState(funkin.states.options.OptionsState.new);
-						OptionsState.onPlayState = false;
-                    }
-                default:
-                    item.acceptMenu = () -> {
+                    case 'freeplay':
+                        FlxG.switchState(funkin.states.wacky.FreeplayState.new);
+                    case 'credits':
+                        FlxG.switchState(CreditsState.new);
+                    case 'options':
+                        FlxG.switchState(funkin.states.options.OptionsState.new);
+                        OptionsState.onPlayState = false;
+                    default:
                         trace('"acceptMenu" pointer function isnt set!');
-                    }
+                }
             }
         }
 

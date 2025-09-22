@@ -57,6 +57,8 @@ class FreeplayState extends MusicBeatState {
     public var charRenderHeight:Float = 0;
 
     override function create() {
+        funkin.utils.WindowUtil.setTitle();
+        
 		FunkinAssets.cache.clearStoredMemory();
 		FunkinAssets.cache.clearUnusedMemory();
 		
@@ -263,7 +265,12 @@ class FreeplayState extends MusicBeatState {
             }
         }
 
-        if (FlxG.keys.justPressed.SPACE)
+        if (FlxG.keys.justPressed.CONTROL)
+        {
+            persistentUpdate = false;
+            openSubState(new GameplayChangersSubstate());
+        }
+        else if (FlxG.keys.justPressed.SPACE)
         {
             if (instPlaying != curSelected)
             {
@@ -315,6 +322,12 @@ class FreeplayState extends MusicBeatState {
             }
             
             FlxG.sound.music.volume = 0;
+        }
+        else if (controls.RESET)
+        {
+            persistentUpdate = false;
+            openSubState(new ResetScoreSubState(songs[curSelected].songName, 0, songs[curSelected].songCharacter));
+            FlxG.sound.play(Paths.sound('scrollMenu'));
         }
 
 		var scaledY = FlxMath.remapToRange(-curSelected, 0, 1, 0, 1.3);
@@ -381,8 +394,8 @@ class FreeplayState extends MusicBeatState {
             trace('dont');
         }
 
-        if (FlxG.random.bool(0.01)) {
-            charRender.loadGraphic(graphic2 ?? Paths.image('freeplay/renders/jason'));
+        if (FlxG.random.bool(0.05)) {
+            charRender.loadGraphic(Paths.image('freeplay/renders/jason'));
         }
 
         charRender.x = charRenderX - charRender.width/2 - 30;

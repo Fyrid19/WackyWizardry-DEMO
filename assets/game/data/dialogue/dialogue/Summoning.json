@@ -4,7 +4,7 @@
     "font":  "comic",
     "dialogue":  [
         {
-            "speed": 0.08,
+            "speed": 0.07,
             "character": "wizzlow",
             "position": "left",
             "emotion": "down",
@@ -15,7 +15,7 @@
             "useNotes": false
         },
     	{
-            "speed": 0.08,
+            "speed": 0.07,
             "character": "wizzlow",
             "position": "left",
             "emotion": "neutral",
@@ -26,7 +26,7 @@
             "useNotes": false
         },
     	{
-            "speed": 0.08,
+            "speed": 0.07,
             "character": "bf",
             "position": "right",
             "emotion": "ecstatic",
@@ -37,7 +37,7 @@
             "useNotes": true
         },
     	{
-            "speed": 0.08,
+            "speed": 0.07,
             "character": "dave",
             "position": "right",
             "emotion": "smiling",
@@ -48,7 +48,7 @@
             "useNotes": false
         },
     	{
-            "speed": 0.08,
+            "speed": 0.07,
             "character": "wizzlow",
             "position": "left",
             "emotion": "normal",
@@ -59,7 +59,7 @@
             "useNotes": false
         },
     	{
-            "speed": 0.08,
+            "speed": 0.07,
             "character": "wizzlow",
             "position": "left",
             "emotion": "down",
@@ -70,7 +70,7 @@
             "useNotes": false
         },
     	{
-            "speed": 0.08,
+            "speed": 0.06,
             "character": "wizzlow",
             "position": "left",
             "emotion": "down",
@@ -81,18 +81,18 @@
             "useNotes": false
         },
     	{
-            "speed": 0.08,
+            "speed": 0.06,
             "character": "wizzlow",
             "position": "left",
             "emotion": "think",
             "boxEmotion": "regular",
             "namePlate": "wizzlow",
-            "line": "Would either of you like something do drink?",
+            "line": "Would either of you like something to drink?",
             "font": null,
             "useNotes": false
         },
     	{
-            "speed": 0.08,
+            "speed": 0.07,
             "character": "dave",
             "position": "right",
             "emotion": "curious_questioning",
@@ -103,7 +103,7 @@
             "useNotes": false
         },
     	{
-            "speed": 0.08,
+            "speed": 0.07,
             "character": "dave",
             "position": "right",
             "emotion": "neutral",
@@ -114,7 +114,7 @@
             "useNotes": false
         },
     	{
-            "speed": 0.08,
+            "speed": 0.07,
             "character": "wizzlow",
             "position": "left",
             "emotion": "neutral",
@@ -125,7 +125,7 @@
             "useNotes": false
         },
     	{
-            "speed": 0.08,
+            "speed": 0.07,
             "character": "bf",
             "position": "right",
             "emotion": "neutral",
@@ -136,7 +136,18 @@
             "useNotes": true
         },
     	{
-            "speed": 0.08,
+            "speed": 0.07,
+            "character": "wizzlow",
+            "position": "left",
+            "emotion": "neutral",
+            "boxEmotion": "regular",
+            "namePlate": "wizzlow",
+            "line": "...",
+            "font": null,
+            "useNotes": false
+        },
+    	{
+            "speed": 0.07,
             "character": "wizzlow",
             "position": "left",
             "emotion": "erm",
@@ -147,7 +158,7 @@
             "useNotes": false
         },
     	{
-            "speed": 0.08,
+            "speed": 0.07,
             "character": "bf",
             "position": "right",
             "emotion": "impatient",
@@ -158,7 +169,7 @@
             "useNotes": true
         },
     	{
-            "speed": 0.08,
+            "speed": 0.07,
             "character": "wizzlow",
             "position": "left",
             "emotion": "neutral",
@@ -169,29 +180,19 @@
             "useNotes": false
         },
     	{
-            "speed": 0.08,
-            "character": "wizzlow",
-            "position": "left",
-            "emotion": "gone",
-            "boxEmotion": "regular",
-            "namePlate": "none",
-            "line": "...",
-            "font": null,
-            "useNotes": false
-        },
-    	{
-            "speed": 0.08,
+            "speed": 0.07,
             "character": "dave",
             "position": "right",
             "emotion": "neutral",
             "boxEmotion": "regular",
             "namePlate": "dave",
-            "line": "I guess we should sit and wait...",
+            "line": "...I guess we should sit and wait.",
             "font": null,
-            "useNotes": false
+            "useNotes": false,
+            "removeChar": "wizzlow"
         },
     	{
-            "speed": 0.08,
+            "speed": 0.07,
             "character": "dave",
             "position": "right",
             "emotion": "curious_questioning",
@@ -202,7 +203,7 @@
             "useNotes": false
         },
     	{
-            "speed": 0.08,
+            "speed": 0.07,
             "character": "bf",
             "position": "right",
             "emotion": "neutralstupid",
@@ -213,7 +214,7 @@
             "useNotes": true
         },
     	{
-            "speed": 0.08,
+            "speed": 0.07,
             "character": "dave",
             "position": "right",
             "emotion": "consoling_frown",
@@ -224,85 +225,75 @@
             "useNotes": false
         },
     	{
-            "speed": 0.08,
+            "speed": 0.06,
             "character": "bf",
             "position": "right",
             "emotion": "neutralstupid",
             "boxEmotion": "think",
             "namePlate": "bf",
-            "line": "(I wonder what this is for.)",
+            "line": "(I wonder what this is for..)",
             "font": null,
             "useNotes": false
         },
     	{
-            "speed": 0.08,
+            "speed": 0.07,
             "character": "conson",
             "position": "left",
             "emotion": "art",
-            "boxEmotion": "regular",
-            "namePlate": "none",
+            "boxEmotion": "intense",
+            "namePlate": "",
             "line": "!!",
             "font": null,
-            "useNotes": false
+            "useNotes": false,
+            "removeChar": "bf"
         },
     	{
-            "speed": 0.08,
-            "character": "bf",
-            "position": "right",
-            "emotion": "gone",
-            "boxEmotion": "regular",
-            "namePlate": "none",
-            "line": "...",
-            "font": null,
-            "useNotes": false
-        },
-    	{
-            "speed": 0.12,
+            "speed": 0.04,
             "character": "dave",
             "position": "right",
             "emotion": "freaking_out",
-            "boxEmotion": "regular",
+            "boxEmotion": "intense",
             "namePlate": "dave",
             "line": "BOYFRIEND!! ARE YOU OK!?",
             "font": null,
             "useNotes": false
         },
     	{
-            "speed": 0.08,
+            "speed": 0.07,
             "character": "conson",
             "position": "left",
             "emotion": "neutral",
             "boxEmotion": "regular",
-            "namePlate": "none",
+            "namePlate": "",
             "line": "...",
             "font": null,
             "useNotes": false
         },
     	{
-            "speed": 0.12,
+            "speed": 0.06,
             "character": "dave",
             "position": "right",
             "emotion": "frightened",
             "boxEmotion": "regular",
             "namePlate": "dave",
-            "line": "WHAT IS THAT???",
+            "line": "WHAT IS THAT!? THING??",
             "font": null,
             "useNotes": false
         },
     	{
-            "speed": 0.08,
+            "speed": 0.07,
             "character": "conson",
             "position": "left",
             "emotion": "neutral",
             "boxEmotion": "regular",
-            "namePlate": "none",
+            "namePlate": "",
             "line": "←↑ →→↓↑↑.",
             "font": null,
             "useNotes": true,
             "noteFont": "cone"
         },
     	{
-            "speed": 0.12,
+            "speed": 0.04,
             "character": "dave",
             "position": "right",
             "emotion": "frightened",
@@ -313,30 +304,30 @@
             "useNotes": false
         },
         {
-            "speed": 0.08,
+            "speed": 0.07,
             "character": "wizzlow",
             "position": "left",
             "emotion": "wtf",
-            "boxEmotion": "regular",
+            "boxEmotion": "intense",
             "namePlate": "wizzlow",
             "line": "WHAT IS HAPPENING IN HERE?!?!",
             "font": null,
             "useNotes": false
         },
     	{
-            "speed": 0.08,
+            "speed": 0.07,
             "character": "conson",
             "position": "left",
             "emotion": "scared",
-            "boxEmotion": "regular",
-            "namePlate": "none",
+            "boxEmotion": "impact",
+            "namePlate": "",
             "line": "↑↑→→←← ←↓→↑.",
             "font": null,
             "useNotes": true,
             "noteFont": "cone"
         },
     	{
-            "speed": 0.08,
+            "speed": 0.07,
             "character": "dave",
             "position": "right",
             "emotion": "frightened",
@@ -347,19 +338,19 @@
             "useNotes": false
         },
     	{
-            "speed": 0.08,
+            "speed": 0.07,
             "character": "conson",
             "position": "left",
             "emotion": "scared",
-            "boxEmotion": "regular",
-            "namePlate": "none",
+            "boxEmotion": "impact",
+            "namePlate": "",
             "line": "↓↑→→↑ ←↓→ ←↑←↑↓ →↓←→!",
             "font": null,
             "useNotes": true,
             "noteFont": "cone"
         },
     	{
-            "speed": 0.08,
+            "speed": 0.07,
             "character": "dave",
             "position": "right",
             "emotion": "frightened",

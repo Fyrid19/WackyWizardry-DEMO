@@ -66,6 +66,9 @@ class DialogueCharacter extends AnimateSprite {
 	public var talking:Int = 0;
 	var blinkFrameOffset:Int = 0;
 
+	var leaving:Bool = false;
+	var realPos:Float = 0;
+
     public function new(char:String, position:String = 'left', emotion:String = 'neutral') {
 		showPivot = false;
 
@@ -107,46 +110,46 @@ class DialogueCharacter extends AnimateSprite {
 			canBlink = false;
 		}
 
-		var realPos:Float = 0;
-
-		if (!hasFocus) {
-			color = 0xAFAFAF;
-			realPos = switch(position) {
-				case 'left':
-					FlxG.width * 0.25;
-				case 'middleLeft':
-					FlxG.width * 0.35;
-				case 'middle':
-					FlxG.width * 0.5;
-				case 'middleRight':
-					FlxG.width * 0.65;
-				case 'right':
-					FlxG.width * 0.75;
-				default:
-					FlxG.width * 0.25;
-			}
-		} else {
-			color = 0xFFFFFF;
-			realPos = switch(position) {
-				case 'left':
-					FlxG.width * 0.3;
-				case 'middleLeft':
-					FlxG.width * 0.4;
-				case 'middle':
-					FlxG.width * 0.5;
-				case 'middleRight':
-					FlxG.width * 0.6;
-				case 'right':
-					FlxG.width * 0.7;
-				default:
-					FlxG.width * 0.25;
+		if (!leaving) {
+			if (!hasFocus) {
+				color = 0xAFAFAF;
+				realPos = switch(position) {
+					case 'left':
+						FlxG.width * 0.25;
+					case 'middleLeft':
+						FlxG.width * 0.35;
+					case 'middle':
+						FlxG.width * 0.5;
+					case 'middleRight':
+						FlxG.width * 0.65;
+					case 'right':
+						FlxG.width * 0.75;
+					default:
+						FlxG.width * 0.25;
+				}
+			} else {
+				color = 0xFFFFFF;
+				realPos = switch(position) {
+					case 'left':
+						FlxG.width * 0.3;
+					case 'middleLeft':
+						FlxG.width * 0.4;
+					case 'middle':
+						FlxG.width * 0.5;
+					case 'middleRight':
+						FlxG.width * 0.6;
+					case 'right':
+						FlxG.width * 0.7;
+					default:
+						FlxG.width * 0.25;
+				}
 			}
 		}
 
 		var scaledX = FlxMath.remapToRange(realPos - width / 2, 0, 1, 0, 1.3);
 		final lerpRate = FlxMath.getElapsedLerp(0.26, elapsed);
-        x = FlxMath.lerp(x, scaledX, lerpRate);
-
+		x = FlxMath.lerp(x, scaledX, lerpRate);
+		
 		flipX = switch(position) {
             case 'right' | 'middleRight': defaultFlipX;
             case 'left' | 'middleLeft': !defaultFlipX;
@@ -259,10 +262,12 @@ class DialogueCharacter extends AnimateSprite {
 	}
 
 	public function exit(?afterKill:Void->Void) {
-		if (position == 'left' || position == 'middleLeft' || position == 'middle') {
-			x = -width;
-		} else if (position == 'right' || position == 'middleRight') {
-			x = FlxG.width + width;
+		leaving = true;
+
+		realPos = switch(position) {
+			case 'left' | 'middleLeft' | 'middle': -width;
+			case 'right' | 'middleRight': FlxG.width + width;
+			default: -width;
 		}
 
 		new FlxTimer().start(1, (t) -> {

@@ -262,6 +262,7 @@ class DialogueBox extends FlxSpriteGroup {
             if (!char.hasFocus) {
                 char.exit(() -> {
                     charGroup.remove(char);
+                    charMap.remove(charName);
                 });
             }
         }
@@ -325,8 +326,7 @@ class DialogueBox extends FlxSpriteGroup {
         namePlate.loadGraphic(Paths.image('dialogue/plates/' + curLine.namePlate + '_title'));
         namePlate.y = (box.y - namePlate.height/2) + 90;
         namePlate.x = box.flipX ? 80 : FlxG.width - namePlate.width - 80;
-
-        if (curLine.removeChar != null) removeCharacter(curLine.removeChar);
+        namePlate.visible = (curLine.namePlate.length > 0 && curLine.namePlate != null);
 
         addCharacter(curLine.character, curLine.position, curLine.emotion);
         focusedChar = charMap.get(curLine.character) ?? null;
@@ -344,6 +344,8 @@ class DialogueBox extends FlxSpriteGroup {
         activeCharGroup.add(focusedChar);
 
         oldFocusedChar = focusedChar;
+
+        if (curLine.removeChar != null) removeCharacter(curLine.removeChar);
 
         textBox.visible = !curLine.useNotes;
         textBoxNote.clearText();

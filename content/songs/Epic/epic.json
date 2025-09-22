@@ -6129,7 +6129,7 @@
 		"song": "Epic",
 		"validScore": true,
 		"stage": "epicLand",
-		"arrowSkin": "",
+		"arrowSkin": "dde",
 		"needsVoices": true,
 		"speed": 3.1,
 		"bpm": 140,

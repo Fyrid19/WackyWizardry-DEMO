@@ -8482,7 +8482,7 @@
 		"splashSkin": "noteSplashes",
 		"song": "Summoning",
 		"needsVoices": true,
-		"arrowSkin": "",
+		"arrowSkin": "dde",
 		"stage": "castleEVIL",
 		"validScore": true,
 		"lanes": 2,

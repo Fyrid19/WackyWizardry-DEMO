@@ -4,7 +4,7 @@
     "font":  "comic",
     "dialogue":  [
         {
-            "speed": 0.08,
+            "speed": 0.07,
             "character": "dave",
             "position": "right",
             "emotion": "neutral",
@@ -15,7 +15,7 @@
             "useNotes": false
         },
         {
-            "speed": 0.08,
+            "speed": 0.07,
             "character": "bf",
             "position": "right",
             "emotion": "neutral",
@@ -26,18 +26,18 @@
             "useNotes": true
         },
 	{
-            "speed": 0.08,
+            "speed": 0.07,
             "character": "wizzlow",
             "position": "left",
             "emotion": "neutral",
             "boxEmotion": "regular",
-            "namePlate": "none",
+            "namePlate": "",
             "line": "Uuuuh... yeaaah...",
             "font": null,
             "useNotes": false
         },
 	{
-            "speed": 0.08,
+            "speed": 0.07,
             "character": "dave",
             "position": "right",
             "emotion": "curious_questioning",
@@ -48,18 +48,18 @@
             "useNotes": false
         },
 	{
-            "speed": 0.08,
+            "speed": 0.07,
             "character": "wizzlow",
             "position": "left",
             "emotion": "erm",
             "boxEmotion": "regular",
-            "namePlate": "none",
+            "namePlate": "",
             "line": "Yeah... I just don't get too many visitors.",
             "font": null,
             "useNotes": false
         },
 	{
-            "speed": 0.08,
+            "speed": 0.07,
             "character": "wizzlow",
             "position": "left",
             "emotion": "erm",
@@ -70,7 +70,7 @@
             "useNotes": false
         },
 	{
-            "speed": 0.08,
+            "speed": 0.07,
             "character": "dave",
             "position": "right",
             "emotion": "neutral",
@@ -81,7 +81,7 @@
             "useNotes": false
         },
 	{
-            "speed": 0.08,
+            "speed": 0.07,
             "character": "dave",
             "position": "right",
             "emotion": "curious_questioning",
@@ -92,7 +92,7 @@
             "useNotes": false
         },
 	{
-            "speed": 0.08,
+            "speed": 0.07,
             "character": "dave",
             "position": "right",
             "emotion": "pondering",
@@ -103,7 +103,7 @@
             "useNotes": false
         },
 	{
-            "speed": 0.08,
+            "speed": 0.07,
             "character": "wizzlow",
             "position": "left",
             "emotion": "neutral",
@@ -114,7 +114,7 @@
             "useNotes": false
         },
 	{
-            "speed": 0.08,
+            "speed": 0.07,
             "character": "dave",
             "position": "right",
             "emotion": "pondering",
@@ -125,7 +125,7 @@
             "useNotes": false
         },
 	{
-            "speed": 0.08,
+            "speed": 0.07,
             "character": "dave",
             "position": "right",
             "emotion": "pondering",
@@ -136,7 +136,7 @@
             "useNotes": false
         },
 	{
-            "speed": 0.08,
+            "speed": 0.07,
             "character": "dave",
             "position": "right",
             "emotion": "pondering",
@@ -147,7 +147,7 @@
             "useNotes": false
         },
 	{
-            "speed": 0.08,
+            "speed": 0.06,
             "character": "wizzlow",
             "position": "left",
             "emotion": "down_side",
@@ -158,7 +158,7 @@
             "useNotes": false
         },
 	{
-            "speed": 0.08,
+            "speed": 0.06,
             "character": "wizzlow",
             "position": "left",
             "emotion": "think_closed",
@@ -169,18 +169,18 @@
             "useNotes": false
         },
 	{
-            "speed": 0.08,
+            "speed": 0.06,
             "character": "wizzlow",
             "position": "left",
             "emotion": "think",
             "boxEmotion": "regular",
             "namePlate": "wizzlow",
-            "line": "and I'm not sure why you're here. Normally they're impossible to enter without someone opening a special gateway.",
+            "line": "...and I'm not sure why you're here. Normally they're impossible to enter without someone opening a special gateway.",
             "font": null,
             "useNotes": false
         },
 	{
-            "speed": 0.08,
+            "speed": 0.07,
             "character": "wizzlow",
             "position": "left",
             "emotion": "neutral",
@@ -191,7 +191,7 @@
             "useNotes": false
         },
 	{
-            "speed": 0.08,
+            "speed": 0.07,
             "character": "wizzlow",
             "position": "left",
             "emotion": "down_side",
@@ -202,7 +202,7 @@
             "useNotes": false
         },
 	{
-            "speed": 0.08,
+            "speed": 0.07,
             "character": "dave",
             "position": "right",
             "emotion": "consoling_frown",
@@ -221,10 +221,10 @@
             "namePlate": "bf",
             "line": "...",
             "font": null,
-            "useNotes": false
+            "useNotes": true
         },
 	{
-            "speed": 0.08,
+            "speed": 0.07,
             "character": "wizzlow",
             "position": "left",
             "emotion": "erm",
@@ -235,7 +235,7 @@
             "useNotes": false
         },
 	{
-            "speed": 0.08,
+            "speed": 0.07,
             "character": "bf",
             "position": "right",
             "emotion": "challenging",
@@ -257,7 +257,7 @@
             "useNotes": false
         },
 	{
-            "speed": 0.08,
+            "speed": 0.06,
             "character": "bf",
             "position": "right",
             "emotion": "determined1",
@@ -268,7 +268,7 @@
             "useNotes": true
         },
 	{
-            "speed": 0.08,
+            "speed": 0.06,
             "character": "dave",
             "position": "right",
             "emotion": "curious_questioning",
@@ -279,7 +279,7 @@
             "useNotes": false
         },
 	{
-            "speed": 0.08,
+            "speed": 0.07,
             "character": "dave",
             "position": "right",
             "emotion": "neutral",
@@ -290,7 +290,7 @@
             "useNotes": false
         },
 	{
-            "speed": 0.08,
+            "speed": 0.05,
             "character": "bf",
             "position": "right",
             "emotion": "determined2",
@@ -301,7 +301,7 @@
             "useNotes": true
         },
 	{
-            "speed": 0.08,
+            "speed": 0.07,
             "character": "wizzlow",
             "position": "left",
             "emotion": "neutral",
@@ -312,10 +312,10 @@
             "useNotes": false
         },
 	{
-            "speed": 0.08,
+            "speed": 0.07,
             "character": "bf",
             "position": "right",
-            "emotion": "determined2",
+            "emotion": "ecstatic",
             "boxEmotion": "regular",
             "namePlate": "bf",
             "line": "↑←↑... ←←!",

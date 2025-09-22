@@ -196,7 +196,7 @@
             ]
         },
         {
-            "name": "bconsoling",
+            "name": "consoling",
             "anim": "consoling",
             "blinkRates": [
                 0.7,

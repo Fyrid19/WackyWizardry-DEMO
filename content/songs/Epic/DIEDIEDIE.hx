@@ -76,13 +76,11 @@ function onStepHit() {
             // game.playHUD.iconP2.visible = false;
             // duplicateIcon.frame = 2;
             // FlxTween.shake(duplicateIcon, 0.10, 0.65);
-            
-            FlxG.camera.target = mikeyDeath;
 
             dadGroup.visible = false;
-            FlxTween.tween(FlxG.camera.targetOffset, {x: 0, y: -200}, 0.01, {ease: FlxEase.quintOut});
+            FlxG.camera.followLerp = 0;
+            FlxTween.tween(FlxG.camera.targetOffset, {x: 500, y: -100}, 0.01, {ease: FlxEase.quintOut});
             FlxTween.shake(mikeyDeath, 0.10, 0.65, 0x11, {onComplete: (t:FlxTween) -> {
-                FlxG.camera.target = game.camFollow;
                 FlxTween.tween(camHUD, {alpha: 1}, 0.4, {ease: FlxEase.sineOut});
                 FlxTween.tween(smashEffect1, {alpha: 0}, 1, {ease: FlxEase.sineIn});
                 FlxTween.tween(mikeyDeath, {x: dadGroup.x + 7000, y: dadGroup.y - 2000, angle: 180}, 0.3, {ease: FlxEase.sineOut, onComplete: (t2:FlxTween) -> {
@@ -98,8 +96,10 @@ function onStepHit() {
             andrewKiller.animation.play('idle', true);
             andrewKiller.offset.set(180, 100);
             FlxG.camera.targetOffset.y = 0;
+            FlxG.camera.target = game.camFollow;
             FlxTween.tween(andrewKiller, {x: dadGroup.x}, 0.5, {ease: FlxEase.quadOut});
         case 768:
+            FlxG.camera.followLerp = 0.04;
             dadGroup.visible = true;
             andrewKiller.kill();
             remove(andrewKiller);

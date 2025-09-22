@@ -1,0 +1,62 @@
+{
+	"animations": [
+		{
+			"offsets": [
+				12,
+				1
+			],
+			"indices": [],
+			"fps": 12,
+			"anim": "firstDeath",
+			"loop": false,
+			"name": "death"
+		},
+		{
+			"offsets": [
+				-98,
+				-29
+			],
+			"indices": [
+				23,
+				23
+			],
+			"fps": 24,
+			"anim": "deathLoop",
+			"loop": true,
+			"name": "death"
+		},
+		{
+			"offsets": [
+				-98,
+				-22
+			],
+			"indices": [
+				23,
+				23
+			],
+			"fps": 24,
+			"anim": "deathConfirm",
+			"loop": false,
+			"name": "death"
+		}
+	],
+	"no_antialiasing": true,
+	"image": "characters/dave_3D_DEAD",
+	"position": [
+		0,
+		350
+	],
+	"healthicon": "dave",
+	"flip_x": true,
+	"healthbar_colors": [
+		56,
+		235,
+		245
+	],
+	"camera_position": [
+		50,
+		-80
+	],
+	"sing_duration": 4,
+	"scale": 1
+}

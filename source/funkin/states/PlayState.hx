@@ -587,6 +587,9 @@ class PlayState extends MusicBeatState
 		setOnScripts('fromRestart', fromRestart);
 		
 		var songName:String = Paths.formatToSongPath(SONG.song);
+
+        funkin.utils.WindowUtil.setTitle();
+		funkin.utils.WindowUtil.setTitle(' - ${SONG.song}', true);
 		
 		if (SONG.stage == null || SONG.stage.length == 0) SONG.stage = 'stage';
 		curStage = SONG.stage;
@@ -1012,6 +1015,8 @@ class PlayState extends MusicBeatState
 
 	function spawnDialogueBox() {
 		dialogueBox.beginDialogue();
+		if (dialogueBG.alpha == 0 && dialogueBG != null) 
+			FlxTween.tween(dialogueBG, {alpha: 1}, 0.5, {ease: FlxEase.quadOut});
 		inDialogue = true;
 	}
 	
@@ -3359,6 +3364,7 @@ class PlayState extends MusicBeatState
 			dialogueBG.visible = dialogueBox.bgPath.length > 0;
 			dialogueBG.screenCenter();
 			dialogueBG.cameras = [camOther];
+			dialogueBG.alpha = 0;
 			
 			dialogueBox.finishDialogueCallback = () -> {
 				endSong();

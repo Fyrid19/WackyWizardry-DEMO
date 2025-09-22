@@ -7685,7 +7685,7 @@
 		"splashSkin": "noteSplashes",
 		"song": "Break In",
 		"needsVoices": true,
-		"arrowSkin": "",
+		"arrowSkin": "dde",
 		"stage": "castle",
 		"validScore": true,
 		"lanes": 2,
